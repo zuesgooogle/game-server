@@ -1,0 +1,53 @@
+package com.simplegame.server.io.global;
+
+import io.netty.channel.Channel;
+
+import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import org.springframework.stereotype.Component;
+
+/**
+ *
+ * @Author zeusgooogle@gmail.com
+ * @sine   2015年5月5日 下午4:11:04
+ *
+ */
+@Component
+public class ChannelManager {
+	
+	/**
+	 * key  :	role_id
+	 * value:	Channel
+	 */
+	private final ConcurrentMap<String, Channel> sessions = new ConcurrentHashMap<String, Channel>();
+
+	private ChannelManager() {
+		
+	}
+	
+	public void addChannel(String key, Channel channel) {
+		sessions.put(key, channel);
+	}
+	
+	public void removeChannel(String key) {
+		sessions.remove(key);
+	}
+	
+	public Channel getChannel(String key) {
+		return sessions.get(key);
+	}
+	
+	public int getSessionCount() {
+		return sessions.size();
+	}
+
+	public ConcurrentMap<String, Channel> getSessions() {
+		return sessions;
+	}
+
+	public Collection<String> getOnlineRoleIds() {
+		return sessions.keySet();
+	}
+}
