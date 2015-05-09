@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class ChannelManager {
 	
 	/**
-	 * key  :	role_id
+	 * key  :	role_id / sessionId
 	 * value:	Channel
 	 */
 	private final ConcurrentMap<String, Channel> sessions = new ConcurrentHashMap<String, Channel>();

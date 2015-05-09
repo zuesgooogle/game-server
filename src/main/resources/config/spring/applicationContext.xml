@@ -8,35 +8,29 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<bean id="serverHandler" class="com.simplegame.protocol.codec.ServerHandler" />
-	<bean id="clientHandler" class="com.simplegame.protocol.codec.ServerHandler" />
+	<bean id="springApplicationContext" class="com.simplegame.core.SpringApplicationContext"></bean>
+	<bean class="com.simplegame.server.share.AfterSpringInitApplicationListener"/>
+
+	<bean id="serverHandler" class="com.simplegame.server.io.handler.NetHandler" />
 
 	<bean id="serverInitializer" class="com.simplegame.protocol.codec.NetInitializer">
 		<property name="handler" ref="serverHandler" />
 	</bean>
-	<bean id="clientInitializer" class="com.simplegame.protocol.codec.NetInitializer">
-		<property name="handler" ref="clientHandler" />
-	</bean>
-	
 
-	<bean class="com.simplegame.protocol.codec.ServerListener">
-		<property name="port" value="6666" />
+	<bean class="com.simplegame.protocol.codec.ServerListener" init-method="start">
+		<property name="port" value="8001" />
 		<property name="bossThreadSize" value="1" />
 		<property name="workerThreadSize" value="4" />
 		
 		<property name="initializer" ref="serverInitializer" />
 	</bean>
-	<bean class="com.simplegame.protocol.codec.ClientListener">
-		<property name="host" value="127.0.0.1" />
-		<property name="port" value="6666" />
-		
-		<property name="initializer" ref="clientInitializer" />
-	</bean>
-
 
 	<!-- 激活利用注解进行装配 -->
 	<context:annotation-config />
-
-	<context:component-scan base-package="com.simplegame.protocol" />
+	
+	<context:component-scan base-package="com.simplegame.server" />
+	<context:component-scan base-package="com.simplegame.core" />
+	
+	<import resource="init/module.xml"/>
 	
 </beans>

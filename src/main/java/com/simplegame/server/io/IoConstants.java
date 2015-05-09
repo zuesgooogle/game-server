@@ -9,6 +9,8 @@ public class IoConstants {
 	public static final String ROLE_KEY = "role_key";
 	
 	public static final String IP_KEY = "ip_key";
+	
+	public static final String SESSION_KEY = "session_key";
 		
 	
 }
