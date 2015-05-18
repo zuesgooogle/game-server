@@ -8,8 +8,27 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<bean id="connectCheckHandler" class="com.simplegame.server.io.handler.ConnectCheckHandler" />
 	
-	
-	<import resource="io.xml"/>
+	<bean id="messageLite" class="com.simplegame.protocol.proto.Message.Request" factory-method="getDefaultInstance"/>
+	<bean id="serverHandler" class="com.simplegame.server.io.handler.NetHandler" />
+
+	<bean id="serverInitializer" class="com.simplegame.protocol.codec.NetInitializer">
+		<property name="handlers" >
+			<list>
+				<ref bean="connectCheckHandler"/>
+				<ref bean="serverHandler"/>
+			</list>
+		</property>
+		<property name="messageLite" ref="messageLite"/>
+	</bean>
+
+	<bean class="com.simplegame.protocol.codec.ServerListener" init-method="start">
+		<property name="port" value="8001" />
+		<property name="bossThreadSize" value="1" />
+		<property name="workerThreadSize" value="4" />
+		
+		<property name="initializer" ref="serverInitializer" />
+	</bean>
 	
 </beans>

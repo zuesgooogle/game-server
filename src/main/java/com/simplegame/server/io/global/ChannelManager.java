@@ -3,6 +3,8 @@ package com.simplegame.server.io.global;
 import io.netty.channel.Channel;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -17,12 +19,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChannelManager {
 	
+	private int maxCount = 3000;
+	
 	/**
 	 * key  :	role_id / sessionId
 	 * value:	Channel
 	 */
 	private final ConcurrentMap<String, Channel> sessions = new ConcurrentHashMap<String, Channel>();
 
+	/**
+	 * ip blacklist
+	 */
+	private Set<String> blacklist = new HashSet<String>();
+	
 	private ChannelManager() {
 		
 	}
@@ -50,4 +59,13 @@ public class ChannelManager {
 	public Collection<String> getOnlineRoleIds() {
 		return sessions.keySet();
 	}
+	
+	public boolean isFull() {
+		return getSessionCount() >= maxCount;
+	}
+	
+	public boolean isBlackIp(String ip) {
+		return blacklist.contains(ip);
+	}
+
 }

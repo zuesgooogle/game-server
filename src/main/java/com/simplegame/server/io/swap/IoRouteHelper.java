@@ -2,6 +2,7 @@ package com.simplegame.server.io.swap;
 
 import com.simplegame.protocol.message.Message;
 import com.simplegame.server.executor.Route;
+import com.simplegame.server.message.IRouteHelper;
 
 /**
  * 
@@ -10,7 +11,7 @@ import com.simplegame.server.executor.Route;
  * 
  */
 
-public class IoRouteHelper {
+public class IoRouteHelper implements IRouteHelper {
 
 	public static final String IO_ALL_GROUP = "IO_ALL";
 	public static final String IO_BUS_GROUP = "IO_BUS";
@@ -20,6 +21,7 @@ public class IoRouteHelper {
 		
 	}
 	
+	@Override
 	public Route getRoute(Message message, int routeType) {
 		Route route = null;
 		

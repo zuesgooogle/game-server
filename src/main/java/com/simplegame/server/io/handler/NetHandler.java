@@ -6,10 +6,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 
-import java.net.InetSocketAddress;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -17,10 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.simplegame.core.utils.Md5Utils;
+import com.simplegame.protocol.proto.Message.Request;
+import com.simplegame.protocol.proto.Message.Response;
 import com.simplegame.server.io.IoConstants;
 import com.simplegame.server.io.global.ChannelManager;
-import com.simplegame.server.io.global.ChannelThresholdChecker;
 
 /**
  * 
@@ -30,60 +26,19 @@ import com.simplegame.server.io.global.ChannelThresholdChecker;
  */
 @Sharable
 @Component
-public class NetHandler extends SimpleChannelInboundHandler<Object> {
+public class NetHandler extends SimpleChannelInboundHandler<Request> {
 
 	private Logger LOG = LoggerFactory.getLogger(getClass());
-
-	@Resource
-	private ChannelThresholdChecker channelChecker;
-
+	
 	@Resource
 	private ChannelManager channelManager;
 
-	private AtomicLong next = new AtomicLong();
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		InetSocketAddress address = (InetSocketAddress) ctx.channel().remoteAddress();
-		String ip = address.getHostName();
-
-		if (channelChecker.isFull()) {
-			ctx.close();
-
-			LOG.trace("network connect is full. count: {}", channelManager.getSessionCount());
-			return;
-		}
-
-		if (channelChecker.isBlackIp(ip)) {
-			ctx.close();
-
-			LOG.error("blacklist limit. ip: {}", ip);
-			return;
-		}
 		
-		/**
-		 * netty 4.1+ use channel.id()
-		 * 
-		 * current netty version: 4.0.27
-		 */
-		addSessionId(ctx.channel());
 	}
 	
-	private String addSessionId(Channel ch) {
-		String localAddress  = ch.localAddress().toString();
-		String remoteAddress = ch.remoteAddress().toString();
-		long now = System.nanoTime();
-		
-		String sessionId = Md5Utils.md5To32(localAddress + remoteAddress + now + next.incrementAndGet()); 
-		AttributeKey<String> sessionKey = AttributeKey.valueOf(IoConstants.SESSION_KEY);
-		
-		ch.attr(sessionKey).set(sessionId);
-		
-		LOG.info("channel active sessionId: {}", sessionId);
-		
-		return sessionId;
-	}
-
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		String roleId = attr(ctx.channel(), IoConstants.ROLE_KEY);
@@ -94,11 +49,16 @@ public class NetHandler extends SimpleChannelInboundHandler<Object> {
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-		LOG.debug("server receive message: {}", JSONObject.toJSONString(msg));
+	protected void channelRead0(ChannelHandlerContext ctx, Request msg) throws Exception {
+		LOG.info("server receive message: {}", msg.toString());
 
 		channelManager.addChannel(attr(ctx.channel(), IoConstants.SESSION_KEY), ctx.channel());
 		
+		Response.Builder builder = Response.newBuilder();
+		builder.setCommand(msg.getCommand())
+			   .setData(msg.getData());
+		
+		ctx.channel().writeAndFlush(builder);
 	}
 	
 	@SuppressWarnings("unchecked")

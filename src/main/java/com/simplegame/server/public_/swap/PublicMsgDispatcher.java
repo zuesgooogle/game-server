@@ -1,41 +1,45 @@
-package com.simplegame.server.io.swap;
+package com.simplegame.server.public_.swap;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.action.front.IActionFrontend;
+import com.simplegame.protocol.message.Message;
 import com.simplegame.server.executor.IBusinessExecutor;
 import com.simplegame.server.executor.IRunnable;
+import com.simplegame.server.executor.Route;
 import com.simplegame.server.executor.impl.RunnableImpl;
-import com.simplegame.server.io.message.IoMessage;
 import com.simplegame.server.message.IMsgDispatcher;
 
 /**
- *
  * @Author zeusgooogle@gmail.com
- * @sine   2015年5月7日 下午5:59:05
- *
+ * @sine 2015年5月9日 下午5:47:55
+ * 
  */
-@Component(value = "ioDispatcher")
-public class IoMsgDispatcher implements IMsgDispatcher {
+@Component(value = "publicDispatcher")
+public class PublicMsgDispatcher implements IMsgDispatcher {
 
 	private ThreadLocal<IRunnable> runnableLocal = new ThreadLocal<IRunnable>();
-	
-	private IoRouteHelper routeHelper = new IoRouteHelper();
-	
-	@Resource(name="ioExecutor")
+
+	private PublicRouteHelper routeHelper = new PublicRouteHelper();
+
+	@Resource(name = "publicExecutor")
 	private IBusinessExecutor businessExexutor;
-	
-	@Resource(name="actionFrontend")
+
+	@Resource(name = "actionFrontend")
 	private IActionFrontend actionFrontend;
-	
+
 	@Override
-	public void in(Object object) {
-		IoMessage message = new IoMessage((Object[]) object);
+	public void in(Object message) {
+
+		Object[] dataSource = (Object[]) message;
+		Message msg = new Message(dataSource);
+		Runnable localRunnable = getRunnable().getRunnable(msg);
 		
-		Runnable localRunnable = getRunnable().getRunnable(message);
-		this.businessExexutor.execute(localRunnable, this.routeHelper.getRoute(message, message.getRoute()));
+		Route localRouteInfo = this.routeHelper.getRoute(msg, ((Integer) dataSource[2]).intValue());
+		this.businessExexutor.execute(localRunnable, localRouteInfo);
+
 	}
 
 	private IRunnable getRunnable() {
@@ -46,4 +50,5 @@ public class IoMsgDispatcher implements IMsgDispatcher {
 		}
 		return runnalbe;
 	}
+
 }
