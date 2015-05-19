@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.simplegame.protocol.message.Message.DestType;
+import com.simplegame.protocol.message.Message.FromType;
 import com.simplegame.protocol.proto.Message.Request;
-import com.simplegame.protocol.proto.Message.Response;
 import com.simplegame.server.io.IoConstants;
 import com.simplegame.server.io.global.ChannelManager;
+import com.simplegame.server.io.swap.IoMsgSender;
 
 /**
  * 
@@ -33,6 +35,8 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 	@Resource
 	private ChannelManager channelManager;
 
+	@Resource
+	private IoMsgSender msgSender;
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -52,13 +56,13 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 	protected void channelRead0(ChannelHandlerContext ctx, Request msg) throws Exception {
 		LOG.info("server receive message: {}", msg.toString());
 
-		channelManager.addChannel(attr(ctx.channel(), IoConstants.SESSION_KEY), ctx.channel());
+		String sessionId = attr(ctx.channel(), IoConstants.SESSION_KEY);
+		channelManager.addChannel(sessionId, ctx.channel());
 		
-		Response.Builder builder = Response.newBuilder();
-		builder.setCommand(msg.getCommand())
-			   .setData(msg.getData());
+		JSONArray array = JSONArray.parseArray(msg.getData());
+		Object[] message = new Object[]{msg.getCommand(), array.toArray(), DestType.BUS.getValue(), FromType.CLIENT.getValue(), null, sessionId, null, null, null, null};
+		msgSender.swap(message);
 		
-		ctx.channel().writeAndFlush(builder);
 	}
 	
 	@SuppressWarnings("unchecked")

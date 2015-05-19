@@ -29,6 +29,7 @@ public class SwapManager {
 			swapClientMsg(message);
 			break;
 		case CommandGroup.FROM_TYPE_BUS:
+			swapPublicMsg(message);
 			break;
 		case CommandGroup.FROM_TYPE_STAGE:
 			break;
@@ -50,10 +51,22 @@ public class SwapManager {
 		}
 	}
 	
-	private void swapPublicMsg(Object message) {
-		
+	public void swapPublicMsg(Object[] message) {
+		componentMsgSwap(message);
 	}
 	
+	private void componentMsgSwap(Object[] message) {
+		int destType = MsgUtil.getDestType(message);
+		switch(destType) {
+		case CommandGroup.DEST_TYPE_CLIENT:
+			toClient(message);
+			break;
+		}
+	}
+	
+	private void toClient(Object message) {
+		ioDispatcher.in(message);
+	}
 	
 	private void toPublic(Object message) {
 		publicDispatcher.in(message);

@@ -18,7 +18,7 @@ public class PublicRouteHelper implements IRouteHelper {
 		
 		Route route = null;
 		switch(destType) {
-		case CommandGroup.DEST_TYPE_INOUT:
+		case 1:
 			Object[] data = (Object[])message.getData();
 			
 			route = new Route(CommandGroup.GROUP_LOGIN);
