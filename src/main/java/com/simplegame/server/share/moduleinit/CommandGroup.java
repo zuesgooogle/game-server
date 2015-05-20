@@ -15,21 +15,6 @@ public class CommandGroup {
 	public static final String GROUP_PUBLIC = "public";
 	public static final String GROUP_SYSTEM = "system";
 
-	/**
-	 * 消息目的地
-	 */
-	public static final int DEST_TYPE_CLIENT = 0;
-	public static final int DEST_TYPE_BUS = 1;
-	public static final int DEST_TYPE_STAGE = 2;
-	public static final int DEST_TYPE_INOUT = 3;
-	public static final int DEST_TYPE_PUBLIC = 4;
-	public static final int DEST_TYPE_SYSTEM = 5;
-
-	public static final int FROM_TYPE_CLIENT = 1;
-	public static final int FROM_TYPE_BUS = 2;
-	public static final int FROM_TYPE_STAGE = 3;
-	public static final int FROM_TYPE_STAGE_CONTROL = 4;
-
 	private static Map<String, Integer> groupDestMap = new HashMap<String, Integer>();
 	private static Map<String, String> cmdGroupMap = new HashMap<String, String>();
 	private static Map<String, String> cmdModuleMap = new HashMap<String, String>();

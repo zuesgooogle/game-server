@@ -24,11 +24,11 @@ public class PublicRouteHelper implements IRouteHelper {
 			route = new Route(CommandGroup.GROUP_LOGIN);
 			route.setData((String)data[0]);
 			break;
-		case CommandGroup.DEST_TYPE_PUBLIC:
+		case 4:
 			route = new Route(CommandGroup.GROUP_PUBLIC);
 			route.setData(command);
 			break;
-		case CommandGroup.DEST_TYPE_SYSTEM:
+		case 5:
 			route = new Route(CommandGroup.GROUP_SYSTEM);
 			route.setData(message.getRoleId());
 			break;

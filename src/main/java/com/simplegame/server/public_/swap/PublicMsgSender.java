@@ -4,8 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.simplegame.protocol.message.Message.DestType;
+import com.simplegame.protocol.message.Message.FromType;
 import com.simplegame.server.message.manager.SwapManager;
-import com.simplegame.server.share.moduleinit.CommandGroup;
 
 /**
  * @Author zeusgooogle@gmail.com
@@ -19,8 +20,13 @@ public class PublicMsgSender {
 	private SwapManager swapManager;
 	
 	public void send2OneBySessionId(String command, String userId, String sessionId, Object data) {
-		Object[] message = new Object[]{command, data, CommandGroup.DEST_TYPE_CLIENT, CommandGroup.FROM_TYPE_BUS, 1, sessionId, null, userId, 0, null};
+		Object[] message = new Object[]{command, data, DestType.CLIENT.getValue(), FromType.BUS.getValue(), 1, sessionId, null, userId, 0, null};
 		
 		swapManager.swap(message);
+	}
+	
+	public void send2One(String command, String userId, Object data) {
+		Object[] message = new Object[]{command, data, DestType.CLIENT.getValue(), FromType.BUS.getValue(), 1, null, null, userId, 0, null};
+		
 	}
 }

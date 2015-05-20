@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.simplegame.protocol.message.Message.DestType;
+import com.simplegame.protocol.message.Message.FromType;
 import com.simplegame.server.message.IMsgDispatcher;
 import com.simplegame.server.message.MsgUtil;
 import com.simplegame.server.share.moduleinit.CommandGroup;
@@ -23,15 +25,16 @@ public class SwapManager {
 	private IMsgDispatcher publicDispatcher;
 	
 	public void swap(Object[] message) {
-		int fromType = MsgUtil.getFromType(message);
+		FromType fromType = MsgUtil.getFromType(message);
 		switch(fromType) {
-		case CommandGroup.FROM_TYPE_CLIENT:
+		case CLIENT:
 			swapClientMsg(message);
 			break;
-		case CommandGroup.FROM_TYPE_BUS:
-			swapPublicMsg(message);
+		case BUS:
 			break;
-		case CommandGroup.FROM_TYPE_STAGE:
+		case STAGE:
+			break;
+		default:
 			break;
 		}
 	}
@@ -56,10 +59,22 @@ public class SwapManager {
 	}
 	
 	private void componentMsgSwap(Object[] message) {
-		int destType = MsgUtil.getDestType(message);
+		DestType destType = MsgUtil.getDestType(message);
 		switch(destType) {
-		case CommandGroup.DEST_TYPE_CLIENT:
+		case CLIENT:
 			toClient(message);
+			break;
+		case BUS:
+			break;
+		case INOUT:
+			break;
+		case PUBLIC:
+			break;
+		case STAGE:
+			break;
+		case SYSTEM:
+			break;
+		default:
 			break;
 		}
 	}
