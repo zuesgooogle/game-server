@@ -8,19 +8,18 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<bean id="springApplicationContext" class="com.simplegame.core.SpringApplicationContext"></bean>
-	<bean class="com.simplegame.server.share.AfterSpringInitApplicationListener"/>
-
-	<!-- 激活利用注解进行装配 -->
-	<context:annotation-config />
+	<!-- 个人业务缓存 -->
+ 	<bean id="roleCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
+ 	
+ 	<!-- 公共业务缓存 -->
+	<bean id="publicCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
 	
-	<context:component-scan base-package="com.simplegame.server" />
-	<context:component-scan base-package="com.simplegame.core" />
+	<!-- 场景业务缓存 -->
+	<bean id="stageCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
 	
-	<import resource="property/property.xml"/>
-	<import resource="mybatis/mybatis-config.xml"/>
+	<!-- 配置缓存加载器 -->
+	<bean id="configureCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
 	
-	<import resource="network/listener.xml"/>
-	<import resource="init/module-init.xml"/>
+	
 	
 </beans>

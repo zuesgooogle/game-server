@@ -2,6 +2,7 @@ package com.simplegame.server.share.moduleinit;
 
 import javax.annotation.PostConstruct;
 
+import com.simplegame.core.data.accessor.cache.IEntityCacheModelLoader;
 import com.simplegame.core.event.IEventHandler;
 import com.simplegame.core.event.IEventService;
 
@@ -57,6 +58,10 @@ public abstract class ModuleInit {
 		return null;
 	}
 
+	protected IEntityCacheModelLoader[] getEntityCacheModelLoaders() {
+		return null;
+	}
+	
 	protected abstract InCmd getInCmd();
 
 	public void moduleInit() {

@@ -13,5 +13,8 @@
 	<import resource="io-init.xml"/>
 	<import resource="public-init.xml"/>
 	
+	<import resource="data-asyncwrite-init.xml"/>
+	<import resource="data-cacheloader-init.xml"/>
+	<import resource="data-accessor-init.xml"/>
 	
 </beans>
