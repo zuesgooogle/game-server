@@ -1,23 +1,21 @@
-package com.simplegame.server.public_.share;
+package com.simplegame.server.bus.share.moduleinit;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import com.simplegame.core.event.IEventService;
-import com.simplegame.server.public_.event.PublicEventHandler;
+import com.simplegame.server.bus.share.event.subscribe.BusEventCommandHandler;
 import com.simplegame.server.share.event.EventHandleCommands;
 import com.simplegame.server.share.event.EventHandleCommands.Node;
 import com.simplegame.server.share.moduleinit.ModuleInit;
 
 /**
- * 
  * @Author zeusgooogle@gmail.com
- * @sine 2015年5月7日 下午6:36:09
+ * @sine 2015年5月23日 下午9:20:33
  * 
  */
-
-public abstract class PublicModuleInit extends ModuleInit {
+public abstract class BusModuleInit extends ModuleInit {
 
 	@Resource
 	private IEventService eventService;
@@ -28,13 +26,15 @@ public abstract class PublicModuleInit extends ModuleInit {
 		if (null != getEventHandleCommands()) {
 			List<Node> nodeList = getEventHandleCommands().nodes();
 			for (Node node : nodeList) {
-				this.eventService.subscribe(node.getEventType(), getOrder(), new PublicEventHandler(node.getEventType(), node.getCommand()));
+				this.eventService.subscribe(node.getEventType(), getOrder(), new BusEventCommandHandler(node.getEventType(), node.getCommand()));
 			}
 		}
 	}
 
-	public abstract EventHandleCommands getEventHandleCommands();
-
+	protected EventHandleCommands getEventHandleCommands() {
+		return null;
+	}
+	
 	@Override
 	public IEventService getEventService() {
 		return eventService;
