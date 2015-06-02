@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ID_GEN">
+	<resultMap id="idGen" type="com.simplegame.server.bus.id.entity.IdGen" >
+		<result property="id" column="id"/>
+		<result property="moduleName" column="module_name"/>
+		<result property="value" column="value"/>
+		<result property="prefix" column="prefix"/>
+		<result property="version" column="version"/>
+	</resultMap>
+	
+	<sql id="queryConditionIdGen">
+		<where>
+			<if test="id != null">id = #id#</if>
+			<if test="moduleName != null">module_name = #moduleName#</if>
+			<if test="value != null">value = #value#</if>
+			<if test="prefix != prefix">prefix = #prefix#</if>
+			<if test="version != version">version = #version#</if>
+		</where>
+	</sql>
+	
+	<sql id="queryByKeyIdGen">
+		where id = #id#
+	</sql>
+	
+	<insert id="insertIdGen" parameterType="com.simplegame.server.bus.id.entity.IdGen">
+		insert into id_gen(id, module_name, value, prefix, version)
+		
+		values(#id#, #moduleName#, #value#, #prefix#, #version#)
+	</insert>
+	
+	<delete id="deleteIdGen">
+		delete from id_gen
+		<include refid="queryByKeyIdGen"/>
+	</delete>	
+	
+	<update id="updateIdGen" parameterType="com.simplegame.server.bus.id.entity.IdGen">
+		update id_gen set
+		id = #{id}
+		,module_name = #moduleName#
+		,value = #value# 
+		,prefix = #prefix#
+		, version = #version# 
+		<include refid="queryByKeyIdGen"/>
+	</update>
+	
+	<select id="selectOneIdGen" resultMap="idGen">
+		select 
+		id
+		,module_name
+		,value
+		,prefix
+		,version
+		from id_gen 
+		<include refid="queryByKeyIdGen"/>
+	</select>
+	
+	<select id="selectListIdGen" parameterType="java.util.Map" resultMap="idGen">
+		select 
+		id
+		,module_name
+		,value
+		,prefix
+		,version
+		from id_gen
+		<include refid="queryConditionIdGen"/>
+	</select>
+	
+	
+</mapper>
+	

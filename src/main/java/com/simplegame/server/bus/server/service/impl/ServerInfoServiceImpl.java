@@ -3,7 +3,6 @@ package com.simplegame.server.bus.server.service.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;

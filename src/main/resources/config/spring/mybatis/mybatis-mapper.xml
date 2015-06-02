@@ -4,6 +4,7 @@
 	
 	<mappers>
 		<mapper resource="com/simplegame/server/bus/server/entity/mapper/ServerInfo.xml"/>
+		<mapper resource="com/simplegame/server/bus/id/entity/mapper/IdGen.xml"/>
 	
 	</mappers>
 	

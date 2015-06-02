@@ -29,3 +29,15 @@ CREATE TABLE `server_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
+-- ----------------------------
+-- Table structure for id_gen
+-- ----------------------------
+DROP TABLE IF EXISTS `id_gen`;
+CREATE TABLE `id_gen` (
+  `id` varchar(100) NOT NULL DEFAULT '' COMMENT '主键',
+  `module_name` varchar(36) NOT NULL DEFAULT '' COMMENT '模块名称',
+  `value` bigint(10) unsigned NOT NULL COMMENT 'id值',
+  `prefix` varchar(10) NOT NULL COMMENT '前缀',
+  `version` int(10) unsigned NOT NULL COMMENT '版本',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
