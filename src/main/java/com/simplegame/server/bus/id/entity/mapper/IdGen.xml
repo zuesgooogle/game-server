@@ -11,22 +11,22 @@
 	
 	<sql id="queryConditionIdGen">
 		<where>
-			<if test="id != null">id = #id#</if>
-			<if test="moduleName != null">module_name = #moduleName#</if>
-			<if test="value != null">value = #value#</if>
-			<if test="prefix != prefix">prefix = #prefix#</if>
-			<if test="version != version">version = #version#</if>
+			<if test="id != null">AND id = #{id}</if>
+			<if test="moduleName != null">AND module_name = #{moduleName}</if>
+			<if test="value != null">AND value = #{value}</if>
+			<if test="prefix != prefix">AND prefix = #{prefix}</if>
+			<if test="version != version">AND version = #{version}</if>
 		</where>
 	</sql>
 	
 	<sql id="queryByKeyIdGen">
-		where id = #id#
+		where id = #{id}
 	</sql>
 	
 	<insert id="insertIdGen" parameterType="com.simplegame.server.bus.id.entity.IdGen">
 		insert into id_gen(id, module_name, value, prefix, version)
 		
-		values(#id#, #moduleName#, #value#, #prefix#, #version#)
+		values( #{id}, #{moduleName}, #{value}, #{prefix}, #{version} )
 	</insert>
 	
 	<delete id="deleteIdGen">
@@ -37,10 +37,10 @@
 	<update id="updateIdGen" parameterType="com.simplegame.server.bus.id.entity.IdGen">
 		update id_gen set
 		id = #{id}
-		,module_name = #moduleName#
-		,value = #value# 
-		,prefix = #prefix#
-		, version = #version# 
+		,module_name = #{moduleName}
+		,value = #{value} 
+		,prefix = #{prefix}
+		, version = #{version} 
 		<include refid="queryByKeyIdGen"/>
 	</update>
 	
@@ -66,6 +66,11 @@
 		<include refid="queryConditionIdGen"/>
 	</select>
 	
+	<update id="updateIncValue" parameterType="java.util.Map">
+		update id_gen set value = value + 1
+		
+		<include refid="queryByKeyIdGen"/>
+	</update>	
 	
 </mapper>
 	

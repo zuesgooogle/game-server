@@ -31,6 +31,7 @@ public class SwapManager {
 			swapClientMsg(message);
 			break;
 		case BUS:
+			swapPublicMsg(message);
 			break;
 		case STAGE:
 			break;

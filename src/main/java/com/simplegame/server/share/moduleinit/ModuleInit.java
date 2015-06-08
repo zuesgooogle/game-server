@@ -1,10 +1,12 @@
 package com.simplegame.server.share.moduleinit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import com.simplegame.core.data.accessor.cache.IEntityCacheModelLoader;
 import com.simplegame.core.event.IEventHandler;
 import com.simplegame.core.event.IEventService;
+import com.simplegame.server.bus.id.export.IdGenerator;
 
 /**
  * 
@@ -15,6 +17,9 @@ import com.simplegame.core.event.IEventService;
 
 public abstract class ModuleInit {
 
+	@Resource
+	private IdGenerator idGenerator;
+	
 	public ModuleInit() {
 
 	}
@@ -23,7 +28,7 @@ public abstract class ModuleInit {
 	public void init() {
 		ModuleInfo moduleInfo = getModuleInfo();
 		if (null != moduleInfo) {
-			//register module
+			idGenerator.init(moduleInfo.getModuleName(), moduleInfo.getModuleNameAlias());
 		}
 
 		InCmd inCmd = getInCmd();

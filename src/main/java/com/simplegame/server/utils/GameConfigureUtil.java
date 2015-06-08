@@ -19,4 +19,8 @@ public class GameConfigureUtil {
 	public static String getServerPrefixRolename () {
 		return ConfigureUtil.getProp(SERVER_INFO, "serverPrefixRolename");
 	}
+	
+	public static String getServerVersion() {
+		return ConfigureUtil.getProp(SERVER_INFO, "serverVersion");
+	}
 }

@@ -3,13 +3,14 @@ package com.simplegame.server.bus.id.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.data.accessor.AccessType;
+import com.simplegame.core.data.accessor.GlobalIdentity;
 import com.simplegame.server.bus.id.dao.IIdGenDao;
 import com.simplegame.server.bus.id.dao.impl.IdGenDaoImpl;
 import com.simplegame.server.bus.id.entity.IdGen;
@@ -41,9 +42,29 @@ public class IdGenServiceImpl implements IIdGenService {
 		params.put("moduleName", moduleName);
 		params.put("version", version);
 		
-		List<IdGen> list = getDao().getRecords(params, "", AccessType.getDirectDbType());
+		List<IdGen> list = getDao().getRecords(params, GlobalIdentity.get(), AccessType.getDirectDbType());
+		IdGen idGen = null;
+		if (null != list && !list.isEmpty()) {
+			idGen = list.get(0);
+		}
 		
-		return null;
+		if (null == idGen) {
+			idGen = new IdGen();
+			idGen.setId(UUID.randomUUID().toString());
+			idGen.setModuleName(moduleName);
+			idGen.setVersion(Integer.valueOf(version));
+			idGen.setValue(Long.valueOf(0L));
+			idGen.setPrefix(prefix);
+			
+			getDao().insert(idGen, GlobalIdentity.get(), AccessType.getDirectDbType());
+		}
+		
+		params = new HashMap<String, Object>();
+		params.put("id", idGen.getId());
+
+		getDao().update("updateIncValue", params);
+
+		return idGen;
 	}
 
 	@Override

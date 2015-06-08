@@ -3,6 +3,13 @@
 <configuration>
 	
 	<mappers>
+		
+		<mapper resource="com/simplegame/server/bus/account/entity/mapper/UserAccount.xml"/>
+		<mapper resource="com/simplegame/server/bus/account/entity/mapper/RoleAccount.xml"/>
+		<mapper resource="com/simplegame/server/bus/role/entity/mapper/UserRole.xml"/>
+		
+		
+		
 		<mapper resource="com/simplegame/server/bus/server/entity/mapper/ServerInfo.xml"/>
 		<mapper resource="com/simplegame/server/bus/id/entity/mapper/IdGen.xml"/>
 	

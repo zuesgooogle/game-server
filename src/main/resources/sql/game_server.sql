@@ -17,6 +17,73 @@ Date  : 2015-05-24 18:54:45
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for user_account
+-- ----------------------------
+DROP TABLE IF EXISTS `user_account`;
+CREATE TABLE `user_account` (
+  `id` varchar(48) NOT NULL COMMENT '主键，根据user_role表里面的 user_id和server_id加@号拼接',
+  `user_guid` varchar(36) NOT NULL COMMENT '对应user_role表里面的user_id',
+  `lingshi` bigint(11) NOT NULL COMMENT '元宝数量',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  `server_id` varchar(36) DEFAULT NULL COMMENT '服务器id',
+  `recive_yb` int(11) DEFAULT NULL COMMENT '可领取元宝，存储无充值的玩家，所有获得的元宝（此功能已经作废）',
+  `is_recharge` int(11) DEFAULT NULL COMMENT '是否充值',
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_account_index` (`user_guid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+  `id` varchar(36) NOT NULL COMMENT '角色唯一主键',
+  `user_id` varchar(36) NOT NULL COMMENT '角色账号id',
+  `name` varchar(36) NOT NULL COMMENT '角色名称',
+  `job` varchar(36) NOT NULL COMMENT '职业',
+  `sex` int(1) NOT NULL COMMENT '性别',
+  `exp` bigint(20) DEFAULT NULL COMMENT '经验',
+  `level` int(1) DEFAULT '1' COMMENT '等级',
+  `face` varchar(36) DEFAULT NULL COMMENT '头像',
+  `zhenqi` int(11) DEFAULT '0' COMMENT '真气',
+  `shengwang` int(11) DEFAULT '0' COMMENT '声望',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `online_time` bigint(20) DEFAULT NULL COMMENT '上线时间',
+  `offline_time` bigint(20) DEFAULT NULL COMMENT '下线时间',
+  `is_set_fangchenmi` int(11) NOT NULL DEFAULT '0' COMMENT '是否设置防沉迷',
+  `chenmi_add_online` int(20) DEFAULT NULL,
+  `chenmi_add_offline` int(20) DEFAULT NULL,
+  `server_id` varchar(36) COMMENT '服务器id',
+  `platform` varchar(36) DEFAULT NULL,
+  `role_type` int(11) DEFAULT '0',
+  `upgrade_time` bigint(20) DEFAULT NULL,
+  `zhanli` int(11) DEFAULT NULL COMMENT '战斗力',
+  `login_count` int(11) DEFAULT NULL COMMENT '登录次数',
+  `time` bigint(20) DEFAULT NULL COMMENT '在线时间',
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_user_role_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for role_account
+-- ----------------------------
+DROP TABLE IF EXISTS `role_account`;
+CREATE TABLE `role_account` (
+  `id` varchar(36) NOT NULL,
+  `user_role_id` varchar(36) NOT NULL COMMENT '角色唯一id',
+  `tongqian` bigint(11) NOT NULL COMMENT '游戏币数量',
+  `bind_lingshi` bigint(11) NOT NULL COMMENT '绑定元宝数量',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL,
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_role_account_user_role_id` (`user_role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for server_info
 -- ----------------------------
 DROP TABLE IF EXISTS `server_info`;

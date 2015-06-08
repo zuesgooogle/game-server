@@ -1,7 +1,12 @@
 package com.simplegame.server.bus.account.dao.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 
+import com.simplegame.core.data.accessor.AccessType;
 import com.simplegame.server.bus.account.dao.IUserAccountDao;
 import com.simplegame.server.bus.account.entity.UserAccount;
 import com.simplegame.server.bus.share.dao.BusAbsCacheDao;
@@ -12,37 +17,47 @@ import com.simplegame.server.bus.share.dao.BusAbsCacheDao;
  * @sine   2015年5月21日 下午6:12:53
  *
  */
+@SuppressWarnings("unchecked")
 @Component
 public class UserAccountDaoImpl extends BusAbsCacheDao<UserAccount> implements IUserAccountDao {
 
 	@Override
 	public void insertUserAccount(UserAccount userAccount, String userGuid) {
-		// TODO Auto-generated method stub
-
+		insert(userAccount, userGuid, AccessType.getDirectDbType());
 	} 
 
 	@Override
 	public UserAccount initUserAccount(String userGuid, String roleId, String serverId) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> param = new HashMap<String, Object>();
+	    param.put("userGuid", userGuid);
+	    param.put("serverId", serverId);
+	    
+	    return (UserAccount)getRecords(param, roleId, AccessType.getDirectDbType()).get(0);
 	}
 
 	@Override
 	public UserAccount getUserAccountDb(String userGuid, String serverId) {
-		// TODO Auto-generated method stub
-		return null;
+		String id = generateUserAccountId(userGuid, serverId);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", id);
+		
+		List<UserAccount> list = getRecords(param, userGuid, AccessType.getDirectDbType());
+		if( null == list || list.isEmpty() ) {
+			return null;
+		}
+		
+		return list.get(0);
 	}
 
 	@Override
 	public void updateUserAccountDb(UserAccount userAccount) {
-		// TODO Auto-generated method stub
-
+		update(userAccount, userAccount.getId(), AccessType.getDirectDbType());
 	}
 
 	@Override
 	public String generateUserAccountId(String userGuid, String serverId) {
-		// TODO Auto-generated method stub
-		return null;
+		return userGuid + "@" + serverId;
 	}
 
 }

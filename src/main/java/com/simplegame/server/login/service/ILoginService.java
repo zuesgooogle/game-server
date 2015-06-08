@@ -18,9 +18,9 @@ public interface ILoginService {
 	 * @param serverId
 	 * @param timestamp
 	 * @param sign
-	 * @param fangchenmi
+	 * @param fangChenmi
 	 */
-	public void in(String userId, String serverId, String timestamp, String sign, boolean fangchenmi);
+	public Object in(String userId, String serverId, String timestamp, String sign, boolean fangChenmi);
 
 	/**
 	 * 
@@ -33,5 +33,5 @@ public interface ILoginService {
 	 * @param face
 	 * @param platform
 	 */
-	public void createRole(String userId, String name, String job, String sex, String face, String platform);
+	public Object createRole(String userId, String serverId, String name, String job, int sex, String face, boolean fangChenmi, String platform);
 }

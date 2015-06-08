@@ -9,6 +9,7 @@ import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
 import com.simplegame.protocol.message.Message;
 import com.simplegame.server.login.commond.LoginCommands;
+import com.simplegame.server.login.service.ILoginService;
 import com.simplegame.server.public_.swap.PublicMsgSender;
 
 /**
@@ -20,23 +21,47 @@ import com.simplegame.server.public_.swap.PublicMsgSender;
 @ActionWorker
 public class LoginAction {
 
+	private Logger LOG = LoggerFactory.getLogger(getClass());
+	
 	@Resource
 	private PublicMsgSender msgSender;
 	
-	private Logger LOG = LoggerFactory.getLogger(getClass());
+	@Resource
+	private ILoginService loginService;
 	
 	@ActionMapping(mapping = LoginCommands.IN )
 	public void in(Message message) {
 		LOG.info(message.toString());
 		
-		System.err.println("login in...");
+		Object[] data = (Object[]) message.getData();
+		String userId = (String)data[0];
+		String serverId = (String)data[1];
 		
-		msgSender.send2OneBySessionId(message.getCommand(), "110", message.getSessionId(), message.getData());
+		String timestamp = (String)data[2];
+		String sign = (String)data[3];
+		boolean fangChenmi = false;
+
+		Object result = loginService.in(userId, serverId, timestamp, sign, fangChenmi);
+		
+		msgSender.send2OneBySessionId(message.getCommand(), userId, message.getSessionId(), result);
 	}
 	
 	@ActionMapping(mapping = LoginCommands.CREATE_ROLE )
 	public void createRole(Message message) {
 		
+		Object[] data = (Object[]) message.getData();
+		String userId = (String)data[0];
+		String serverId = (String)data[1];
+		String name = (String)data[2];
+		String job = (String)data[3];
+		int sex = (Integer)data[4];
+		String face = (String)data[5];
+		String platform = (String)data[6];
+		
+		boolean fangChenmi = false;
+		
+		Object result = loginService.createRole(userId, serverId, name, job, sex, face, fangChenmi, platform);
+		msgSender.send2OneBySessionId(message.getCommand(), userId, message.getSessionId(), result);
 	}
 	
 }
