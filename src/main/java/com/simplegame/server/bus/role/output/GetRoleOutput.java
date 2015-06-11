@@ -12,7 +12,6 @@ public class GetRoleOutput {
 				userRole.getJob(), 
 				userRole.getSex(), 
 				userRole.getLevel(), 
-				null, 
 				userRole.getFace(),
 				Long.valueOf(userRole.getCreateTime().getTime())
 			};
