@@ -8,14 +8,21 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<bean id="busRuleChecker" class="com.simplegame.server.bus.share.rule.BusRuleChecker"/>
 	
-	
-	<import resource="io-init.xml"/>
-	<import resource="public-init.xml"/>
-	<import resource="bus-init.xml"/>
-	
-	<import resource="data-asyncwrite-init.xml"/>
-	<import resource="data-cacheloader-init.xml"/>
-	<import resource="data-accessor-init.xml"/>
-	
+	<bean id="busExecutor" class="com.simplegame.server.executor.impl.BalanceBusinessExecutor">
+		<property name="ruleChecker" ref="busRuleChecker"/>
+		
+		<property name="name" value="BUS"/>
+		<property name="config">
+			<map>
+				<entry key="bus_init" value="6"></entry>
+				<entry key="bus_cache" value="3"></entry>
+				<entry key="stage_control" value="3"></entry>
+				<entry key="system" value="1"></entry>
+			</map>
+		</property>
+		
+
+	</bean>
 </beans>

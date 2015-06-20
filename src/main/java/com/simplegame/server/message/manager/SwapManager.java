@@ -73,7 +73,7 @@ public class SwapManager {
 			break;
 		case STAGE:
 			break;
-		case SYSTEM:
+		case INNER_SYSTEM:
 			break;
 		default:
 			break;

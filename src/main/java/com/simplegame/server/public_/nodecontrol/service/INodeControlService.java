@@ -11,10 +11,10 @@ public interface INodeControlService {
 
 	public void change2offline(String userRoleId);
 
-	public void nodeLogin(String userRoleId, String paramString2);
+	public void nodeLogin(String roleId, String ip);
 
-	public void nodeExit(String userRoleId, String paramString2);
+	public void nodeExit(String roleId, String ip);
 
-	public void nodeExitOnServerClose(String userRoleId);
+	public void nodeExitOnServerClose(String roleId);
 
 }

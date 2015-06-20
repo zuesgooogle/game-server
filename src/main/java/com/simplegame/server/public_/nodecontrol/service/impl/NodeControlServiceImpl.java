@@ -44,23 +44,23 @@ public class NodeControlServiceImpl implements INodeControlService {
 	}
 
 	@Override
-	public void nodeLogin(String userRoleId, String paramString2) {
+	public void nodeLogin(String roleId, String ip) {
 		if( usecache ) {
-			publicCacheManager.activateRoleCache(userRoleId);
+			publicCacheManager.activateRoleCache(roleId);
 		}
 		
 		//roleIn
 	}
 
 	@Override
-	public void nodeExit(String userRoleId, String paramString2) {
-		if( roleStateService.isPublicOnline(userRoleId) ) {
-			long onlineTime = userRoleService.getRole(userRoleId).getOnlineTime();
-			eventService.publish(new RoleLogoutEvent(userRoleId, paramString2, onlineTime));
+	public void nodeExit(String roleId, String ip) {
+		if( roleStateService.isPublicOnline(roleId) ) {
+			long onlineTime = userRoleService.getRole(roleId).getOnlineTime();
+			eventService.publish(new RoleLogoutEvent(roleId, ip, onlineTime));
 		}
 		
 		if( usecache ) {
-			publicCacheManager.freezeRoleCache(userRoleId);
+			publicCacheManager.freezeRoleCache(roleId);
 		}
 		
 		//roleOut
