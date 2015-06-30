@@ -1,6 +1,5 @@
 package com.simplegame.server.io.handler;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -16,9 +15,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.simplegame.protocol.message.Message.DestType;
 import com.simplegame.protocol.message.Message.FromType;
 import com.simplegame.protocol.proto.Message.Request;
+import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.io.IoConstants;
 import com.simplegame.server.io.global.ChannelManager;
 import com.simplegame.server.io.swap.IoMsgSender;
+import com.simplegame.server.public_.nodecontrol.command.NodeControlCommands;
+import com.simplegame.server.utils.ChannelAttributeUtil;
 
 /**
  * 
@@ -45,7 +47,7 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 	
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		String roleId = attr(ctx.channel(), IoConstants.ROLE_KEY);
+		String roleId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY);
 
 		if (null != roleId) {
 			channelManager.removeChannel(roleId);
@@ -56,29 +58,26 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 	protected void channelRead0(ChannelHandlerContext ctx, Request msg) throws Exception {
 		LOG.info("server receive message: {}", msg.toString());
 
-		String sessionId = attr(ctx.channel(), IoConstants.SESSION_KEY);
-		channelManager.addChannel(sessionId, ctx.channel());
-		
 		JSONArray array = JSONArray.parseArray(msg.getData());
-		Object[] message = new Object[]{msg.getCommand(), array.toArray(), DestType.BUS.getValue(), FromType.CLIENT.getValue(), null, sessionId, null, null, null, null};
+		
+		String command = msg.getCommand();
+		if( StageControllCommands.LOGIN.equals(command) ) {
+		    command = NodeControlCommands.ROLE_IN;
+		    
+		    String roleId = array.getString(0);
+		    
+		    ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY, roleId);
+		}
+		
+		String sessionId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.SESSION_KEY);
+        channelManager.addChannel(sessionId, ctx.channel());
+		
+		String roleId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY);
+		String ip = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.IP_KEY);
+		
+		Object[] message = new Object[]{command, array.toArray(), DestType.BUS.getValue(), FromType.CLIENT.getValue(), null, sessionId, roleId, null, null, null, ip};
 		msgSender.swap(message);
 		
-	}
-	
-	@SuppressWarnings("unchecked")
-	private String attr(Channel channel, String... params) {
-		if( params.length == 0 ) {
-			return null;
-		}
-		
-		AttributeKey key = AttributeKey.valueOf(params[0]);
-		
-		if( params.length == 1 ) {
-			return (String)channel.attr(key).get();
-		} else {
-			channel.attr(key).set(params[1]);
-			return params[1]; 
-		}
 	}
 
 	@Override

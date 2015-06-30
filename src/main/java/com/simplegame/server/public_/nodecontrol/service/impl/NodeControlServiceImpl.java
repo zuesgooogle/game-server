@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.simplegame.core.data.accessor.cache.manager.CacheManager;
 import com.simplegame.core.event.IEventService;
+import com.simplegame.server.bus.client.io.export.IClientIoExportService;
 import com.simplegame.server.bus.role.service.IUserRoleService;
 import com.simplegame.server.public_.nodecontrol.event.publish.RoleLogoutEvent;
 import com.simplegame.server.public_.nodecontrol.service.INodeControlService;
@@ -32,6 +33,9 @@ public class NodeControlServiceImpl implements INodeControlService {
 	
 	@Resource
 	private CacheManager publicCacheManager;
+	
+	@Resource
+	private IClientIoExportService clientIoExportService;
 
 	@Override
 	public void change2online(String userRoleId) {
@@ -50,6 +54,7 @@ public class NodeControlServiceImpl implements INodeControlService {
 		}
 		
 		//roleIn
+		clientIoExportService.roleIn(roleId, ip);
 	}
 
 	@Override
@@ -64,6 +69,7 @@ public class NodeControlServiceImpl implements INodeControlService {
 		}
 		
 		//roleOut
+		clientIoExportService.roleOut(roleId);
 	}
 
 	@Override

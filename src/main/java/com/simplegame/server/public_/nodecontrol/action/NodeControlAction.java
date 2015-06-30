@@ -23,16 +23,18 @@ public class NodeControlAction {
     @ActionMapping(mapping = NodeControlCommands.ROLE_IN)
     public void roleIn(Message message) {
         String roleId = message.getRoleId();
+        String ip = message.getIp();
         
-        nodeContorlService.change2offline(roleId);
-        nodeContorlService.nodeLogin(roleId, "ip");
+        nodeContorlService.change2online(roleId);
+        nodeContorlService.nodeLogin(roleId, ip);
     }
     
     @ActionMapping(mapping = NodeControlCommands.ROLE_OUT)
     public void roleOut(Message message) {
         String roleId = message.getRoleId();
+        String ip = message.getIp();
         
-        nodeContorlService.nodeExit(roleId, "ip");
+        nodeContorlService.nodeExit(roleId, ip);
     }
     
 }

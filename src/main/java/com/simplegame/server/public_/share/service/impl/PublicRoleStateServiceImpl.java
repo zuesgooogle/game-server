@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Component;
 
-import com.simplegame.core.sync.Sync;
+import com.simplegame.core.sync.annotation.Sync;
 import com.simplegame.server.public_.share.constants.PublicNodeConstants;
 import com.simplegame.server.public_.share.service.IPublicRoleStateService;
 
