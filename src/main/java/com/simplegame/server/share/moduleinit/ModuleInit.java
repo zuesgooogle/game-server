@@ -7,6 +7,7 @@ import com.simplegame.core.data.accessor.cache.IEntityCacheModelLoader;
 import com.simplegame.core.event.IEventHandler;
 import com.simplegame.core.event.IEventService;
 import com.simplegame.server.bus.id.export.IdGenerator;
+import com.simplegame.server.share.export.IEntityCacheLoaderExportService;
 
 /**
  * 
@@ -17,91 +18,100 @@ import com.simplegame.server.bus.id.export.IdGenerator;
 
 public abstract class ModuleInit {
 
-	@Resource
-	private IdGenerator idGenerator;
-	
-	public ModuleInit() {
+    @Resource
+    private IdGenerator idGenerator;
 
-	}
-	
-	@PostConstruct
-	public void init() {
-		ModuleInfo moduleInfo = getModuleInfo();
-		if (null != moduleInfo) {
-			idGenerator.init(moduleInfo.getModuleName(), moduleInfo.getModuleNameAlias());
-		}
+    public ModuleInit() {
 
-		InCmd inCmd = getInCmd();
-		if (null != inCmd) {
-			CommandGroup.registerCmd(inCmd.inCmdGroup, inCmd.inCmdModule, inCmd.inCmds);
-		}
+    }
 
-		IEventHandler[] eventHandlers = getEventHandlers();
-		if (null != eventHandlers) {
-			for (IEventHandler handler : eventHandlers) {
-				getEventService().subscribe(handler.getEventType(), getOrder(), handler);
-			}
-		}
-	}
+    @PostConstruct
+    public void init() {
+        ModuleInfo moduleInfo = getModuleInfo();
+        if (null != moduleInfo) {
+            idGenerator.init(moduleInfo.getModuleName(), moduleInfo.getModuleNameAlias());
+        }
 
-	public abstract IEventService getEventService();
-	
-	/**
-	 * 模块加载顺序
-	 * 
-	 * @return
-	 */
-	public int getOrder() {
-		return 200;
-	}
+        IEntityCacheModelLoader[] entityCacheModelLoaders = getEntityCacheModelLoaders();
+        if (null != entityCacheModelLoaders) {
+            for (IEntityCacheModelLoader localIEntityCacheModelLoader : entityCacheModelLoaders) {
+                getEntityCacheLoaderExportService().injectEntityCacheModelLoader(localIEntityCacheModelLoader);
+            }
+        }
 
-	protected ModuleInfo getModuleInfo() {
-		return null;
-	}
+        InCmd inCmd = getInCmd();
+        if (null != inCmd) {
+            CommandGroup.registerCmd(inCmd.inCmdGroup, inCmd.inCmdModule, inCmd.inCmds);
+        }
 
-	protected IEventHandler[] getEventHandlers() {
-		return null;
-	}
+        IEventHandler[] eventHandlers = getEventHandlers();
+        if (null != eventHandlers) {
+            for (IEventHandler handler : eventHandlers) {
+                getEventService().subscribe(handler.getEventType(), getOrder(), handler);
+            }
+        }
+    }
 
-	protected IEntityCacheModelLoader[] getEntityCacheModelLoaders() {
-		return null;
-	}
-	
-	protected abstract InCmd getInCmd();
+    public abstract IEventService getEventService();
 
-	public void moduleInit() {
-	}
+    public abstract IEntityCacheLoaderExportService getEntityCacheLoaderExportService();
+    
+    /**
+     * 模块加载顺序
+     * 
+     * @return
+     */
+    public int getOrder() {
+        return 200;
+    }
 
-	protected class InCmd {
-		private String inCmdModule;
-		private String inCmdGroup;
-		private String[] inCmds;
+    protected ModuleInfo getModuleInfo() {
+        return null;
+    }
 
-		public InCmd(String module, String group, String[] cmds) {
-			this.inCmdModule = module;
-			this.inCmdGroup = group;
-			this.inCmds = cmds;
-		}
-	}
+    protected IEventHandler[] getEventHandlers() {
+        return null;
+    }
 
-	protected class ModuleInfo {
-		
-		private String moduleName;
-		
-		private String moduleNameAlias;
+    protected IEntityCacheModelLoader[] getEntityCacheModelLoaders() {
+        return null;
+    }
 
-		public ModuleInfo(String moduleName, String moduleNameAlias) {
-			this.moduleName = moduleName;
-			this.moduleNameAlias = moduleNameAlias;
-		}
+    protected abstract InCmd getInCmd();
 
-		public String getModuleName() {
-			return this.moduleName;
-		}
+    public void moduleInit() {
+    }
 
-		public String getModuleNameAlias() {
-			return this.moduleNameAlias;
-		}
-	}
+    protected class InCmd {
+        private String inCmdModule;
+        private String inCmdGroup;
+        private String[] inCmds;
+
+        public InCmd(String module, String group, String[] cmds) {
+            this.inCmdModule = module;
+            this.inCmdGroup = group;
+            this.inCmds = cmds;
+        }
+    }
+
+    protected class ModuleInfo {
+
+        private String moduleName;
+
+        private String moduleNameAlias;
+
+        public ModuleInfo(String moduleName, String moduleNameAlias) {
+            this.moduleName = moduleName;
+            this.moduleNameAlias = moduleNameAlias;
+        }
+
+        public String getModuleName() {
+            return this.moduleName;
+        }
+
+        public String getModuleNameAlias() {
+            return this.moduleNameAlias;
+        }
+    }
 
 }

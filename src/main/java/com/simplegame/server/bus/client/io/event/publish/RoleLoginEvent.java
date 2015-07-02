@@ -6,8 +6,8 @@ public class RoleLoginEvent implements IEvent {
     
     private Object[] data = null;
 
-    public RoleLoginEvent(String roleId, String paramString2) {
-        this.data = new Object[] { roleId, paramString2 };
+    public RoleLoginEvent(String roleId, String ip) {
+        this.data = new Object[] { roleId, ip };
     }
 
     public String getType() {

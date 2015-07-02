@@ -13,13 +13,13 @@
 	
 	<sql id="queryConditionRoleAccount">
 		<where>
-			<if test="id != null"> id = #{id} </if>
-			<if test="userRoleId != null"> user_role_id = #{userRoleId} </if>
-			<if test="tongqian != null"> tongqian = #{tongqian} </if>
-			<if test="bindLingshi != null"> bind_lingshi = #{bindLingshi} </if>
-			<if test="createTime != null"> create_time = #{createTime} </if>
-			<if test="updateTime != null"> update_time = #{updateTime} </if>
-			<if test="logUpdateTime != null"> log_update_time = #{logUpdateTime} </if>
+			<if test="id != null"> AND id = #{id} </if>
+			<if test="userRoleId != null"> AND user_role_id = #{userRoleId} </if>
+			<if test="tongqian != null"> AND tongqian = #{tongqian} </if>
+			<if test="bindLingshi != null"> AND bind_lingshi = #{bindLingshi} </if>
+			<if test="createTime != null"> AND create_time = #{createTime} </if>
+			<if test="updateTime != null"> AND update_time = #{updateTime} </if>
+			<if test="logUpdateTime != null"> AND log_update_time = #{logUpdateTime} </if>
 		</where>
 	</sql>
 	

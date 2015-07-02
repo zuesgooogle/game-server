@@ -10,12 +10,22 @@
 
 	<!-- 个人业务缓存 -->
  	<bean id="roleCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
+ 	<bean id="busCacheLoaderExportService" class="com.simplegame.server.share.export.impl.EntityCacheLoaderExportServiceImpl">
+ 		<property name="entityCacheLoader" ref="roleCacheLoader" />
+ 	</bean>
+ 	
  	
  	<!-- 公共业务缓存 -->
 	<bean id="publicCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
+	<bean id="publicCacheLoaderExportService" class="com.simplegame.server.share.export.impl.EntityCacheLoaderExportServiceImpl">
+ 		<property name="entityCacheLoader" ref="roleCacheLoader" />
+ 	</bean>
 	
 	<!-- 场景业务缓存 -->
 	<bean id="stageCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />
+	<bean id="stageCacheLoaderExportService" class="com.simplegame.server.share.export.impl.EntityCacheLoaderExportServiceImpl">
+ 		<property name="entityCacheLoader" ref="roleCacheLoader" />
+ 	</bean>
 	
 	<!-- 配置缓存加载器 -->
 	<bean id="configureCacheLoader" class="com.simplegame.core.data.accessor.cache.EntityCacheLoader" />

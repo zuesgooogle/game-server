@@ -150,7 +150,7 @@
 		<include refid="queryByKeyUserRole"/>
 	</update>
 	
-	<select id="selectSingleUserRole" resultMap="userRole">
+	<select id="selectOneUserRole" resultMap="userRole">
 		select 
 		id
 		,user_id

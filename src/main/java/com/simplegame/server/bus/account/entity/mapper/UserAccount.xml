@@ -15,15 +15,15 @@
 	
 	<sql id="queryConditionUserAccount">
 		<where>
-			<if test="id != null"> id = #{id} </if>
-			<if test="userGuid != null"> user_guid = #{userGuid} </if>
-			<if test="lingshi != null"> lingshi = #{lingshi} </if>
-			<if test="createTime != null"> create_time = #{createTime} </if>
-			<if test="updateTime != null"> update_time = #{updateTime} </if>						
-			<if test="serverId != null"> server_id = #{serverId} </if>
-			<if test="reciveYb != null"> recive_yb = #{reciveYb} </if>
-			<if test="isRecharge != null"> is_recharge = #{isRecharge} </if>									
-			<if test="logUpdateTime != null"> log_update_time = #{logUpdateTime} </if>
+			<if test="id != null"> AND id = #{id} </if>
+			<if test="userGuid != null"> AND user_guid = #{userGuid} </if>
+			<if test="lingshi != null"> AND lingshi = #{lingshi} </if>
+			<if test="createTime != null"> AND create_time = #{createTime} </if>
+			<if test="updateTime != null"> AND update_time = #{updateTime} </if>						
+			<if test="serverId != null"> AND server_id = #{serverId} </if>
+			<if test="reciveYb != null"> AND recive_yb = #{reciveYb} </if>
+			<if test="isRecharge != null"> AND is_recharge = #{isRecharge} </if>									
+			<if test="logUpdateTime != null"> AND log_update_time = #{logUpdateTime} </if>
 		</where>
 	</sql>
 	

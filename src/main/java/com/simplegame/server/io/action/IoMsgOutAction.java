@@ -31,16 +31,36 @@ public class IoMsgOutAction {
 	public void out(IoMessage message) {
 		LOG.info("message out: {}" + message.toString());
 		
-		String sessionId = message.getSessionId();
-		
-		
-		Channel channel = channelManager.getChannel(sessionId);
-		
 		Response.Builder builder = Response.newBuilder();
-		builder.setCommand( (String)(message.getMsgSource()[0]) )
-			   .setData( message.toString() );
+        builder.setCommand( (String)(message.getMsgSource()[0]) )
+               .setData( message.toData() );
 		
-		channel.writeAndFlush(builder);
+		int route = message.getRoute();
+		switch(route) {
+		case 1: //one player
+		    Channel channel = null;
+		    String sessionId = message.getSessionId();
+		    if( null != sessionId ) {
+		        channel = channelManager.getChannel(sessionId);
+		    }
+
+		    String roleId = message.getRoleId();
+		    if( null != roleId ) {
+		        channel = channelManager.getChannel(roleId);
+		    }
+		    
+		    if( null != channel ) {
+		        channel.writeAndFlush(builder);
+		    }
+		    
+		    break;
+		case 2: //mutile player
+		    break;
+		case 3: //all player
+		    break;
+		}
+		
+		
 	}
 	
 }

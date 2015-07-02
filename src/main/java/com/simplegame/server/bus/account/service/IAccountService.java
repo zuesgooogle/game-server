@@ -11,4 +11,5 @@ public interface IAccountService {
 
 	public void createAccount(String userGuid, String userRoleId);
 	
+	public Object[] getMoneyData(String roleId);
 }

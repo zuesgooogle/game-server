@@ -19,6 +19,7 @@ import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.io.IoConstants;
 import com.simplegame.server.io.global.ChannelManager;
 import com.simplegame.server.io.swap.IoMsgSender;
+import com.simplegame.server.login.commond.LoginCommands;
 import com.simplegame.server.public_.nodecontrol.command.NodeControlCommands;
 import com.simplegame.server.utils.ChannelAttributeUtil;
 
@@ -60,17 +61,23 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 
 		JSONArray array = JSONArray.parseArray(msg.getData());
 		
-		String command = msg.getCommand();
-		if( StageControllCommands.LOGIN.equals(command) ) {
-		    command = NodeControlCommands.ROLE_IN;
-		    
-		    String roleId = array.getString(0);
-		    
-		    ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY, roleId);
-		}
-		
 		String sessionId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.SESSION_KEY);
-        channelManager.addChannel(sessionId, ctx.channel());
+		String command = msg.getCommand();
+		
+		switch(command) {
+		case LoginCommands.IN:
+		    channelManager.addChannel(sessionId, ctx.channel());
+		    
+		    break;
+		case StageControllCommands.LOGIN:
+		    command = NodeControlCommands.ROLE_IN;
+            
+            String roleId = array.getString(0);
+            ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY, roleId);
+            
+            channelManager.addChannel(roleId, ctx.channel());
+		    break;
+		}
 		
 		String roleId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY);
 		String ip = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.IP_KEY);
@@ -86,7 +93,7 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 		String roleId = ctx.channel().attr(key).get();
 
 		if (null != roleId) {
-			LOG.info("{} disconnect.", key);
+			LOG.info("{} disconnect.", roleId);
 		}
 	}
 

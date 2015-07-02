@@ -6,8 +6,10 @@ import javax.annotation.Resource;
 
 import com.simplegame.core.event.IEventService;
 import com.simplegame.server.bus.share.event.subscribe.BusEventCommandHandler;
+import com.simplegame.server.bus.swap.BusMsgSender;
 import com.simplegame.server.share.event.EventHandleCommands;
 import com.simplegame.server.share.event.EventHandleCommands.Node;
+import com.simplegame.server.share.export.IEntityCacheLoaderExportService;
 import com.simplegame.server.share.moduleinit.ModuleInit;
 
 /**
@@ -19,6 +21,12 @@ public abstract class BusModuleInit extends ModuleInit {
 
 	@Resource
 	private IEventService eventService;
+	
+	@Resource
+	private BusMsgSender busMsgSender;
+	
+	@Resource
+	private IEntityCacheLoaderExportService busCacheLoaderExportService;
 
 	public void init() {
 		super.init();
@@ -26,11 +34,16 @@ public abstract class BusModuleInit extends ModuleInit {
 		if (null != getEventHandleCommands()) {
 			List<Node> nodeList = getEventHandleCommands().nodes();
 			for (Node node : nodeList) {
-				this.eventService.subscribe(node.getEventType(), getOrder(), new BusEventCommandHandler(node.getEventType(), node.getCommand()));
+				this.eventService.subscribe(node.getEventType(), getOrder(), new BusEventCommandHandler(busMsgSender, node.getCommand(), node.getEventType()));
 			}
 		}
 	}
 
+	@Override
+	public IEntityCacheLoaderExportService getEntityCacheLoaderExportService() {
+	    return busCacheLoaderExportService;
+	}
+	
 	protected EventHandleCommands getEventHandleCommands() {
 		return null;
 	}

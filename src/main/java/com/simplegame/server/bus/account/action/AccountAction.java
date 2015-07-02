@@ -1,7 +1,13 @@
 package com.simplegame.server.bus.account.action;
 
+import javax.annotation.Resource;
+
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
+import com.simplegame.protocol.message.Message;
+import com.simplegame.server.bus.account.command.AccountCommands;
+import com.simplegame.server.bus.account.service.IAccountService;
+import com.simplegame.server.bus.swap.BusMsgSender;
 
 /**
  *
@@ -12,9 +18,18 @@ import com.simplegame.core.action.annotation.ActionWorker;
 @ActionWorker
 public class AccountAction {
 
-	@ActionMapping(mapping = "13001")
-	public void getMoneyData() {
-		
+    @Resource
+    private IAccountService accountService;
+    
+    @Resource
+    private BusMsgSender busMsgSender;
+    
+	@ActionMapping(mapping = AccountCommands.MONRY_CHANGE)
+	public void getMoneyData(Message message) {
+	    String roleId = message.getRoleId();
+	    
+	    Object[] moneyData = accountService.getMoneyData(roleId);
+	    busMsgSender.send2One(AccountCommands.MONRY_CHANGE, roleId, moneyData);
 	}
 	
 }

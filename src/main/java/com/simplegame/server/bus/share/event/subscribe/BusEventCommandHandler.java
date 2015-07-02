@@ -1,6 +1,7 @@
 package com.simplegame.server.bus.share.event.subscribe;
 
 import com.simplegame.core.event.IEventHandler;
+import com.simplegame.server.bus.swap.BusMsgSender;
 
 /**
  * @Author zeusgooogle@gmail.com
@@ -9,18 +10,21 @@ import com.simplegame.core.event.IEventHandler;
  */
 public class BusEventCommandHandler implements IEventHandler {
 
+    private BusMsgSender busMsgSender;
+    
 	private String command;
+	
 	private String eventType;
 
-	public BusEventCommandHandler(String command, String eventType) {
+	public BusEventCommandHandler(BusMsgSender busMsgSender, String command, String eventType) {
+	    this.busMsgSender = busMsgSender;
 		this.command = command;
 		this.eventType = eventType;
 	}
 	
 	@Override
 	public void handle(Object source, Object data) {
-		// TODO Auto-generated method stub
-
+	    busMsgSender.send2BusInner(command, (String)source, data);
 	}
 
 	@Override

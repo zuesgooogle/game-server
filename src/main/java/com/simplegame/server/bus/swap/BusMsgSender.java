@@ -25,10 +25,22 @@ public class BusMsgSender {
     private SwapManager swapManager;
     
     
+    public void send2BusInner(String command, String roleId, Object data) {
+        Object[] message = new Object[]{command, data, DestType.STAGE_CONTROL.getValue(), FromType.BUS.getValue(), 1, null, roleId, null, 0, null};
+        
+        busDispatcher.in(message);
+    }
+    
     public void send2BusInit(String command, String roleId, Object data) {
         Object[] message = new Object[]{command, data, DestType.BUS_INIT.getValue(), FromType.BUS.getValue(), 1, null, roleId, null, 0, null};
         
         busDispatcher.in(message);
+    }
+    
+    public void send2One(String command, String roleId, Object data) {
+        Object[] message = new Object[]{command, data, DestType.CLIENT.getValue(), FromType.BUS.getValue(), 1, null, roleId, null, 0, null};
+        
+        swapManager.swap(message);
     }
     
 }

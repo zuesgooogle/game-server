@@ -1,4 +1,4 @@
-package com.simplegame.server.bus.account.cache;
+package com.simplegame.server.bus.account.dao.cache;
 
 import javax.annotation.Resource;
 
@@ -13,30 +13,22 @@ import com.simplegame.server.bus.account.entity.UserAccount;
 import com.simplegame.server.bus.role.export.RoleWrapper;
 import com.simplegame.server.bus.role.service.IUserRoleService;
 
-/**
- * 
- * @Author zeusgooogle@gmail.com
- * @sine 2015年5月21日 下午6:19:47
- * 
- */
 @Component
 public class AccountCacheModelLoader implements IEntityCacheModelLoader {
+    
+    @Resource
+    private IRoleAccountDao roleAccountDao;
+    
+    @Resource
+    private IUserAccountDao userAccountDao;
+    
+    @Resource
+    private IUserRoleService userRoleService;
 
-	@Resource
-	private IRoleAccountDao roleAccountDao;
-	
-	@Resource
-	private IUserAccountDao userAccountDao;
-	
-	@Resource
-	private IUserRoleService userRoleService;
-
-	@Override
-	public void load(String key, IEntityCache entityCache) {
-		entityCache.addData(roleAccountDao.loadCacheFromDb(key), RoleAccount.class);
-		
-		RoleWrapper wrapper = userRoleService.getRole(key);
-		entityCache.addData(userAccountDao.initUserAccount(wrapper.getUserId(), wrapper.getId(), wrapper.getServerId()), UserAccount.class);
-	}
-
+    public void load(String roleId, IEntityCache entityCache) {
+        entityCache.addData(this.roleAccountDao.loadCacheFromDb(roleId), RoleAccount.class);
+        
+        RoleWrapper roleWrapper = this.userRoleService.getRole(roleId);
+        entityCache.addData(this.userAccountDao.initUserAccount(roleWrapper.getUserId(), roleWrapper.getId(), roleWrapper.getServerId()), UserAccount.class);
+    }
 }

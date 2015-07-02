@@ -8,6 +8,7 @@ import com.simplegame.core.event.IEventService;
 import com.simplegame.server.public_.event.PublicEventHandler;
 import com.simplegame.server.share.event.EventHandleCommands;
 import com.simplegame.server.share.event.EventHandleCommands.Node;
+import com.simplegame.server.share.export.IEntityCacheLoaderExportService;
 import com.simplegame.server.share.moduleinit.ModuleInit;
 
 /**
@@ -19,25 +20,33 @@ import com.simplegame.server.share.moduleinit.ModuleInit;
 
 public abstract class PublicModuleInit extends ModuleInit {
 
-	@Resource
-	private IEventService eventService;
+    @Resource
+    private IEventService eventService;
 
-	public void init() {
-		super.init();
-		
-		if (null != getEventHandleCommands()) {
-			List<Node> nodeList = getEventHandleCommands().nodes();
-			for (Node node : nodeList) {
-				this.eventService.subscribe(node.getEventType(), getOrder(), new PublicEventHandler(node.getEventType(), node.getCommand()));
-			}
-		}
-	}
+    @Resource
+    private IEntityCacheLoaderExportService publicCacheLoaderExportService;
 
-	public abstract EventHandleCommands getEventHandleCommands();
+    public void init() {
+        super.init();
 
-	@Override
-	public IEventService getEventService() {
-		return eventService;
-	}
+        if (null != getEventHandleCommands()) {
+            List<Node> nodeList = getEventHandleCommands().nodes();
+            for (Node node : nodeList) {
+                this.eventService.subscribe(node.getEventType(), getOrder(), new PublicEventHandler(node.getEventType(), node.getCommand()));
+            }
+        }
+    }
+
+    @Override
+    public IEntityCacheLoaderExportService getEntityCacheLoaderExportService() {
+        return publicCacheLoaderExportService;
+    }
+
+    public abstract EventHandleCommands getEventHandleCommands();
+
+    @Override
+    public IEventService getEventService() {
+        return eventService;
+    }
 
 }
