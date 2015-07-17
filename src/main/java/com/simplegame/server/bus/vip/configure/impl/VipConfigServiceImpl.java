@@ -43,7 +43,7 @@ public class VipConfigServiceImpl extends AbsClasspathConfigureParser implements
             configureExportService.add( config );
             
             
-            VipConfig c = configureExportService.get(VipConfig.class, config.getLevel().intValue());
+            VipConfig c = configureExportService.get(VipConfig.class, config.getLevel());
             LOG.info("" + c.getName());
         }
     }

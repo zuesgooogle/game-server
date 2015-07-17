@@ -1,10 +1,3 @@
-/*
- * Decompiled with CFR 0_88.
- * 
- * Could not load the following classes:
- *  org.springframework.beans.factory.annotation.Autowired
- *  org.springframework.stereotype.Component
- */
 package com.simplegame.server.configure.export.impl;
 
 import java.util.List;

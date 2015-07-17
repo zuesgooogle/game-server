@@ -12,4 +12,9 @@ public interface IStageControllService {
     public Object login(String roleId);
     
     public Object logout(String roleId);
+    
+    public boolean isOnline(String roleId);
+    
+    public void serverStartInitStage();
+    
 }

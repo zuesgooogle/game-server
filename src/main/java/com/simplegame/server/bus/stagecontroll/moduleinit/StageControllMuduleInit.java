@@ -10,6 +10,7 @@ import com.simplegame.server.bus.stagecontroll.StageControllModuleInfo;
 import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.bus.stagecontroll.event.subscribe.RoleLoginHandler;
 import com.simplegame.server.bus.stagecontroll.event.subscribe.RoleLogoutHandler;
+import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
 import com.simplegame.server.share.moduleinit.CommandGroup;
 
 /**
@@ -27,6 +28,8 @@ public class StageControllMuduleInit extends BusModuleInit {
     @Resource
     private RoleLogoutHandler roleLogoutHandler;
     
+    @Resource
+    private IStageControllService stageControllService;
     
     @Override
     protected InCmd getInCmd() {
@@ -37,6 +40,11 @@ public class StageControllMuduleInit extends BusModuleInit {
         return new IEventHandler[] { this.roleLoginHandler, this.roleLogoutHandler };
     }
 
+    @Override
+    public void moduleInit() {
+        stageControllService.serverStartInitStage();
+    }
+    
     @Override
     public int getOrder() {
         return 201;

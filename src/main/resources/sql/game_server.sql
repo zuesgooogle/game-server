@@ -84,6 +84,36 @@ CREATE TABLE `role_account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for role_stage
+-- ----------------------------
+DROP TABLE IF EXISTS `role_stage`;
+CREATE TABLE `role_stage` (
+  `user_role_id` varchar(36) NOT NULL,
+  `map_id` varchar(255) DEFAULT NULL,
+  `map_x` int(11) DEFAULT NULL,
+  `map_y` int(11) DEFAULT NULL,
+  `hp` int(11) DEFAULT NULL,
+  `mp` int(11) DEFAULT NULL,
+  `max_hp` int(11) DEFAULT NULL,
+  `max_mp` int(11) DEFAULT NULL,
+  `buff` text,
+  `props` text,
+  `state` int(1) DEFAULT NULL,
+  `map_node` text,
+  `ti_li` int(11) DEFAULT '0',
+  `line_no` int(11) DEFAULT '0',
+  `pk_info` text,
+  `shanbi_val` int(11) DEFAULT '0',
+  `meiren_info` text,
+  `zuoqi_info` text,
+  `free_fly_count` int(11) DEFAULT '0' COMMENT '今日免费飞行次数',
+  `fly_count_refresh_time` bigint(20) DEFAULT '0' COMMENT '免费飞行次数刷新时间',
+  `copy_info` varchar(255) DEFAULT NULL,
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for server_info
 -- ----------------------------
 DROP TABLE IF EXISTS `server_info`;

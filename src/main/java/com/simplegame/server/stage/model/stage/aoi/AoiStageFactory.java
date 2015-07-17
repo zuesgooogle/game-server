@@ -1,0 +1,27 @@
+package com.simplegame.server.stage.model.stage.aoi;
+
+import org.springframework.stereotype.Component;
+
+import com.simplegame.server.bus.map.configure.export.impl.MapConfig;
+
+/**
+ *
+ * @Author zeusgooogle@gmail.com
+ * @sine   2015年7月17日 下午4:31:08
+ *
+ */
+@Component
+public class AoiStageFactory {
+
+    public AoiStage create(String stageId, MapConfig mapConfig) {
+        AoiStage stage = createStage(stageId, mapConfig);
+        
+        
+        return stage;
+    }
+    
+    private AoiStage createStage(String stageId, MapConfig mapConfig) {
+        return new AoiStage(stageId, mapConfig.getId());
+    }
+    
+}

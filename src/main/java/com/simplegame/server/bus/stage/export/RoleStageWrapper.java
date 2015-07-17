@@ -2,7 +2,7 @@ package com.simplegame.server.bus.stage.export;
 
 import java.io.Serializable;
 
-import com.simplegame.server.bus.stage.entity.RoleStage;
+import com.simplegame.server.stage.entity.RoleStage;
 
 public class RoleStageWrapper implements Serializable {
     

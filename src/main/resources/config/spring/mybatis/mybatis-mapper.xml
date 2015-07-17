@@ -7,7 +7,7 @@
 		<mapper resource="com/simplegame/server/bus/account/entity/mapper/UserAccount.xml"/>
 		<mapper resource="com/simplegame/server/bus/account/entity/mapper/RoleAccount.xml"/>
 		<mapper resource="com/simplegame/server/bus/role/entity/mapper/UserRole.xml"/>
-		
+		<mapper resource="com/simplegame/server/stage/entity/mapper/RoleStage.xml"/>
 		
 		
 		<mapper resource="com/simplegame/server/bus/server/entity/mapper/ServerInfo.xml"/>
