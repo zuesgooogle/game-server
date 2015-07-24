@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.simplegame.server.bus.role.export.IRoleExportService;
 import com.simplegame.server.bus.role.export.RoleWrapper;
+import com.simplegame.server.stage.model.core.element.impl.attribute.AttributeFormulaSearcherFactory;
 import com.simplegame.server.stage.model.core.element.impl.state.StateManager;
 import com.simplegame.server.stage.model.core.stage.IStage;
 import com.simplegame.server.stage.schedule.StageScheduleManager;
@@ -27,12 +28,13 @@ public class RoleFactory {
         
         RoleBusinessData businessData = new RoleBusinessData(roleWrapper);
         
-        
         Role role = new Role(roleWrapper.getId(), roleWrapper.getName(), "1");
         role.setBusinessData(businessData);
         role.setStateManager(new StateManager());
         role.setScheduleManager(new StageScheduleManager());
         
+        RoleFightAttribute fightAttribute = new RoleFightAttribute(AttributeFormulaSearcherFactory.get()); 
+        role.setFightAttribute(fightAttribute);
         
         return role;
     }

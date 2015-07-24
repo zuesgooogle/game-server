@@ -2,6 +2,8 @@ package com.simplegame.server.stage.model.core.element;
 
 import java.util.Map;
 
+import com.simplegame.server.stage.model.core.element.impl.attribute.FightAttributeStatistic;
+
 public interface IFightAttribute extends IElementComponent {
     
     public void replaceBaseAttribute(BaseAttributeType baseAttributeType, Map<String, Float> map);
@@ -118,5 +120,5 @@ public interface IFightAttribute extends IElementComponent {
 
     public int getMaxShanbiVal();
 
-    //public FightAttributeStatistic getAttributeStatistic();
+    public FightAttributeStatistic getAttributeStatistic();
 }
