@@ -20,6 +20,8 @@ public interface IStage {
 
     public String getMapId();
 
+    public boolean isCopy();
+    
     public void enter(IStageElement stageElement, int x, int y);
 
     public void leave(IStageElement stageElement);

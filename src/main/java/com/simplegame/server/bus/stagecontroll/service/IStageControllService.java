@@ -1,5 +1,7 @@
 package com.simplegame.server.bus.stagecontroll.service;
 
+import com.simplegame.server.bus.stagecontroll.position.AbsRolePosition;
+
 /**
  *
  * @Author zeusgooogle@gmail.com
@@ -11,9 +13,27 @@ public interface IStageControllService {
 
     public Object login(String roleId);
     
+    /**
+     * 客户端申请进入地图
+     * 
+     * @param roleId
+     * @return
+     */
+    public Object[] applyChangeMapAfterLogin(String roleId);
+    
     public Object logout(String roleId);
     
     public boolean isOnline(String roleId);
+    
+    
+    
+    
+    public void changeMap(String roleId);
+    
+    
+    public AbsRolePosition getOfflineSaveMapPosition(String roleId);
+   
+    
     
     public void serverStartInitStage();
     

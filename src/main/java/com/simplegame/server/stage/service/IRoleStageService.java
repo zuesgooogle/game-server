@@ -15,4 +15,5 @@ public interface IRoleStageService {
 
     public RoleStage loadRoleStage(String roleId);
 
+    public void syncRoleStageData(String roleId, String stageId);
 }

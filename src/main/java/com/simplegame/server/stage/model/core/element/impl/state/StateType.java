@@ -48,6 +48,12 @@ public enum StateType {
     
     LINGJIEHUDUN(Integer.valueOf(36)), 
  
+    GATHER(Integer.valueOf(57)),  
+    
+    JUMP(Integer.valueOf(58)),
+    
+    STOP(Integer.valueOf(59)),
+    
     ;
 
     public final Integer val;

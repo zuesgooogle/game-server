@@ -32,4 +32,18 @@ public class StageControllAction {
         busMsgSender.send2One(StageControllCommands.LOGIN, roleId, result);
     }
     
+    @ActionMapping(mapping = StageControllCommands.APPLY_CHANGE_STAGE)
+    public void applyChangeMap(Message message) {
+        String roleId = message.getRoleId();
+        
+        Object[] result = stageControllService.applyChangeMapAfterLogin(roleId);
+        busMsgSender.send2One(StageControllCommands.APPLY_CHANGE_STAGE, roleId, result);
+    }
+    
+    @ActionMapping(mapping = StageControllCommands.CHANGE_STAGE)
+    public void changeMap(Message message) {
+        String roleId = message.getRoleId();
+        
+        stageControllService.changeMap(roleId);
+    }
 }

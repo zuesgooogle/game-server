@@ -24,7 +24,7 @@ public class StageEventCommandHandler implements IEventHandler {
 	
 	@Override
 	public void handle(Object source, Object data) {
-	    //busMsgSender.send2BusInner(command, (String)source, data);
+	    busMsgSender.send2Stage(command, (String)source, data);
 	}
 
 	@Override

@@ -11,4 +11,6 @@ import com.simplegame.server.stage.model.core.stage.IStageElement;
 
 public interface IElement extends IStageElement {
 
+    public IStateManager getStateManager();
+    
 }

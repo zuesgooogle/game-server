@@ -33,7 +33,15 @@ public class StageControllMuduleInit extends BusModuleInit {
     
     @Override
     protected InCmd getInCmd() {
-        return new InCmd(StageControllModuleInfo.MODULE_INFO, CommandGroup.GROUP_STAGE, new String[] {StageControllCommands.LOGIN, StageControllCommands.APPLY_CHANGE_LINE, StageControllCommands.CHANGE_STAGE});
+        String[] cmd = new String[] {
+                StageControllCommands.LOGIN, 
+                StageControllCommands.APPLY_CHANGE_LINE, 
+                StageControllCommands.CHANGE_STAGE,
+                StageControllCommands.INNER_LEAVE_STAGE,
+                StageControllCommands.INNER_ENTER_STAGE
+        };
+        
+        return new InCmd(StageControllModuleInfo.MODULE_INFO, CommandGroup.GROUP_STAGE, cmd);
     }
     
     protected IEventHandler[] getEventHandlers() {

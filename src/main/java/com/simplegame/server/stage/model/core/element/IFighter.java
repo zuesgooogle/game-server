@@ -23,7 +23,7 @@ public interface IFighter extends IElement {
 
     public IBuffManager getBuffManager();
 
-    public IHatredManager getHatredManager();
+    //public IHatredManager getHatredManager();
 
     public ISkillManager getSkillManager();
 

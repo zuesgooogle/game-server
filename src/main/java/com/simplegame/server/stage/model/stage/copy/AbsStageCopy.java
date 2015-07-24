@@ -148,4 +148,8 @@ public abstract class AbsStageCopy extends AoiStage implements IStageCopy {
         return getId() + "-" + "forceleave";
     }
 
+    @Override
+    public boolean isCopy() {
+        return true;
+    }
 }

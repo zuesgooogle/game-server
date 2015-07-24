@@ -8,20 +8,19 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<bean id="stageRuleChecker" class="com.simplegame.server.stage.share.rule.StageRuleChecker"/>
 	
-	
-	<import resource="io-init.xml"/>
-	<import resource="public-init.xml"/>
-	<import resource="bus-init.xml"/>
-	<import resource="stage-init.xml"/>
-	
-	<import resource="sync-init.xml"/>
-	
-	<import resource="schedule-quartz-init.xml"/>
-	
-	
-	<import resource="data-asyncwrite-init.xml"/>
-	<import resource="data-cacheloader-init.xml"/>
-	<import resource="data-accessor-init.xml"/>
-	
+	<bean id="stageExecutor" class="com.simplegame.server.executor.impl.BalanceBusinessExecutor">
+		<property name="ruleChecker" ref="stageRuleChecker"/>
+		
+		<property name="name" value="STAGE"/>
+		<property name="config">
+			<map>
+				<entry key="stage" value="10"></entry>
+				<entry key="system" value="1"></entry>
+			</map>
+		</property>
+		
+
+	</bean>
 </beans>

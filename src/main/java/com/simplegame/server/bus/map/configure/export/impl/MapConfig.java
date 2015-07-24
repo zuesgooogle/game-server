@@ -22,7 +22,7 @@ public class MapConfig implements IEntity {
 
     private String name;
 
-    private MapType mayType;
+    private int mayType;
 
     private int minLevel;
 
@@ -56,11 +56,11 @@ public class MapConfig implements IEntity {
         this.name = name;
     }
 
-    public MapType getMayType() {
+    public int getMayType() {
         return mayType;
     }
 
-    public void setMayType(MapType mayType) {
+    public void setMayType(int mayType) {
         this.mayType = mayType;
     }
 

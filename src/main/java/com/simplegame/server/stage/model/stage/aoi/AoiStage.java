@@ -46,4 +46,9 @@ public class AoiStage extends AbsStage {
         return StageType.NORMAL;
     }
 
+    @Override
+    public boolean isCopy() {
+        return false;
+    }
+
 }

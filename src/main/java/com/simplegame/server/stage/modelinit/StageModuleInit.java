@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.simplegame.core.data.accessor.cache.IEntityCacheModelLoader;
 import com.simplegame.core.event.IEventHandler;
 import com.simplegame.server.stage.StageModuleInfo;
+import com.simplegame.server.stage.command.StageCommands;
 import com.simplegame.server.stage.dao.cache.RoleStageCacheModelLoader;
 import com.simplegame.server.stage.event.subscribe.StageRoleCreateHandler;
 import com.simplegame.server.stage.event.subscribe.StageRoleLogoutHandler;
@@ -36,7 +37,12 @@ public class StageModuleInit extends AbsStageModuleInit {
     
     @Override
     protected InCmd getInCmd() {
-        return new InCmd(StageModuleInfo.MODULE_NAME, StageModuleInfo.MODULE_NAME_ABBR, new String[]{});
+        String[] cmd = new String[] {
+                    StageCommands.INNER_LEAVE_STAGE,
+                    StageCommands.INNER_ENTER_STAGE
+        };
+        
+        return new InCmd(StageModuleInfo.MODULE_NAME, StageModuleInfo.MODULE_NAME_ABBR, cmd);
     }
 
     protected IEntityCacheModelLoader[] getEntityCacheModelLoaders() {

@@ -24,6 +24,9 @@ public class SwapManager {
 	@Resource
 	private IMsgDispatcher publicDispatcher;
 	
+	@Resource
+	private IMsgDispatcher stageDispatcher;
+	
 	public void swap(Object[] message) {
 		FromType fromType = MsgUtil.getFromType(message);
 		switch(fromType) {
@@ -34,7 +37,8 @@ public class SwapManager {
 			swapPublicMsg(message);
 			break;
 		case STAGE:
-			break;
+		    componentMsgSwap(message);
+		    break;
 		default:
 			break;
 		}
@@ -72,6 +76,7 @@ public class SwapManager {
 		case PUBLIC:
 			break;
 		case STAGE:
+		    toStage(message);
 			break;
 		case INNER_SYSTEM:
 			break;
@@ -86,5 +91,9 @@ public class SwapManager {
 	
 	private void toPublic(Object message) {
 		publicDispatcher.in(message);
+	}
+	
+	private void toStage(Object message) {
+	    stageDispatcher.in(message);
 	}
 }

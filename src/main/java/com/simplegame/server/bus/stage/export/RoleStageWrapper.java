@@ -3,6 +3,7 @@ package com.simplegame.server.bus.stage.export;
 import java.io.Serializable;
 
 import com.simplegame.server.stage.entity.RoleStage;
+import com.simplegame.server.stage.utils.RoleStageUtil;
 
 public class RoleStageWrapper implements Serializable {
     
@@ -95,7 +96,13 @@ public class RoleStageWrapper implements Serializable {
         return this.roleStage.getPkInfo();
     }
 
-//    public Object[] getCopyInfo() {
-//        return RoleStageUtil.decodeOfflineCopy(this.roleStage.getCopyInfo());
-//    }
+    /**
+     * 离线所在位置
+     * 
+     * @return
+     */
+    
+    public Object[] getCopyInfo() {
+        return RoleStageUtil.decodeOfflineCopy(this.roleStage.getCopyInfo());
+    }
 }

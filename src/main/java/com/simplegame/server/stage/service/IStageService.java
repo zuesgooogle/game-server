@@ -1,6 +1,7 @@
 package com.simplegame.server.stage.service;
 
 import com.simplegame.server.stage.model.core.stage.IStage;
+import com.simplegame.server.stage.model.core.stage.Point;
 
 
 /**
@@ -11,6 +12,27 @@ import com.simplegame.server.stage.model.core.stage.IStage;
  */
 
 public interface IStageService {
+    
+    /**
+     * 角色离开场景
+     * 
+     * @param stageId
+     * @param roleId
+     * @return
+     */
+    public void roleLeaveStage(String stageId, String roleId);
+    
+    /**
+     * 角色进入场景
+     * 
+     * @param stageId
+     * @param roleId
+     * @param mapId
+     * @param x
+     * @param y
+     * @return
+     */
+    public void roleEnterStage(String stageId, String roleId, String mapId, int x, int y);
 
     public IStage getStage(String stageId);
     
@@ -21,5 +43,7 @@ public interface IStageService {
     public boolean checkAndCreateStage(String stageId, String mapId);
     
     public boolean stageCanEnter(String stageId);
+    
+    public Point getPosition(String stageId, String roleId);
     
 }

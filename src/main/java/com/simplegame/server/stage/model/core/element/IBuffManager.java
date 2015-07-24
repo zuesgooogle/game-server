@@ -2,17 +2,19 @@ package com.simplegame.server.stage.model.core.element;
 
 import java.util.Collection;
 
+import com.simplegame.server.stage.model.element.impl.buff.BuffStatistics;
+
 public interface IBuffManager extends IElementComponent {
     
     public void addBuff(IBuff buff);
 
     public void recoverBuff(IBuff buff);
 
-    public void removeBuff(String paramString1, String paramString2);
+    public void removeBuff(String id, String category);
 
-    public IBuff getBuff(String paramString1, String paramString2);
+    public IBuff getBuff(String id, String category);
 
-    public IBuff getBuff(String paramString);
+    public IBuff getBuff(String category);
 
     public Collection<IBuff> getBuffs();
 
@@ -24,7 +26,7 @@ public interface IBuffManager extends IElementComponent {
 
     public Object getBuffClientMsgs();
 
-    public IBuff getBuffById(String paramString);
+    public IBuff getBuffById(String buffId);
 
-    //public BuffStatistics getBuffStatistics();
+    public BuffStatistics getBuffStatistics();
 }

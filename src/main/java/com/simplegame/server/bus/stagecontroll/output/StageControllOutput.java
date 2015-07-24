@@ -10,15 +10,15 @@ public class StageControllOutput {
     
 	public static Object login(RoleWrapper roleWrapper, RoleStageWrapper roleStageWrapper, int vipLevel, Object[] chargeInfo, int gmState) {
 		return new Object[] {
-				Integer.valueOf(1),
+				1,
 				new Object[] { roleWrapper.getFace(), roleWrapper.getLevel(), roleWrapper.getExp(), roleWrapper.getSex(),
 						roleWrapper.getJob(), Boolean.valueOf(roleWrapper.isChenmi()),
 						vipLevel, chargeInfo, gmState },
 				new Object[] { roleStageWrapper.getMapId(), roleStageWrapper.getMapX(), roleStageWrapper.getMapY() } };
 	}
 
-	public static Object[] applyChangeMap(Object paramObject1, Object paramObject2, Object paramObject3) {
-		return new Object[] { Integer.valueOf(1), paramObject1, new Object[] { paramObject2, paramObject3 } };
+	public static Object[] applyChangeMap(String mapId, int x, int y) {
+		return new Object[] { 1, mapId, x, y };
 	}
 
 }

@@ -6,4 +6,6 @@ public class StageCopyConstant {
     
     public static final long expiredCheckDelay = 60000L;
     
+    public static final String INIT_STAGE_PREFIX = "init-stage-";
+    
 }
