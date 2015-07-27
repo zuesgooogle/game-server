@@ -138,3 +138,23 @@ CREATE TABLE `id_gen` (
   `version` int(10) unsigned NOT NULL COMMENT '版本',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for role_bag_slot
+-- ----------------------------
+DROP TABLE IF EXISTS `role_bag_slot`;
+CREATE TABLE `role_bag_slot` (
+  `id` varchar(36) NOT NULL,
+  `slot_num` int(11) NOT NULL COMMENT '格子编号',
+  `user_role_id` varchar(36) NOT NULL,
+  `goods_id` varchar(36) NOT NULL COMMENT '物品ID',
+  `count` int(36) DEFAULT '0' COMMENT '物品数量',
+  `bind` int(11) NOT NULL DEFAULT '0' COMMENT '是否绑定',
+  `expire_time` bigint(20) DEFAULT NULL COMMENT '物品过期时间毫秒数',
+  `rare_level` int(11) DEFAULT NULL COMMENT '物品的稀有等级',
+  `item_level` int(11) DEFAULT NULL COMMENT '物品等级',
+  `attributes` text COMMENT '物品附加属性',
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_role_bag_slot_user_role_id` (`user_role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
