@@ -32,7 +32,7 @@ public interface IBuff {
 
     public Object getClientMsg();
 
-    public void setStateType(Integer stateType);
+    public void setStateType(int stateType);
 
     public boolean isDeadRemoveOrNot();
 
