@@ -9,6 +9,9 @@ package com.simplegame.server.stage.command;
 
 public class StageCommands {
     
+    public static final String SKILL_READY_FIRE = "42001";
+    public static final String SKILL_FIRE = "42002";
+    
     public static final String INNER_LEAVE_STAGE = "S:LEAVE";
     public static final String INNER_ENTER_STAGE = "S:ENTER";
 

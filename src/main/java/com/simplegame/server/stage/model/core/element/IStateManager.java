@@ -14,17 +14,17 @@ import com.simplegame.server.stage.model.core.element.impl.state.StateType;
 
 public interface IStateManager extends IElementComponent {
 
-    public abstract void add(IState paramIState);
+    public abstract void add(IState state);
 
-    public abstract IState getState(StateType paramStateType);
+    public abstract IState getState(StateType stateType);
 
-    public abstract boolean remove(StateType paramStateType);
+    public abstract boolean remove(StateType stateType);
 
-    public abstract IState remove2(StateType paramStateType);
+    public abstract IState remove2(StateType stateType);
 
-    public abstract boolean isForbidden(StateEventType paramStateEventType);
+    public abstract boolean isForbidden(StateEventType stateEventType);
 
-    public abstract boolean contains(StateType paramStateType);
+    public abstract boolean contains(StateType stateType);
 
     public abstract boolean isDead();
 
