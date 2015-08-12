@@ -63,11 +63,11 @@ public class StoreGoods extends AbsVersion {
         this.bind = bind;
     }
 
-    public Long getExpireTime() {
+    public long getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Long expireTime) {
+    public void setExpireTime(long expireTime) {
         this.expireTime = expireTime;
     }
 

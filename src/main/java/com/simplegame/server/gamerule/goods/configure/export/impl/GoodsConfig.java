@@ -64,6 +64,10 @@ public class GoodsConfig implements IEntity {
     private int maxIntensify;
     private int suit;
     private int equipType;
+    
+    /**
+     * 排序优先级
+     */
     private int sortNum;
     private long fbAddExp;
     private Integer globalDropExpireDuration = Integer.valueOf(0);

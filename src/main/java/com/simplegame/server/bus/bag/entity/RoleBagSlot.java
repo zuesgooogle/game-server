@@ -3,6 +3,12 @@ package com.simplegame.server.bus.bag.entity;
 import com.simplegame.core.data.IEntity;
 import com.simplegame.server.gamerule.goods.entity.StoreGoods;
 
+/**
+*
+* @Author zeusgooogle@gmail.com
+* @sine   2015年8月11日 下午3:08:57
+*
+*/
 public class RoleBagSlot extends StoreGoods implements IEntity {
     
     private static final long serialVersionUID = 1L;
