@@ -25,12 +25,12 @@ public class BagClearupUtil {
         goodsConfigService = goodsConfigService1;
     }
 
-    private static int getGoodsSortNum(String goodsId) {
+    private static int getGoodsOrder(String goodsId) {
         GoodsConfig goodsConfig = goodsConfigService.loadById(goodsId);
         if (goodsConfig == null) {
             throw new RuntimeException("goods id:" + goodsId + " goods config is null ");
         }
-        return goodsConfig.getSortNum();
+        return goodsConfig.getOrder();
     }
 
     private static int getGoodsMaxStack(String goodsId) {
@@ -46,7 +46,7 @@ public class BagClearupUtil {
         
         for (RoleBagSlot roleBagSlot : list) {
             //排序
-            int orderNum = getGoodsSortNum(roleBagSlot.getGoodsId());
+            int orderNum = getGoodsOrder(roleBagSlot.getGoodsId());
             roleBagSlot.setOrderNum(orderNum);
             
             if( tempMap.containsKey(orderNum) ) {
