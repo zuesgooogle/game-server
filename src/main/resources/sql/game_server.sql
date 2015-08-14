@@ -158,3 +158,23 @@ CREATE TABLE `role_bag_slot` (
   PRIMARY KEY (`id`),
   KEY `idx_role_bag_slot_user_role_id` (`user_role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for role_equip_slot
+-- ----------------------------
+DROP TABLE IF EXISTS `role_equip_slot`;
+CREATE TABLE `role_equip_slot` (
+  `id` varchar(36) NOT NULL COMMENT '主键',
+  `slot_num` int(11) NOT NULL COMMENT '对应装备格子',
+  `user_role_id` varchar(36) NOT NULL COMMENT '角色主键id',
+  `goods_id` varchar(36) NOT NULL COMMENT '装备物品id',
+  `count` int(36) DEFAULT '0' COMMENT '数量，始终为1',
+  `bind` int(11) NOT NULL DEFAULT '0' COMMENT '是否绑定',
+  `expire_time` bigint(20) DEFAULT NULL COMMENT '物品过期时间毫秒数',
+  `rare_level` int(11) DEFAULT NULL COMMENT '物品的稀有等级',
+  `item_level` int(11) DEFAULT NULL COMMENT '物品等级',
+  `attributes` text COMMENT '物品附加属性',
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_role_equip_slot_user_role_id` (`user_role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
