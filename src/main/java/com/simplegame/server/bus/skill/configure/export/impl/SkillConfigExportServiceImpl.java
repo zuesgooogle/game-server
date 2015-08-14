@@ -60,8 +60,7 @@ public class SkillConfigExportServiceImpl extends AbsClasspathConfigureParser im
 
     @Override
     protected String getConfigureName() {
-        // TODO Auto-generated method stub
-        return null;
+        return "skill.dat";
     }
 
 }

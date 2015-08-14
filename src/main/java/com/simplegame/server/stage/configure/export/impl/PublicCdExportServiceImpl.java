@@ -1,7 +1,16 @@
 package com.simplegame.server.stage.configure.export.impl;
 
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.simplegame.server.bus.vip.configure.impl.VipConfig;
+import com.simplegame.server.configure.export.IConfigureExportService;
 import com.simplegame.server.configure.parser.impl.AbsClasspathConfigureParser;
 import com.simplegame.server.stage.configure.export.IPublicCdExportService;
 
@@ -14,6 +23,32 @@ import com.simplegame.server.stage.configure.export.IPublicCdExportService;
 @Component
 public class PublicCdExportServiceImpl extends AbsClasspathConfigureParser implements IPublicCdExportService {
 
+    public Logger LOG = LoggerFactory.getLogger(getClass());
+    
+    @Resource
+    private IConfigureExportService configureExportService;
+
+    @Override
+    protected void configureDataResolve(byte[] bytes) {
+        String data = new String(bytes);
+        
+        JSONArray array = JSON.parseArray(data);
+        for (Object object : array) {
+            JSONObject json = (JSONObject)object;
+            
+            PublicCdConfig config = createConfig(json);
+            configureExportService.add( config );
+        }
+    }
+
+    private PublicCdConfig createConfig(JSONObject json) {
+        PublicCdConfig config = new PublicCdConfig();
+        config.setId(json.getString("id"));
+        config.setTime(json.getIntValue("time"));
+        
+        return config;
+    }
+    
     @Override
     public PublicCdConfig loadById(String id) {
         // TODO Auto-generated method stub
@@ -21,15 +56,8 @@ public class PublicCdExportServiceImpl extends AbsClasspathConfigureParser imple
     }
 
     @Override
-    protected void configureDataResolve(byte[] bytes) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     protected String getConfigureName() {
-        // TODO Auto-generated method stub
-        return null;
+        return "cd.dat";
     }
 
 }

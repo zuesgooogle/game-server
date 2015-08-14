@@ -1,5 +1,6 @@
 package com.simplegame.server.gamerule.goods.configure.export.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.simplegame.core.data.IEntity;
 
 public class GoodsConfig implements IEntity {
@@ -10,7 +11,7 @@ public class GoodsConfig implements IEntity {
 
     private String name;
 
-    private String category;
+    private int category;
 
     private int itemLevel;
 
@@ -57,11 +58,11 @@ public class GoodsConfig implements IEntity {
         this.name = name;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -166,6 +167,11 @@ public class GoodsConfig implements IEntity {
     @Override
     public IEntity copy() {
         return null;
+    }
+    
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
     }
 
 }

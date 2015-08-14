@@ -3,41 +3,41 @@ package com.simplegame.server.stage.configure.export.impl;
 import com.simplegame.core.data.IEntity;
 
 public class PublicCdConfig implements IEntity {
-    
+
     private static final long serialVersionUID = 1L;
-    
-    public String cdId;
-    
-    public int cdTime;
 
-    public String getCdId() {
-        return this.cdId;
+    public String id;
+
+    public int time;
+
+    public String getId() {
+        return id;
     }
 
-    void setCdId(String cdId) {
-        this.cdId = cdId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getCdTime() {
-        return this.cdTime;
+    public int getTime() {
+        return time;
     }
 
-    void setCdTime(int cdTime) {
-        this.cdTime = cdTime;
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public String getPirmaryKeyName() {
-        return "cdId";
+        return "id";
     }
 
     public String getPrimaryKeyValue() {
-        return this.cdId;
+        return getId();
     }
 
     public IEntity copy() {
         PublicCdConfig publicCdConfig = new PublicCdConfig();
-        publicCdConfig.setCdId(getCdId());
-        publicCdConfig.setCdTime(getCdTime());
+        publicCdConfig.setId(getId());
+        publicCdConfig.setTime(getTime());
         return publicCdConfig;
     }
 }

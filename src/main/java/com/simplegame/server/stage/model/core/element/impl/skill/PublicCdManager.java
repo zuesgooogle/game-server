@@ -34,7 +34,7 @@ public class PublicCdManager {
             return 0;
         }
         
-        int i = publicCdConfig.getCdTime();
+        int i = publicCdConfig.getTime();
         int j = (int) (i / (1.0F + paramIFighter.getFightAttribute().getGongJiSuDu() / 2000.0F));
         toCd(cdId, j);
         return j;
@@ -43,7 +43,7 @@ public class PublicCdManager {
     public void toCd(String cdId) {
         PublicCdConfig publicCdConfig = publicCdExportService.loadById(cdId);
         if (null != publicCdConfig) {
-            int i = publicCdConfig.getCdTime();
+            int i = publicCdConfig.getTime();
             
             toCd(cdId, i);
         }
