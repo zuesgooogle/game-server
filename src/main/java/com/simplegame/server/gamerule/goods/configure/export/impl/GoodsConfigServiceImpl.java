@@ -57,8 +57,8 @@ public class GoodsConfigServiceImpl extends AbsClasspathConfigureParser implemen
     } 
     
     @Override
-    public GoodsConfig loadById(String goodsConfigId) {
-        return configureExportService.get(GoodsConfig.class, goodsConfigId);
+    public GoodsConfig loadById(String goodsId) {
+        return configureExportService.get(GoodsConfig.class, goodsId);
     }
 
     @Override

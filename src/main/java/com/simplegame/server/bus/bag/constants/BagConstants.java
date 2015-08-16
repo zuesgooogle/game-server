@@ -6,7 +6,7 @@ package com.simplegame.server.bus.bag.constants;
 * @sine   2015年8月11日 下午3:08:57
 *
 */
-public class BagConstant {
+public class BagConstants {
 
     public static final int BAG_MIN = 1;
     public static final int BAG_MAX = 200;

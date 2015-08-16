@@ -9,7 +9,7 @@ package com.simplegame.server.bus.equip.constants;
 
 public class EquipConstants {
 
-    public static final Integer EQUIT_SLOT_MAX = Integer.valueOf(-1);
-    public static final Integer EQUIT_SLOT_MIN = Integer.valueOf(-100);
+    public static final int EQUIT_SLOT_MAX = -1;
+    public static final int EQUIT_SLOT_MIN = -300;
     
 }

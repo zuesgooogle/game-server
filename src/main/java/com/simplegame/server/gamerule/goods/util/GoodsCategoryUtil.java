@@ -10,12 +10,12 @@ public class GoodsCategoryUtil {
      */
     public static int GOODS_ORDER_SIZE = 10;
     
-    public static final String EQUIP_TYPE = "20";
+    public static final int EQUIP_TYPE = 20;
    
 
 
-    public static final boolean isEquip(String paramString) {
-        return paramString.equals("20");
+    public static final boolean isEquip(int category) {
+        return category == EQUIP_TYPE;
     }
 
 }

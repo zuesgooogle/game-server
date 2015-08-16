@@ -1,6 +1,6 @@
 package com.simplegame.server.bus.bag.util;
 
-import com.simplegame.server.bus.bag.constants.BagConstant;
+import com.simplegame.server.bus.bag.constants.BagConstants;
 
 /**
 *
@@ -27,11 +27,11 @@ public class BagUtil {
     }
 
     public static boolean isBag(int slotNum) {
-        return (BagConstant.BAG_MIN <= slotNum) && (BagConstant.BAG_MAX >= slotNum);
+        return (BagConstants.BAG_MIN <= slotNum) && (BagConstants.BAG_MAX >= slotNum);
     }
 
     public static boolean isStorage(int slotNum) {
-        return (BagConstant.STORAGE_MIN <= slotNum) && (BagConstant.STORAGE_MAX >= slotNum);
+        return (BagConstants.STORAGE_MIN <= slotNum) && (BagConstants.STORAGE_MAX >= slotNum);
     }
 
 

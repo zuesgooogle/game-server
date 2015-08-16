@@ -17,7 +17,7 @@ import com.simplegame.server.bus.bag.BagModuleInfo;
 import com.simplegame.server.bus.bag.command.BagCommands;
 import com.simplegame.server.bus.bag.comparator.BagSlotNumComparator;
 import com.simplegame.server.bus.bag.comparator.GoodsConsumeComparator;
-import com.simplegame.server.bus.bag.constants.BagConstant;
+import com.simplegame.server.bus.bag.constants.BagConstants;
 import com.simplegame.server.bus.bag.dao.IRoleBagSlotDao;
 import com.simplegame.server.bus.bag.dao.filter.GoodsAmountFilter;
 import com.simplegame.server.bus.bag.dao.filter.GoodsIdFilter;
@@ -29,7 +29,7 @@ import com.simplegame.server.bus.bag.export.response.BagResponse;
 import com.simplegame.server.bus.bag.export.response.IBagDecrSingleResponse;
 import com.simplegame.server.bus.bag.export.response.IBagIncrSingleResponse;
 import com.simplegame.server.bus.bag.export.response.IBagRemoveResponse;
-import com.simplegame.server.bus.bag.output.BagErrorCodes;
+import com.simplegame.server.bus.bag.output.BagErrorCode;
 import com.simplegame.server.bus.bag.service.IBagService;
 import com.simplegame.server.bus.bag.util.BagClearupUtil;
 import com.simplegame.server.bus.bag.util.ClearBagGoodsCheck;
@@ -68,7 +68,7 @@ public class BagServiceImpl implements IBagService {
     public IBagIncrSingleResponse putInBag1(String roleId, ItemModel itemModel) {
         BagResponse response = new BagResponse();
         if( !checkBagSlots1(roleId, itemModel) ) {
-            response.setErrorCode(BagErrorCodes.BAG_SLOT_LESS);
+            response.setErrorCode(BagErrorCode.BAG_SLOT_LESS);
             return response;
         }
         
@@ -85,7 +85,7 @@ public class BagServiceImpl implements IBagService {
         }
         
         if( !checkBagSlots1(roleId, items) ) {
-            response.setErrorCode(BagErrorCodes.BAG_SLOT_LESS);
+            response.setErrorCode(BagErrorCode.BAG_SLOT_LESS);
             return response;
         }
         
@@ -103,7 +103,7 @@ public class BagServiceImpl implements IBagService {
             return true;
         }
         
-        List<RoleBagSlot> list = roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstant.BAG_MIN, BagConstant.BAG_MAX));
+        List<RoleBagSlot> list = roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstants.BAG_MIN, BagConstants.BAG_MAX));
         int emptySlotCount = getEmptySlotCount(list);
         if( emptySlotCount >= 1 ) {
             return true;
@@ -135,7 +135,7 @@ public class BagServiceImpl implements IBagService {
             return true;
         }
         
-        List<RoleBagSlot> list = this.roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstant.BAG_MIN, BagConstant.BAG_MAX));
+        List<RoleBagSlot> list = this.roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstants.BAG_MIN, BagConstants.BAG_MAX));
         int emptySlotCount = getEmptySlotCount(list);
         
         return emptySlotCount >= items.size();
@@ -147,7 +147,7 @@ public class BagServiceImpl implements IBagService {
         if( list != null ) {
             existSlotCount = list.size();
         }
-        return BagConstant.BAG_MAX - existSlotCount;
+        return BagConstants.BAG_MAX - existSlotCount;
     }
     
     private void putOneGoodsInBag(String roleId, ItemModel itemModel, BagResponse response) {
@@ -207,14 +207,14 @@ public class BagServiceImpl implements IBagService {
     }
     
     private int getOneSlotNum(String roleId) {
-        List<RoleBagSlot> list = roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstant.BAG_MIN, BagConstant.BAG_MAX));
+        List<RoleBagSlot> list = roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstants.BAG_MIN, BagConstants.BAG_MAX));
         if( null == list ) {
             return 1;
         }
         
         //order by slotNum asc.
         Collections.sort(list, new BagSlotNumComparator());
-        if( list.size() >= BagConstant.BAG_MAX ) {
+        if( list.size() >= BagConstants.BAG_MAX ) {
             return -1;
         }
         
@@ -302,7 +302,7 @@ public class BagServiceImpl implements IBagService {
         }
         
         if( !checkGoodsesEnough(roleId, goodsId, goodsCount)) {
-            response.setErrorCode(BagErrorCodes.GOODS_LESS);
+            response.setErrorCode(BagErrorCode.GOODS_LESS);
             return response;
         }
         
@@ -320,12 +320,12 @@ public class BagServiceImpl implements IBagService {
         
         RoleBagSlot roleBagSlot = this.roleBagSlotDao.cacheLoad(guid, roleId);
         if( null == roleBagSlot ) {
-            response.setErrorCode(BagErrorCodes.NOT_FOUND_GOOODS);
+            response.setErrorCode(BagErrorCode.NOT_FOUND_GOOODS);
             return response;
         }
         
         if( roleBagSlot.getCount() < goodsCount ) {
-            response.setErrorCode(BagErrorCodes.GOODS_LESS);
+            response.setErrorCode(BagErrorCode.GOODS_LESS);
             return response;
         }
         
@@ -349,7 +349,7 @@ public class BagServiceImpl implements IBagService {
         }
         
         if( !checkGoodsesEnough(roleId, goodsMap) ) {
-            response.setErrorCode(BagErrorCodes.GOODS_LESS);
+            response.setErrorCode(BagErrorCode.GOODS_LESS);
             return response;
         }
         
@@ -422,7 +422,7 @@ public class BagServiceImpl implements IBagService {
         }
         
         int slotNum = roleBagSlot.getSlotNum();
-        if( slotNum >= BagConstant.BAG_MIN && slotNum <= BagConstant.BAG_MAX ) {
+        if( slotNum >= BagConstants.BAG_MIN && slotNum <= BagConstants.BAG_MAX ) {
             return GoodsConvertUtil.entity2Model(roleBagSlot);
         }
         return null;
@@ -446,7 +446,7 @@ public class BagServiceImpl implements IBagService {
         
         RoleBagSlot roleBagSlot = this.roleBagSlotDao.cacheLoad(guid, roleId);
         if( roleBagSlot == null ) {
-            response.setErrorCode(BagErrorCodes.NO_ENOUGH_GOODS);
+            response.setErrorCode(BagErrorCode.NO_ENOUGH_GOODS);
             return response;
         }
         
@@ -476,14 +476,14 @@ public class BagServiceImpl implements IBagService {
 
     @Override
     public Object clearup(String roleId) {
-        List<RoleBagSlot> list = this.roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstant.BAG_MIN, BagConstant.BAG_MAX));
+        List<RoleBagSlot> list = this.roleBagSlotDao.cacheLoadAll(roleId, new StoreSlotFilter(BagConstants.BAG_MIN, BagConstants.BAG_MAX));
         if( null == list || list.isEmpty() ) {
             return null;
         }
         
         if( list.size() == 1 ) {
             RoleBagSlot roleBagSlot = list.get(0);
-            roleBagSlot.setSlotNum(BagConstant.BAG_MIN);
+            roleBagSlot.setSlotNum(BagConstants.BAG_MIN);
             this.roleBagSlotDao.cacheUpdate(roleBagSlot, roleId);
             
             busMsgSender.send2BusInner(BagCommands.GET_BAG_GOODS, roleId, null);
@@ -503,7 +503,7 @@ public class BagServiceImpl implements IBagService {
         
         //reset slot num
         int index = 0;
-        int minSlot = BagConstant.BAG_MIN;
+        int minSlot = BagConstants.BAG_MIN;
         
         for (RoleBagSlot roleBagSlot : result) {
             roleBagSlot.setSlotNum(minSlot++);

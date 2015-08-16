@@ -6,7 +6,7 @@ package com.simplegame.server.bus.bag.output;
 * @sine   2015年8月11日 下午3:08:57
 *
 */
-public class BagErrorCodes {
+public class BagErrorCode {
     public static final int NOT_FOUND_GOOODS = 430201;
     public static final int NOT_ACTIVATED_SLOT = 430202;
     public static final int GOODS_LESS = 430203;

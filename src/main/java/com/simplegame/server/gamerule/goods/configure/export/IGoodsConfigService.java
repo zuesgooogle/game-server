@@ -11,6 +11,6 @@ import com.simplegame.server.gamerule.goods.configure.export.impl.GoodsConfig;
 
 public interface IGoodsConfigService {
 
-    public GoodsConfig loadById(String goodsConfigId);
+    public GoodsConfig loadById(String goodsId);
     
 }
