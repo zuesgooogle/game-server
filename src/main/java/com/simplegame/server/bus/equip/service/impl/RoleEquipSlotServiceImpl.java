@@ -132,19 +132,35 @@ public class RoleEquipSlotServiceImpl implements IRoleEquipSlotService {
 		}
 		
 		RoleEquipSlot oldEqup = getRoleEquipSlot(roleId, equipSlot);
-		ItemModel itemModel1 = GoodsConvertUtil.entity2Model(oldEqup);
+		ItemModel itemModel = GoodsConvertUtil.entity2Model(oldEqup);
 		
 		//没有格子
-		if (!this.bagService.checkBagSlots1(roleId, itemModel1)) {
+		if (!this.bagService.checkBagSlots1(roleId, itemModel)) {
 			return EquipSlotOutput.getErrorCode(EquipErrorCode.EQUIP_ERROE_31003, null);
 		}
 		
+		//放入背包
+		this.bagService.putInBag1(roleId, itemModel);
 		
+		//删除装备
+		this.removeEquip(roleId, equipSlot);
 		
+		eventService.publish(new EquipChangeEvent(roleId, getEquipIds(roleId)));
 		
 		return null;
 	}
 
+	private boolean removeEquip(String roleId, int slotNum) {
+	    List<RoleEquipSlot> list = this.roleEquipSlotDao.cacheLoadAll(roleId, new EquipSlotNumFilter(slotNum));
+	    if( list != null && !list.isEmpty() ) {
+	        RoleEquipSlot roleRequipSlot = list.get(0);
+	        this.roleEquipSlotDao.cacheDelete(roleRequipSlot.getId(), roleId);
+	        
+	        return true;
+	    }
+	    return false;
+	}
+	
 	private Object[] getEquipIds(String roleId) {
 		List<RoleEquipSlot> list = this.roleEquipSlotDao.cacheLoadAll(roleId);
 		if (list == null) {
