@@ -1,5 +1,10 @@
 package com.simplegame.server.bus.account.service;
 
+import com.simplegame.server.bus.account.export.response.CheckResponse;
+import com.simplegame.server.bus.account.export.response.DecrResponse;
+import com.simplegame.server.bus.account.export.response.IncrResponse;
+import com.simplegame.server.gamerule.money.MoneyType;
+
 /**
  *
  * @Author zeusgooogle@gmail.com
@@ -12,4 +17,37 @@ public interface IAccountService {
 	public void createAccount(String userGuid, String userRoleId);
 	
 	public Object[] getMoneyData(String roleId);
+	
+	/**
+	 * 增加货币
+	 * 
+	 * @param roleId
+	 * @param incr
+	 * @param moneyType
+	 * @param notice
+	 * @return
+	 */
+	public IncrResponse incr(String roleId, long incr, MoneyType moneyType, boolean notice);
+
+	/**
+	 * 检查货币是否足够
+	 * 
+	 * @param roleId
+	 * @param decr
+	 * @param moneyType
+	 * @return
+	 */
+	public CheckResponse decrCheck(String roleId, long decr, MoneyType moneyType);
+	
+	/**
+	 * 扣除货币
+	 * 
+	 * @param roleId
+	 * @param decr
+	 * @param moneyType
+	 * @param notice
+	 * @return
+	 */
+	public DecrResponse decr(String roleId, long decr, MoneyType moneyType, boolean notice);
+	
 }
