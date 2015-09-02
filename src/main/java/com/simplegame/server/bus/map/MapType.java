@@ -15,8 +15,13 @@ public class MapType {
 
     public static final int CHALLENGE = 3;
 
+    /**
+     * 关卡
+     */
+    public static final int CHECK_POINT = 4;
+    
     public static boolean isCopy(int type) {
-        return CHALLENGE == type;
+        return CHALLENGE == type || CHECK_POINT == type;
     }
 
     public static boolean usedForOfflineSave(int type) {

@@ -23,10 +23,21 @@ public interface IStageControllService {
     
     public Object logout(String roleId);
     
+    /**
+     * 角色是否在线
+     * 
+     * @param roleId
+     * @return
+     */
     public boolean isOnline(String roleId);
     
-    
-    
+    /**
+     * 角色是否在副本中
+     * 
+     * @param roleId
+     * @return
+     */
+    public boolean isInCopy(String roleId);
     
     public void changeMap(String roleId);
     
@@ -37,4 +48,14 @@ public interface IStageControllService {
     
     public void serverStartInitStage();
     
+    /**
+     * 请求进入副本
+     * 
+     * <p> 普通副本
+     * 
+     * @param roleId
+     * @param mapId
+     * @return
+     */
+    public Object applyChangeCopy(String roleId, String mapId, int x, int y, Object[] additionalData);
 }

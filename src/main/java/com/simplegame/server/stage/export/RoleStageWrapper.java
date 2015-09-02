@@ -1,4 +1,4 @@
-package com.simplegame.server.bus.stage.export;
+package com.simplegame.server.stage.export;
 
 import java.io.Serializable;
 

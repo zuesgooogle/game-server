@@ -9,12 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.container.DataContainer;
-import com.simplegame.server.bus.map.configure.IMapConfigExportService;
-import com.simplegame.server.bus.map.configure.export.impl.MapConfig;
+import com.simplegame.server.bus.checkpoint.service.ICheckpointService;
+import com.simplegame.server.bus.map.MapType;
+import com.simplegame.server.bus.map.configure.IMapConfigService;
+import com.simplegame.server.bus.map.configure.impl.MapConfig;
 import com.simplegame.server.bus.role.export.IRoleExportService;
 import com.simplegame.server.bus.role.export.RoleWrapper;
 import com.simplegame.server.bus.share.constants.BusShareConstant;
-import com.simplegame.server.bus.stage.export.RoleStageWrapper;
 import com.simplegame.server.bus.stagecontroll.RoleState;
 import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.bus.stagecontroll.output.StageControllOutput;
@@ -25,6 +26,7 @@ import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
 import com.simplegame.server.bus.swap.BusMsgSender;
 import com.simplegame.server.stage.constants.StageCopyConstant;
 import com.simplegame.server.stage.entity.RoleStage;
+import com.simplegame.server.stage.export.RoleStageWrapper;
 import com.simplegame.server.stage.model.core.stage.Point;
 import com.simplegame.server.stage.service.IRoleStageService;
 import com.simplegame.server.stage.service.IStageService;
@@ -44,13 +46,16 @@ public class StageControllServiceImpl implements IStageControllService {
     private IRoleExportService roleExportService;
 
     @Resource
-    private IMapConfigExportService mapConfigExportService;
+    private IMapConfigService mapConfigService;
     
     @Resource
     private IStageService stageService;
     
     @Resource
     private IRoleStageService roleStageService;
+    
+    @Resource
+    private ICheckpointService checkpointService; 
     
     @Resource
     private DataContainer dataContainer;
@@ -94,11 +99,11 @@ public class StageControllServiceImpl implements IStageControllService {
          */
         Object[] offlinePosition = stageWrapper.getCopyInfo();
         if( null != offlinePosition ) {
-            MapConfig mapConfig = mapConfigExportService.load((String)offlinePosition[0]);
+            MapConfig mapConfig = mapConfigService.load((String)offlinePosition[0]);
             
             String stageId = (String)offlinePosition[1];
             
-            StageCopyPosition stagePosition = new StageCopyPosition(stageId, roleId, (String)offlinePosition[0], mapConfig.getMayType(), (Integer)offlinePosition[2], (Integer)offlinePosition[4]);
+            StageCopyPosition stagePosition = new StageCopyPosition(roleId, (String)offlinePosition[0], mapConfig.getMayType(), (Integer)offlinePosition[2], (Integer)offlinePosition[4], stageId, null);
             stagePosition.setStageExist(true);
             if( stageService.stageCanEnter(stageId) ) {
                 roleState.setReadyForPosition(stagePosition);
@@ -128,20 +133,46 @@ public class StageControllServiceImpl implements IStageControllService {
         if( null == roleState ) {
             return ;
         }
-        
-        AbsRolePosition rolePosition = roleState.getCurPosition();
-        if( null != rolePosition ) {
-            //退出当前场景
-            Point point = stageService.getPosition(rolePosition.getStageId(), roleId);
+
+        //退出当前场景
+        AbsRolePosition curPosition = roleState.getCurPosition();
+        if( null != curPosition ) {
+            Point point = stageService.getPosition(curPosition.getStageId(), roleId);
             if( null != point ) {
-                rolePosition.setPosition(point.getX(), point.getY());
+                curPosition.setPosition(point.getX(), point.getY());
             }
             
-            roleStageService.syncRoleStageData(roleId, rolePosition.getStageId());
-            leaveStage(rolePosition);
+            roleStageService.syncRoleStageData(roleId, curPosition.getStageId());
+            leaveStage(curPosition);
         }
         
+        //使用 curPosition = readPosition
+        AbsRolePosition readyPosition = roleState.getReadyToPosition();
+        checkStageAndEnter(readyPosition);
         
+        roleState.setReadyForPosition(null);
+        roleState.setCurPosition(readyPosition);
+    }
+    
+    private void checkStageAndEnter(AbsRolePosition rolePosition) {
+        if( rolePosition.isCopyMap() ) {
+            StageCopyPosition copyPosition = (StageCopyPosition)rolePosition;
+            
+            //副本不存在，创建新副本
+            if( !copyPosition.isStageExist() ) {
+                Object[] additionalData = copyPosition.getAdditionalData();
+                
+                switch(rolePosition.getMapType()) {
+                case MapType.CHECK_POINT:
+                    checkpointService.createCheckpointCopy(rolePosition.getRoleId(), rolePosition.getStageId(), rolePosition.getMapId(), additionalData);
+                    break;
+                }
+            }
+        } else {
+            this.stageService.checkAndCreateStage(rolePosition.getStageId(), rolePosition.getMapId());
+        }
+        
+        enterStage(rolePosition);
     }
     
     private void leaveStage(AbsRolePosition rolePosition) {
@@ -157,16 +188,35 @@ public class StageControllServiceImpl implements IStageControllService {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    @Override
+    public boolean isInCopy(String roleId) {
+        RoleState roleState = dataContainer.getData(BusShareConstant.COMPONENT_NAME, roleId);
+        if( null == roleState ) {
+            return false;
+        }
+        
+        AbsRolePosition rolePosition = roleState.getCurPosition();
+        if( null == rolePosition ) {
+            return false;
+        }
+        
+        return MapType.isCopy(rolePosition.getMapType());
+    }
 
     @Override
     public boolean isOnline(String roleId) {
-        // TODO Auto-generated method stub
-        return false;
+        RoleState roleState = dataContainer.getData(BusShareConstant.COMPONENT_NAME, roleId);
+        if( null == roleState ) {
+            return false;
+        }
+        
+        return roleState.getCurPosition() != null;
     }
 
     @Override
     public void serverStartInitStage() {
-        List<MapConfig> list = mapConfigExportService.loadAll();
+        List<MapConfig> list = mapConfigService.loadAll();
         for (MapConfig mapConfig : list) {
             
             String stageId = StageCopyConstant.INIT_STAGE_PREFIX + mapConfig.getId();
@@ -185,5 +235,20 @@ public class StageControllServiceImpl implements IStageControllService {
         return null;
     }
 
+    @Override
+    public Object applyChangeCopy(String roleId, String mapId, int x, int y, Object[] additionalData) {
+        RoleState roleState = this.dataContainer.getData(BusShareConstant.COMPONENT_NAME, roleId);
+        if (null != roleState.getReadyToPosition()) {
+          return null;
+        }
+        
+        MapConfig mapConfig = mapConfigService.load(mapId);
+
+        StageCopyPosition copyPosition = new StageCopyPosition(roleId, mapId, mapConfig.getMayType(), x, y, additionalData);
+        
+        roleState.setReadyForPosition(copyPosition);
+        
+        return StageControllOutput.applyChangeMap(mapId, x, y);
+    }
 
 }

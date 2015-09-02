@@ -26,4 +26,9 @@ public class RoleNormalPosition extends AbsRolePosition {
         return new Object[]{getStageId(), getMapId(), getX(), getY()};
     }
 
+    @Override
+    public boolean isCopyMap() {
+        return false;
+    }
+
 }

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.server.bus.map.MapType;
-import com.simplegame.server.bus.map.configure.IMapConfigExportService;
+import com.simplegame.server.bus.map.configure.IMapConfigService;
 import com.simplegame.server.bus.stagecontroll.position.AbsRolePosition;
 import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
 import com.simplegame.server.stage.dao.IRoleStageDao;
@@ -36,7 +36,7 @@ public class RoleStageServiceImpl implements IRoleStageService {
     private IStageService stageService;
     
     @Resource
-    private IMapConfigExportService mapConfigExportService;
+    private IMapConfigService mapConfigService;
     
     @Resource
     private IStageControllService stageControllService;
@@ -80,7 +80,7 @@ public class RoleStageServiceImpl implements IRoleStageService {
             LOG.error("sync role stage data error. role: {} not found.", roleId);
         }
         
-        int mapType = mapConfigExportService.load(stage.getMapId()).getMayType();
+        int mapType = mapConfigService.load(stage.getMapId()).getMayType();
         
         String mapId = null;
         int x = 0;

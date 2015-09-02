@@ -5,9 +5,10 @@ import javax.annotation.Resource;
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
 import com.simplegame.protocol.message.Message;
-import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
 import com.simplegame.server.bus.swap.BusMsgSender;
+
+import static com.simplegame.server.bus.stagecontroll.command.StageControllCommands.*;
 
 /**
  *
@@ -24,26 +25,48 @@ public class StageControllAction {
     @Resource
     private IStageControllService stageControllService;
     
-    @ActionMapping(mapping = StageControllCommands.LOGIN)
+    @ActionMapping(mapping = LOGIN)
     public void login(Message message) {
         String roleId = message.getRoleId();
         
         Object result = stageControllService.login(roleId);
-        busMsgSender.send2One(StageControllCommands.LOGIN, roleId, result);
+        busMsgSender.send2One(LOGIN, roleId, result);
     }
     
-    @ActionMapping(mapping = StageControllCommands.APPLY_CHANGE_STAGE)
+    @ActionMapping(mapping = APPLY_CHANGE_STAGE)
     public void applyChangeMap(Message message) {
         String roleId = message.getRoleId();
         
         Object[] result = stageControllService.applyChangeMapAfterLogin(roleId);
-        busMsgSender.send2One(StageControllCommands.APPLY_CHANGE_STAGE, roleId, result);
+        busMsgSender.send2One(APPLY_CHANGE_STAGE, roleId, result);
     }
     
-    @ActionMapping(mapping = StageControllCommands.CHANGE_STAGE)
+    @ActionMapping(mapping = CHANGE_STAGE)
     public void changeMap(Message message) {
         String roleId = message.getRoleId();
         
         stageControllService.changeMap(roleId);
+    }
+    
+    /**
+     * 请求进入普通关卡
+     * 
+     * <p> 通用副本，特殊副本需要自定义协议
+     * 
+     * @param message
+     */
+    @ActionMapping(mapping = INNER_APPLY_CHANGE_COPY)
+    public void applyChangeCopy(Message message) {
+        String roleId = message.getRoleId();
+        
+        Object[] data = message.getData();
+        String mapId = (String)data[0];
+        int x = (Integer)data[1];
+        int y = (Integer)data[2];
+        Object[] additionalData = (Object[])data[3];
+        
+        Object result = stageControllService.applyChangeCopy(roleId, mapId, x, y, additionalData);
+        
+        busMsgSender.send2One(APPLY_CHANGE_STAGE, roleId, result);
     }
 }

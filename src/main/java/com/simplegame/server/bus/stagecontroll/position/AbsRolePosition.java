@@ -52,6 +52,13 @@ public abstract class AbsRolePosition {
         this.y = y;
     }
     
+    /**
+     * 是否是副本地图
+     * 
+     * @return
+     */
+    public abstract boolean isCopyMap();
+    
     public abstract String getStageId();
    
     public abstract Object[] enterPositionFormat();

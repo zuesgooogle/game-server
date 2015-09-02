@@ -2,7 +2,7 @@ package com.simplegame.server.stage.model.stage.aoi;
 
 import org.springframework.stereotype.Component;
 
-import com.simplegame.server.bus.map.configure.export.impl.MapConfig;
+import com.simplegame.server.bus.map.configure.impl.MapConfig;
 
 /**
  *

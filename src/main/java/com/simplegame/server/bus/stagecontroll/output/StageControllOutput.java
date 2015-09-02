@@ -3,7 +3,7 @@ package com.simplegame.server.bus.stagecontroll.output;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.server.bus.role.export.RoleWrapper;
-import com.simplegame.server.bus.stage.export.RoleStageWrapper;
+import com.simplegame.server.stage.export.RoleStageWrapper;
 
 @Component
 public class StageControllOutput {

@@ -1,4 +1,4 @@
-package com.simplegame.server.bus.map.configure.export.impl;
+package com.simplegame.server.bus.map.configure.impl;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.simplegame.server.bus.map.configure.IMapConfigExportService;
+import com.simplegame.server.bus.map.configure.IMapConfigService;
 import com.simplegame.server.configure.export.IConfigureExportService;
 import com.simplegame.server.configure.parser.impl.AbsClasspathConfigureParser;
 
@@ -20,7 +20,7 @@ import com.simplegame.server.configure.parser.impl.AbsClasspathConfigureParser;
  *
  */
 @Component
-public class MapConfigExportServiceImpl extends AbsClasspathConfigureParser implements IMapConfigExportService {
+public class MapConfigServiceImpl extends AbsClasspathConfigureParser implements IMapConfigService {
 
     private static final String CONFIGURE_NAME = "map.dat";
     

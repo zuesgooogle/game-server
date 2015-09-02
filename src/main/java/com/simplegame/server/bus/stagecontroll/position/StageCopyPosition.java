@@ -1,5 +1,7 @@
 package com.simplegame.server.bus.stagecontroll.position;
 
+import com.simplegame.server.utils.id.IdUtil;
+
 /**
  *
  * @Author zeusgooogle@gmail.com
@@ -15,10 +17,16 @@ public class StageCopyPosition extends AbsRolePosition {
     
     private Object[] additionalData;
     
-    public StageCopyPosition(String stageId, String roleId, String mapId, int mapType, int x, int y) {
+    public StageCopyPosition(String roleId, String mapId, int mapType, int x, int y, Object[] additionalData) {
+        this(roleId, mapId, mapType, x, y, IdUtil.nextString(roleId + "_" + mapType), additionalData);
+    }
+    
+    public StageCopyPosition(String roleId, String mapId, int mapType, int x, int y, String stageId, Object[] additionalData) {
         super(roleId, mapId, mapType, x, y);
         this.stageId = stageId;
+        this.additionalData = additionalData;
     }
+    
 
     @Override
     public String getStageId() {
@@ -40,6 +48,11 @@ public class StageCopyPosition extends AbsRolePosition {
     @Override
     public Object[] enterPositionFormat() {
         return new Object[]{getStageId(), getMapId(), getX(), getY()};
+    }
+
+    @Override
+    public boolean isCopyMap() {
+        return true;
     }
 
 

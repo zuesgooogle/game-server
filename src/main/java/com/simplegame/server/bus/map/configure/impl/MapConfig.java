@@ -1,4 +1,4 @@
-package com.simplegame.server.bus.map.configure.export.impl;
+package com.simplegame.server.bus.map.configure.impl;
 
 import com.simplegame.core.data.IEntity;
 import com.simplegame.server.bus.map.MapType;

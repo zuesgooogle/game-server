@@ -2,7 +2,7 @@ package com.simplegame.server.bus.map.configure;
 
 import java.util.List;
 
-import com.simplegame.server.bus.map.configure.export.impl.MapConfig;
+import com.simplegame.server.bus.map.configure.impl.MapConfig;
 
 /**
  * 
@@ -11,7 +11,7 @@ import com.simplegame.server.bus.map.configure.export.impl.MapConfig;
  * 
  */
 
-public interface IMapConfigExportService {
+public interface IMapConfigService {
 
     public MapConfig load(String id);
 

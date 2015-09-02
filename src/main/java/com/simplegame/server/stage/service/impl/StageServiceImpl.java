@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.event.IEventService;
-import com.simplegame.server.bus.map.configure.IMapConfigExportService;
+import com.simplegame.server.bus.map.configure.IMapConfigService;
 import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.stage.event.publish.RoleEnterStageEvent;
 import com.simplegame.server.stage.event.publish.RoleLeaveStageEvent;
@@ -33,7 +33,7 @@ import com.simplegame.server.stage.swap.StageMsgSender;
 public class StageServiceImpl implements IStageService {
 
     @Resource
-    private IMapConfigExportService mapConfigExportService;
+    private IMapConfigService mapConfigService;
     
     @Resource
     private IEventService eventService;
@@ -53,7 +53,7 @@ public class StageServiceImpl implements IStageService {
     public boolean checkAndCreateStage(String stageId, String mapId) {
         IStage stage = stageMap.get(stageId);
         if( null == stage ) {
-            stage = aoiStageFactory.create(stageId, mapConfigExportService.load(mapId));
+            stage = aoiStageFactory.create(stageId, mapConfigService.load(mapId));
             stageMap.put(stageId, stage);
             
             //stage.getStageProduceManager().produceAll();
@@ -117,6 +117,21 @@ public class StageServiceImpl implements IStageService {
         role.getStateManager().add(new OfflineState());
         stage.leave(role);
     }
+    
+    @Override
+    public boolean roleCanChangeMap(String roleId, String stageId) {
+        IStage stage = getStage(stageId);
+        if( null == stage ) {
+            return false;
+        }
+        
+        IRole role = stage.getElement(roleId, ElementType.ROLE);
+        if( null == role ) {
+            return false;
+        }
+        
+        return role.getStage().isCopy() || !role.getStateManager().isDead();
+    }
 
     @Override
     public void roleEnterStage(String stageId, String roleId, String mapId, int x, int y) {
@@ -140,6 +155,11 @@ public class StageServiceImpl implements IStageService {
         
         role.getEventManager().fireLoginEvent();
         
+    }
+
+    @Override
+    public void addStageCopy(IStage stageCopy) {
+        stageMap.put(stageCopy.getId(), stageCopy);
     }
 
 }

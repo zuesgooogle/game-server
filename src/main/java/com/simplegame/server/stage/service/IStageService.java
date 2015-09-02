@@ -43,7 +43,17 @@ public interface IStageService {
     public boolean checkAndCreateStage(String stageId, String mapId);
     
     public boolean stageCanEnter(String stageId);
+
+    /**
+     * 角色是否可以切换地图
+     * 
+     * @param roleId
+     * @param stageId
+     * @return
+     */
+    public boolean roleCanChangeMap(String roleId, String stageId);
     
     public Point getPosition(String stageId, String roleId);
     
+    public void addStageCopy(IStage stageCopy);
 }
