@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.simplegame.server.message.IMsgDispatcher;
+
 public class StageMsgQueue {
-    
+
+    private StageMsgSender stageMsgSender;
+
     private List<IMsg> msgs = new ArrayList();
-    
+
     private boolean fifiOrLiFi = true;
+
+    public StageMsgQueue(StageMsgSender stageMsgSender) {
+        this.stageMsgSender = stageMsgSender;
+    }
 
     private void addMsg(IMsg paramIMsg) {
         if ((!this.fifiOrLiFi) && (this.msgs.size() > 0)) {
@@ -59,8 +67,8 @@ public class StageMsgQueue {
         addMsg(new BroadcastMsg(paramString, paramObject));
     }
 
-    public void addStageControllMsg(String paramString1, String paramString2, Object paramObject) {
-        addMsg(new StageControllMsg(paramString1, paramString2, paramObject));
+    public void addStageControllMsg(String roleId, String command, Object data) {
+        addMsg(new StageControllMsg(roleId, command, data));
     }
 
     public void orderRule(boolean paramBoolean) {
@@ -83,7 +91,7 @@ public class StageMsgQueue {
         }
 
         public void flush() {
-            //StageMsgSender.send2One(this.roleId, this.command, this.result);
+            // StageMsgSender.send2One(this.roleId, this.command, this.result);
         }
     }
 
@@ -101,7 +109,8 @@ public class StageMsgQueue {
         }
 
         public void flush() {
-            //StageMsgSender.send2StageInner(this.roleId, this.stageId, this.command, this.result);
+            // StageMsgSender.send2StageInner(this.roleId, this.stageId,
+            // this.command, this.result);
         }
     }
 
@@ -117,7 +126,7 @@ public class StageMsgQueue {
         }
 
         public void flush() {
-           // StageMsgSender.send2Bus(this.roleId, this.command, this.result);
+            // StageMsgSender.send2Bus(this.roleId, this.command, this.result);
         }
     }
 
@@ -133,7 +142,8 @@ public class StageMsgQueue {
         }
 
         public void flush() {
-            //StageMsgSender.send2Many(this.roleIds, this.command, this.result);
+            // StageMsgSender.send2Many(this.roleIds, this.command,
+            // this.result);
         }
     }
 
@@ -147,23 +157,24 @@ public class StageMsgQueue {
         }
 
         public void flush() {
-            //StageMsgSender.send2All(this.command, this.result);
+            // StageMsgSender.send2All(this.command, this.result);
         }
     }
 
-    private static class StageControllMsg implements StageMsgQueue.IMsg {
+    private class StageControllMsg implements IMsg {
+        
         private String roleId;
         private String command;
-        private Object result;
+        private Object data;
 
-        public StageControllMsg(String paramString1, String paramString2, Object paramObject) {
-            this.roleId = paramString1;
-            this.command = paramString2;
-            this.result = paramObject;
+        public StageControllMsg(String command, String role, Object data) {
+            this.command = command;
+            this.roleId = role;
+            this.data = data;
         }
 
         public void flush() {
-            //StageMsgSender.send2StageControl(this.roleId, this.command, this.result);
+            stageMsgSender.send2StageControl(command, roleId, data);
         }
     }
 }
