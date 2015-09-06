@@ -128,6 +128,32 @@ public class StageControllServiceImpl implements IStageControllService {
     }
 
     @Override
+    public Object logout(String roleId) {
+        RoleState roleState = dataContainer.getData(BusShareConstant.COMPONENT_NAME, roleId);
+        if( null == roleState ) {
+            return null;
+        }
+        
+        AbsRolePosition rolePosition = roleState.getCurPosition();
+        if( null == rolePosition ) {
+            LOG.error("roleId: {} not in stage.", roleId);
+            return null;
+        }
+        
+        String stageId = rolePosition.getStageId();
+        if( null == stageId ) {
+            LOG.error("roleId: {} not in stage.", roleId);
+            return null;
+        }
+        
+        roleStageService.syncRoleStageData(roleId, stageId);
+        
+        leaveStage(rolePosition);
+        
+        return null;
+    }
+    
+    @Override
     public void changeMap(String roleId) {
         RoleState roleState = dataContainer.getData(BusShareConstant.COMPONENT_NAME, roleId);
         if( null == roleState ) {
@@ -181,12 +207,6 @@ public class StageControllServiceImpl implements IStageControllService {
     
     private void enterStage(AbsRolePosition rolePosition) {
         busMsgSender.send2Stage(StageControllCommands.INNER_ENTER_STAGE, rolePosition.getRoleId(), rolePosition.enterPositionFormat());
-    }
-    
-    @Override
-    public Object logout(String roleId) {
-        // TODO Auto-generated method stub
-        return null;
     }
     
     @Override

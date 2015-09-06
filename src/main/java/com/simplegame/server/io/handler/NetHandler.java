@@ -52,6 +52,8 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 
 		if (null != roleId) {
 			channelManager.removeChannel(roleId);
+			
+			exitNotify(ctx);
 		}
 	}
 
@@ -60,6 +62,9 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 		LOG.info("server receive message: {}", msg.toString());
 
 		JSONArray array = JSONArray.parseArray(msg.getData());
+		if( null == array ) {
+		    array = new JSONArray();
+		}
 		
 		String sessionId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.SESSION_KEY);
 		String command = msg.getCommand();
@@ -97,4 +102,17 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 		}
 	}
 
+	/**
+	 * 退出服务
+	 * 
+	 * @param ctx
+	 * @throws Exception
+	 */
+	private void exitNotify(ChannelHandlerContext ctx) throws Exception {
+	    Request.Builder exit = Request.newBuilder();
+	    exit.setCommand(NodeControlCommands.ROLE_OUT)
+	        .setData("[]");
+	
+	    channelRead0(ctx, exit.build());
+	}
 }
