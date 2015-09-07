@@ -1,18 +1,19 @@
 package com.simplegame.server.public_.nodecontrol.event.publish;
 
 import com.simplegame.core.event.IEvent;
+import com.simplegame.server.share.event.EventConstants;
 
 public class RoleLogoutEvent implements IEvent {
 	
 	private Object[] data = null;
 
-	public RoleLogoutEvent(String paramString1, String paramString2, Long paramLong) {
-		this.data = new Object[] { paramString1, paramString2, paramLong, Long.valueOf(System.currentTimeMillis()) };
+	public RoleLogoutEvent(String roleId, String ip, long onlineTime) {
+		this.data = new Object[] { roleId, ip, onlineTime };
 	}
 
 	@Override
 	public String getType() {
-		return "role_logout";
+		return EventConstants.ROLE_LOGOUT;
 	}
 
 	@Override

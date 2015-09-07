@@ -19,6 +19,8 @@ import com.simplegame.server.gamerule.goods.creator.ItemModel;
 
 public interface IBagService {
 
+    public void createRoleBagSlot(String roleId);
+    
     /**
      * 添加物品到背包中
      * 

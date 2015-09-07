@@ -1,14 +1,14 @@
 package com.simplegame.server.bus.client.io.service;
 
-public abstract interface IIoService {
+public interface IIoService {
     
-    public abstract void roleIn(String roleId, String paramString2);
+    public void roleIn(String roleId, String ip);
 
-    public abstract void roleOut(String roleId);
+    public void roleOut(String roleId);
 
-    public abstract void roleOutOnServerClose(String roleId);
+    public void roleOutOnServerClose(String roleId);
 
-    public abstract void syncRoleOut(String roleId);
+    public void syncRoleOut(String roleId);
 
-    public abstract void syncRoleIn(String roleId, Object paramObject);
+    public void syncRoleIn(String roleId, String ip);
 }

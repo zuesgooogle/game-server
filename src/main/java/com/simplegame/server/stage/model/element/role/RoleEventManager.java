@@ -8,13 +8,23 @@ import com.simplegame.server.stage.model.core.element.IFighter;
 import com.simplegame.server.stage.model.core.fight.IHarm;
 
 /**
- *
+ * 
  * @Author zeusgooogle@gmail.com
- * @sine   2015年7月20日 下午7:07:19
- *
+ * @sine 2015年7月20日 下午7:07:19
+ * 
  */
 @Component
 public class RoleEventManager implements IElementEventManager {
+
+    private IRole role;
+    
+    public RoleEventManager() {
+        
+    }
+    
+    public RoleEventManager(IRole role) {
+        this.role = role;
+    }
 
     @Override
     public void fireLoginEvent() {
@@ -24,8 +34,7 @@ public class RoleEventManager implements IElementEventManager {
 
     @Override
     public void fireLogoutEvent() {
-        // TODO Auto-generated method stub
-
+        role.getId();
     }
 
     @Override

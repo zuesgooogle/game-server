@@ -3,7 +3,7 @@ package com.simplegame.server.stage.dao.impl;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.data.accessor.AccessType;
-import com.simplegame.core.data.accessor.dao.AbsCacheDao;
+import com.simplegame.server.bus.share.dao.BusAbsCacheDao;
 import com.simplegame.server.stage.dao.IRoleStageDao;
 import com.simplegame.server.stage.entity.RoleStage;
 
@@ -14,7 +14,7 @@ import com.simplegame.server.stage.entity.RoleStage;
  *
  */
 @Component
-public class RoleStageDaoImpl extends AbsCacheDao<RoleStage> implements IRoleStageDao {
+public class RoleStageDaoImpl extends BusAbsCacheDao<RoleStage> implements IRoleStageDao {
 
     @Override
     public void createRoleStage(RoleStage roleStage, String roleId) {

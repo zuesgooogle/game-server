@@ -20,12 +20,17 @@ public class StageControllCommands {
     public static final String INNER_LEAVE_STAGE = "S:LEAVE";
     public static final String INNER_ENTER_STAGE = "S:ENTER";
     
+    /**
+     * 服务器内部请求切换场景(地图)
+     */
+    public static final String INNER_APPLY_CHANGE_MAP = "SC:APPLY_CHANG_MAP";
+    
     public static final String s50500 = "50500";
     public static final String s62001 = "62001";
     public static final String APPLY_CHANGE_LINE = "20004";
     public static final String GET_MAP_LINES = "20005";
     public static final String LOGOUT = "SC:LOGINOUT";
-    public static final String INNER_APPLY_CHANGE_MAP = "SC:APPLY_CHANG_MAP";
+    
     public static final String INNER_APPLY_CHANGE_GUOZHAN = "SC:APPLY_CHANG_GUOZHAN";
     public static final String _APPLY_ENTER_SHENJIANG = "SC:APPLY_ZJZD";
     public static final String KUAFU_OFFLINE1 = "SC:KUAFU_OFFLINE_1";

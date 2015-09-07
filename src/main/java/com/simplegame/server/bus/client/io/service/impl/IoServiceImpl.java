@@ -28,10 +28,8 @@ public class IoServiceImpl implements IIoService {
     @Resource
     private IEventService eventService;
 
-    public IoServiceImpl() {
-    }
-
-    public void roleIn(String roleId, String paramString2) {
+    @Override
+    public void roleIn(String roleId, String ip) {
         if (this.usecache) {
             this.roleCacheManager.activateRoleCache(roleId);
         }
@@ -39,15 +37,13 @@ public class IoServiceImpl implements IIoService {
         this.roleStateService.change2online(roleId);
         
         try {
-            this.eventService.publish(new RoleLoginEvent(roleId, paramString2));
+            this.eventService.publish(new RoleLoginEvent(roleId, ip));
         } catch (Exception e) {
             LOG.error("roleIn exception roleId: {}", roleId, e);
         }
     }
 
-    public void syncRoleIn(String roleId, Object paramObject) {
-    }
-
+    @Override
     public void roleOut(String roleId) {
         if (this.usecache) {
             this.roleCacheManager.freezeRoleCache(roleId);
@@ -55,11 +51,20 @@ public class IoServiceImpl implements IIoService {
         this.roleStateService.change2offline(roleId);
     }
 
+    @Override
+    public void syncRoleIn(String roleId, String ip) {
+    
+    }
+
+    @Override
     public void roleOutOnServerClose(String roleId) {
         roleOut(roleId);
     }
 
+    @Override
     public void syncRoleOut(String roleId) {
         roleOut(roleId);
     }
+    
+    
 }

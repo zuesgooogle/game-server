@@ -2,6 +2,8 @@ package com.simplegame.server.message.manager;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.protocol.message.Message.DestType;
@@ -18,6 +20,8 @@ import com.simplegame.server.share.moduleinit.CommandGroup;
 @Component
 public class SwapManager {
 
+    private Logger LOG = LoggerFactory.getLogger(SwapManager.class);
+    
 	@Resource
 	private IMsgDispatcher ioDispatcher;
 	
@@ -51,8 +55,13 @@ public class SwapManager {
 		//dest type to group
 		message[2] = Integer.valueOf(group);
 		
+		LOG.info("swap msg command: {}, dest group: {}", command, group);
+		
 		switch(group) {
 		case 1:
+		case 3:
+		    toStage(message);
+		    break;
 		case 4:
 			toPublic(message);
 			break;

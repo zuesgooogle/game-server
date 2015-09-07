@@ -12,7 +12,15 @@ public class StageCommands {
     public static final String SKILL_READY_FIRE = "42001";
     public static final String SKILL_FIRE = "42002";
     
-    public static final String INNER_LEAVE_STAGE = "S:LEAVE";
+    /**
+     *  进入场景
+     */
     public static final String INNER_ENTER_STAGE = "S:ENTER";
+
+    /**
+     * 退出场景
+     */
+    public static final String INNER_LEAVE_STAGE = "S:LEAVE";
+    
 
 }

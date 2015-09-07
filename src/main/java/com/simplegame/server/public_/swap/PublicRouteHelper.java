@@ -24,6 +24,7 @@ public class PublicRouteHelper implements IRouteHelper {
 			route = new Route(CommandGroup.GROUP_LOGIN);
 			route.setData((String)data[0]);
 			break;
+		case 3:
 		case 4:
 			route = new Route(CommandGroup.GROUP_PUBLIC);
 			route.setData(command);

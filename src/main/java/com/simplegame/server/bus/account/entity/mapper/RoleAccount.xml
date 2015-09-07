@@ -92,6 +92,7 @@
 		,update_time
 		,log_update_time
 		from role_account
+		<include refid="queryConditionRoleAccount"/>
 	</select>
 	
 	<select id="selectSingleByParamsRoleAccount" resultMap="roleAccount">

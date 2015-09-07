@@ -100,6 +100,8 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 		if (null != roleId) {
 			LOG.info("{} disconnect.", roleId);
 		}
+		
+		cause.printStackTrace();
 	}
 
 	/**

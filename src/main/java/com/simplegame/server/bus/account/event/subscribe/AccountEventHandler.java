@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.simplegame.core.event.IEventHandler;
 import com.simplegame.server.bus.account.service.IAccountService;
+import com.simplegame.server.share.event.EventConstants;
 
 /**
  *
@@ -30,7 +31,7 @@ public class AccountEventHandler implements IEventHandler {
 
 	@Override
 	public String getEventType() {
-		return "role_create";
+		return EventConstants.ROLE_CREATE;
 	}
 
 }

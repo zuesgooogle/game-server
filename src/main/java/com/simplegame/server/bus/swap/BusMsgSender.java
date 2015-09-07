@@ -44,7 +44,7 @@ public class BusMsgSender {
     }
     
     public void send2Stage(String command, String roleId, Object data) {
-        Object[] message = new Object[]{command, data, DestType.STAGE.getValue(), FromType.BUS.getValue(), 1, null, roleId, null, 0, null};
+        Object[] message = new Object[]{command, data, DestType.BUS.getValue(), FromType.BUS.getValue(), 1, null, roleId, null, 0, null};
         
         busDispatcher.in(message);
     }

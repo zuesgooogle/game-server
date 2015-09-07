@@ -76,7 +76,7 @@ public class BalanceBusinessExecutor implements IBusinessExecutor {
 							continue;
 						}
 
-						LOG.error(stringBuffer.toString());
+						LOG.info(stringBuffer.toString());
 
 					} catch (Exception e) {
 						LOG.error("", e);

@@ -32,9 +32,12 @@ public class RoleFactory {
         role.setBusinessData(businessData);
         role.setStateManager(new StateManager());
         role.setScheduleManager(new StageScheduleManager());
+        role.setEventManager(new RoleEventManager(role));
         
         RoleFightAttribute fightAttribute = new RoleFightAttribute(AttributeFormulaSearcherFactory.get()); 
         role.setFightAttribute(fightAttribute);
+        
+        
         
         return role;
     }

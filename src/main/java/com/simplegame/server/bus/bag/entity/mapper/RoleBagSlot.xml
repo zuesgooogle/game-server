@@ -133,7 +133,7 @@
 		<include refid="queryConditionRoleBagSlot"/>
 	</select>
 	
-	<select id="selectAllRoleBagSlot" resultMap="roleBagSlot">
+	<select id="selectListRoleBagSlot" resultMap="roleBagSlot">
 		select 
 		id
 		,slot_num
@@ -146,6 +146,7 @@
 		,item_level
 		,attributes
 		from role_bag_slot
+		<include refid="queryConditionRoleBagSlot"/>
 	</select>
 	
 	<select id="selectOneByParamsRoleBagSlot" resultMap="roleBagSlot">

@@ -43,4 +43,9 @@ public class RoleBagSlotDaoImpl extends BusAbsCacheDao<RoleBagSlot> implements I
         return delete(id, roleId, AccessType.getDirectDbType()) > 0;
     }
 
+    @Override
+    public void insertDb(RoleBagSlot bagSlot) {
+        insert(bagSlot, bagSlot.getUserRoleId(), AccessType.getDirectDbType());
+    }
+
 }

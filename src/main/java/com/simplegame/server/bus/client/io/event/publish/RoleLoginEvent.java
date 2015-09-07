@@ -1,6 +1,7 @@
 package com.simplegame.server.bus.client.io.event.publish;
 
 import com.simplegame.core.event.IEvent;
+import com.simplegame.server.share.event.EventConstants;
 
 public class RoleLoginEvent implements IEvent {
     
@@ -11,7 +12,7 @@ public class RoleLoginEvent implements IEvent {
     }
 
     public String getType() {
-        return "role_login";
+        return EventConstants.ROLE_LOGIN;
     }
 
     public Object getData() {

@@ -61,7 +61,7 @@ public class StageServiceImpl implements IStageService {
             eventService.publish(new StageCreateEvent(mapId, stageId));
             return true;
         }
-        return false;
+        return true;
     }
 
     @Override

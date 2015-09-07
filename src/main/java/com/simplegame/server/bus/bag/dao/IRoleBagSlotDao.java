@@ -19,6 +19,8 @@ public interface IRoleBagSlotDao extends ICacheInitDaoOperation<RoleBagSlot> {
      * @return
      */
     public RoleBagSlot selectDb(String roleId, String id);
+
+    public void insertDb(RoleBagSlot bagSlot);
     
     public boolean updateDb(RoleBagSlot bagSlot);
     

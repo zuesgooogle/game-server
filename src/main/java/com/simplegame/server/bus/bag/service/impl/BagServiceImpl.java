@@ -63,6 +63,21 @@ public class BagServiceImpl implements IBagService {
     @Resource
     private BusMsgSender busMsgSender;
     
+    @Override
+    public void createRoleBagSlot(String roleId) {
+        //TODO 初始化，默认物品
+        ItemModel itemModel = new ItemModel("goodsId", 1);
+        
+        StoreGoods storeGoods = GoodsConvertUtil.model2Entity(itemModel);
+        
+        RoleBagSlot bagSlot = new RoleBagSlot(storeGoods);
+        bagSlot.setId( idGenerator.getId4Module(BagModuleInfo.MODULE_NAME) );
+        bagSlot.setUserRoleId(roleId);
+        bagSlot.setSlotNum(BagConstants.BAG_MIN);
+        
+        this.roleBagSlotDao.insertDb(bagSlot);
+    }
+    
     @Sync(component = COMPONENT_NAME, indexes = {0})
     @Override
     public IBagIncrSingleResponse putInBag1(String roleId, ItemModel itemModel) {
@@ -517,4 +532,5 @@ public class BagServiceImpl implements IBagService {
         
         return output;
     }
+    
 }

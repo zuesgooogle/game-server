@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.simplegame.core.event.IEventService;
 import com.simplegame.server.public_.event.PublicEventHandler;
+import com.simplegame.server.public_.swap.PublicMsgSender;
 import com.simplegame.server.share.event.EventHandleCommands;
 import com.simplegame.server.share.event.EventHandleCommands.Node;
 import com.simplegame.server.share.export.IEntityCacheLoaderExportService;
@@ -22,6 +23,9 @@ public abstract class PublicModuleInit extends ModuleInit {
 
     @Resource
     private IEventService eventService;
+    
+    @Resource
+    private PublicMsgSender publicMsgSender;
 
     @Resource
     private IEntityCacheLoaderExportService publicCacheLoaderExportService;
@@ -32,7 +36,7 @@ public abstract class PublicModuleInit extends ModuleInit {
         if (null != getEventHandleCommands()) {
             List<Node> nodeList = getEventHandleCommands().nodes();
             for (Node node : nodeList) {
-                this.eventService.subscribe(node.getEventType(), getOrder(), new PublicEventHandler(node.getEventType(), node.getCommand()));
+                this.eventService.subscribe(node.getEventType(), getOrder(), new PublicEventHandler(publicMsgSender, node.getEventType(), node.getCommand()));
             }
         }
     }

@@ -35,7 +35,7 @@ public class StageControllMuduleInit extends BusModuleInit {
     protected InCmd getInCmd() {
         String[] cmd = new String[] {
                 StageControllCommands.LOGIN, 
-                StageControllCommands.APPLY_CHANGE_LINE, 
+                StageControllCommands.APPLY_CHANGE_STAGE, 
                 StageControllCommands.CHANGE_STAGE,
                 StageControllCommands.INNER_LEAVE_STAGE,
                 StageControllCommands.INNER_ENTER_STAGE

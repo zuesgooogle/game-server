@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.simplegame.core.event.IEventHandler;
 import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.bus.swap.BusMsgSender;
+import com.simplegame.server.share.event.EventConstants;
 
 @Component
 public class RoleLoginHandler implements IEventHandler {
@@ -20,6 +21,6 @@ public class RoleLoginHandler implements IEventHandler {
     }
 
     public String getEventType() {
-        return "role_login";
+        return EventConstants.ROLE_LOGIN;
     }
 }

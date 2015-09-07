@@ -1,6 +1,7 @@
 package com.simplegame.server.public_.event;
 
 import com.simplegame.core.event.IEventHandler;
+import com.simplegame.server.public_.swap.PublicMsgSender;
 
 /**
  *
@@ -11,18 +12,21 @@ import com.simplegame.core.event.IEventHandler;
 
 public class PublicEventHandler implements IEventHandler {
 
+    private PublicMsgSender msgSender;
+    
 	private String command;
 	
 	private String eventType;
 	
-	public PublicEventHandler(String command, String eventType) {
+	public PublicEventHandler(PublicMsgSender msgSender, String command, String eventType) {
+	    this.msgSender = msgSender;
 		this.command = command;
 		this.eventType = eventType;
 	}
 	
 	@Override
 	public void handle(Object source, Object data) {
-		//public msg sender
+	    msgSender.send2PublicInner(command, (String)source, data);
 	}
 
 	@Override

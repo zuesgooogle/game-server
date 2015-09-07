@@ -22,7 +22,7 @@ public class StageMsgSender {
     private SwapManager swapManager;
     
     @Resource
-    private IMsgDispatcher stageMsgDispatcher; 
+    private IMsgDispatcher stageDispatcher; 
     
     public void sned2One(String command, String roleId, String stageId, Object data) {
         Object[] message = new Object[]{command, data, DestType.CLIENT.getValue(), FromType.STAGE.getValue(), 1, null, roleId, stageId, 0, null};
@@ -33,6 +33,6 @@ public class StageMsgSender {
     public void send2StageControl(String command, String roleId, Object data) {
         Object[] message = new Object[]{command, data, DestType.STAGE_CONTROL.getValue(), FromType.STAGE.getValue(), 1, null, roleId, null, 0, null};
     
-        stageMsgDispatcher.in(message);
+        stageDispatcher.in(message);
     }
 }

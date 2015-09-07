@@ -16,6 +16,6 @@ public class BusOutAction {
 
     @ActionMapping(mapping = ClientIoCommands.ROLE_OUT)
     public void roleOut(Message message) {
-        this.ioService.roleOut(message.getRoleId().trim());
+        this.ioService.roleOut(message.getRoleId());
     }
 }
