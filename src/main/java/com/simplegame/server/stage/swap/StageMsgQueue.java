@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.simplegame.server.message.IMsgDispatcher;
-
 public class StageMsgQueue {
 
     private StageMsgSender stageMsgSender;
@@ -47,8 +45,8 @@ public class StageMsgQueue {
         this.msgs.clear();
     }
 
-    public void addMsg(String paramString1, String paramString2, Object paramObject) {
-        addMsg(new ClientMsg(paramString1, paramString2, paramObject));
+    public void addMsg(String command, String roleId, Object data) {
+        addMsg(new ClientMsg(command, roleId, data));
     }
 
     public void addMsg(String[] paramArrayOfString, String paramString, Object paramObject) {
@@ -67,8 +65,8 @@ public class StageMsgQueue {
         addMsg(new BroadcastMsg(paramString, paramObject));
     }
 
-    public void addStageControllMsg(String roleId, String command, Object data) {
-        addMsg(new StageControllMsg(roleId, command, data));
+    public void addStageControllMsg(String command, String roleId, Object data) {
+        addMsg(new StageControllMsg(command, roleId, data));
     }
 
     public void orderRule(boolean paramBoolean) {
@@ -79,19 +77,19 @@ public class StageMsgQueue {
         public abstract void flush();
     }
 
-    private static class ClientMsg implements StageMsgQueue.IMsg {
+    private class ClientMsg implements StageMsgQueue.IMsg {
         private String roleId;
         private String command;
-        private Object result;
+        private Object data;
 
-        public ClientMsg(String paramString1, String paramString2, Object paramObject) {
-            this.roleId = paramString1;
-            this.command = paramString2;
-            this.result = paramObject;
+        public ClientMsg(String command, String roleId, Object data) {
+            this.command = command;
+            this.roleId = roleId;
+            this.data = data;
         }
 
         public void flush() {
-            // StageMsgSender.send2One(this.roleId, this.command, this.result);
+            stageMsgSender.sned2One(command, roleId, null, data);
         }
     }
 
@@ -162,7 +160,7 @@ public class StageMsgQueue {
     }
 
     private class StageControllMsg implements IMsg {
-        
+
         private String roleId;
         private String command;
         private Object data;

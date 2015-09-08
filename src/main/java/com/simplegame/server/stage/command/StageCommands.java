@@ -23,4 +23,31 @@ public class StageCommands {
     public static final String INNER_LEAVE_STAGE = "S:LEAVE";
     
 
+    
+    
+    
+    
+    
+    
+    /**
+     * 关卡超时检查
+     * <p> ISingleStageCopy
+     */
+    public static final String CHECKPOINT_EXPIRE_CHECK = "S:EXPIRE_CHECK_COPY";
+    
+    /**
+     * 关卡强制退出检查
+     * <p> ISingleStageCopy
+     */
+    public static final String CHECKPOINT_FORCE_CHECK = "S:FORCE_CHECK_COPY";
+    
+    /**
+     * 关卡挑战结果
+     */
+    public static final String CHECKPOINT_CHELLENGE_RESULT = "64003";
+    
+    /**
+     * 关卡退出
+     */
+    public static final String CHECKPOINT_LEAVE = "64008";
 }

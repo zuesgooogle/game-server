@@ -36,14 +36,14 @@ public abstract class AbsStageCopy extends AoiStage implements IStageCopy {
 
     private static final Integer expireCheckInterval = 60000;
 
-    public AbsStageCopy(String id, String mapId, int challengeId, long expireDelay, long startTime, Map<String, Integer> killedMap, StageScheduleManager scheduleManager) {
+    public AbsStageCopy(String id, String mapId, int challengeId, long expireDelay, long startTime, Map<String, Integer> killedMap) {
         super(id, mapId);
 
         this.challengeId = challengeId;
         this.expireDelay = expireDelay;
         this.startTime = startTime;
         this.killedMap = killedMap;
-        this.scheduleManager = scheduleManager;
+        this.scheduleManager = new StageScheduleManager();
 
         scheduleExpireCheck();
     }
@@ -80,6 +80,7 @@ public abstract class AbsStageCopy extends AoiStage implements IStageCopy {
         getStageProduceManager().cancelAllSchedule();
 
         this.scheduleManager.clear();
+        
         Collection localCollection = getElementsByType(ElementType.MONSTER);
         if (localCollection.size() > 0) {
             ArrayList localArrayList = new ArrayList(localCollection);
@@ -107,8 +108,8 @@ public abstract class AbsStageCopy extends AoiStage implements IStageCopy {
     }
 
     @Override
-    public void setChallengeOver(boolean paramBoolean) {
-        this.isChallengeOver = paramBoolean;
+    public void setChallengeOver(boolean challengeOver) {
+        this.isChallengeOver = challengeOver;
 
         if (this.isChallengeOver) {
             this.endTime = System.currentTimeMillis();

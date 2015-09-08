@@ -1,6 +1,7 @@
 package com.simplegame.server.bus.stagecontroll.service;
 
 import com.simplegame.server.bus.stagecontroll.position.AbsRolePosition;
+import com.simplegame.server.bus.stagecontroll.position.RoleLocation;
 
 /**
  *
@@ -44,7 +45,13 @@ public interface IStageControllService {
     
     public AbsRolePosition getOfflineSaveMapPosition(String roleId);
    
-    
+    /**
+     * 获取Role 当前地图所在坐标
+     * 
+     * @param roleId
+     * @return
+     */
+    public RoleLocation getHisMapPosition(String roleId);
     
     public void serverStartInitStage();
     

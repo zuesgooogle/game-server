@@ -20,6 +20,7 @@ import com.simplegame.server.bus.stagecontroll.RoleState;
 import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.bus.stagecontroll.output.StageControllOutput;
 import com.simplegame.server.bus.stagecontroll.position.AbsRolePosition;
+import com.simplegame.server.bus.stagecontroll.position.RoleLocation;
 import com.simplegame.server.bus.stagecontroll.position.RoleNormalPosition;
 import com.simplegame.server.bus.stagecontroll.position.StageCopyPosition;
 import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
@@ -259,6 +260,21 @@ public class StageControllServiceImpl implements IStageControllService {
             return roleState.getOfflineSavePosition();
         }
         return null;
+    }
+    
+    @Override
+    public RoleLocation getHisMapPosition(String roleId) {
+        RoleState roleState = dataContainer.getData(BusShareConstant.COMPONENT_NAME, roleId);
+        if (null == roleState) {
+            return null;
+        }
+        
+        AbsRolePosition rolePosition = roleState.getCurPosition();
+        if( null == rolePosition ) {
+            rolePosition = roleState.getOfflineSavePosition();
+        }
+        
+        return new RoleLocation(rolePosition.getMapId(), rolePosition.getStageId(), rolePosition.getX(), rolePosition.getY());
     }
 
     @Override

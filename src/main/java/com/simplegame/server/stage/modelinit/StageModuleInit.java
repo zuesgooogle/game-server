@@ -39,7 +39,13 @@ public class StageModuleInit extends AbsStageModuleInit {
     protected InCmd getInCmd() {
         String[] cmd = new String[] {
                     StageCommands.INNER_LEAVE_STAGE,
-                    StageCommands.INNER_ENTER_STAGE
+                    StageCommands.INNER_ENTER_STAGE,
+                    
+                    //关卡
+                    StageCommands.CHECKPOINT_EXPIRE_CHECK,
+                    StageCommands.CHECKPOINT_FORCE_CHECK,
+                    StageCommands.CHECKPOINT_CHELLENGE_RESULT,
+                    StageCommands.CHECKPOINT_LEAVE
         };
         
         return new InCmd(StageModuleInfo.MODULE_NAME, StageModuleInfo.MODULE_NAME_ABBR, cmd);

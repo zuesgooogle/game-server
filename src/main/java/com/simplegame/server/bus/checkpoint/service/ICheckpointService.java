@@ -28,4 +28,37 @@ public interface ICheckpointService {
      * @param mapId
      */
     public void createCheckpointCopy(String roleId, String stageId, String mapId, Object[] additionalData);
+    
+    /**
+     * 超时检查
+     * 
+     * @param stageId
+     * @param msgQueue
+     */
+    public void expireCheck(String stageId, StageMsgQueue msgQueue);
+    
+    /**
+     * 挑战结束
+     * 
+     * @param stageId
+     * @param msgQueue
+     */
+    public void challengeOver(String stageId, StageMsgQueue msgQueue);
+    
+    /**
+     * 申请退出副本
+     * 
+     * @param stageId
+     * @param roleId
+     * @param msgQueue
+     */
+    public void applyLeaveCopy(String stageId, String roleId, StageMsgQueue msgQueue);
+    
+    /**
+     * 强制退出副本
+     * 
+     * @param stageId
+     * @param msgQueue
+     */
+    public void forceLeave(String stageId, StageMsgQueue msgQueue);
 }
