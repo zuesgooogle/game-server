@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.simplegame.server.share.ApplicationInit;
 
@@ -19,15 +19,15 @@ import com.simplegame.server.share.ApplicationInit;
 
 public class ServerStart {
 
-	public static final Logger LOG = LoggerFactory.getLogger(ServerStart.class);
+    private static Logger LOG = LogManager.getLogger(ServerStart.class);
 	
 	public static void main(String[] args) {
 		
 		ApplicationInit.init();
 
-		
-		
 		rememberPid();
+		
+		LOG.info("server started done.");
 	}
 	
 	private static void rememberPid() {
@@ -43,7 +43,9 @@ public class ServerStart {
 			localFileWriter.write(pid);
 			localFileWriter.flush();
 			localFileWriter.close();
+			
 		} catch (Exception exception) {
+		    
 			LOG.error("create pid file error.", exception);
 			throw new RuntimeException("", exception);
 		}

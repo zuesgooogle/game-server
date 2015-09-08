@@ -2,17 +2,17 @@ package com.simplegame.server.configure.parser;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.simplegame.server.configure.export.impl.ConfigureContext;
 import com.simplegame.server.configure.loader.DirType;
 import com.simplegame.server.configure.loader.IConfigureResourceLoader;
-import com.simplegame.server.utils.LoggerUtil;
+import com.simplegame.server.share.log.Log;
 
 public abstract class AbsConfigureParser {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(LoggerUtil.LOG_CONFIGURE);
+    protected Logger LOG = LogManager.getLogger(Log.CONFIG_LOGGER);
     
     protected String sign;
     

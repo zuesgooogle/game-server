@@ -6,12 +6,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.server.configure.loader.DirType;
 import com.simplegame.server.configure.loader.IConfigureResourceLoader;
+import com.simplegame.server.share.log.Log;
 
 /**
  * 
@@ -22,7 +23,7 @@ import com.simplegame.server.configure.loader.IConfigureResourceLoader;
 @Component
 public class ClasspathConfigureLoader implements IConfigureResourceLoader {
 
-    private Logger LOG = LoggerFactory.getLogger(getClass());
+    private Logger LOG = LogManager.getLogger(Log.CONFIG_LOGGER);
 
     public static final String GLOBAL_FILE_DIR = "config/game/sys_config/";
 

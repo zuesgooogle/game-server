@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -20,7 +20,7 @@ import com.simplegame.server.share.moduleinit.ModuleInit;
  */
 public class AfterSpringInitApplicationListener implements ApplicationListener<ApplicationEvent>, ApplicationContextAware {
 
-	private static Logger LOG = LoggerFactory.getLogger(AfterSpringInitApplicationListener.class);
+	private Logger LOG = LogManager.getLogger(getClass());
 
 	private ApplicationContext context;
 

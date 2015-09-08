@@ -7,11 +7,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.simplegame.server.executor.IBusinessExecutor;
 import com.simplegame.server.executor.Route;
+import com.simplegame.server.share.log.Log;
 
 /**
  * 
@@ -23,7 +24,7 @@ import com.simplegame.server.executor.Route;
  */
 public class TimeoutBusinessExecutor implements IBusinessExecutor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TimeoutBusinessExecutor.class);
+    private Logger LOG = LogManager.getLogger(Log.SERVER_STATUS_LOGGER);
 
 	private HashMap<String, ExecutorPoolGroup> groups = new HashMap<String, ExecutorPoolGroup>();
 

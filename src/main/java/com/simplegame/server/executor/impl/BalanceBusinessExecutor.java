@@ -8,12 +8,13 @@ import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.simplegame.server.executor.IBusinessExecutor;
 import com.simplegame.server.executor.IRuleChecker;
 import com.simplegame.server.executor.Route;
+import com.simplegame.server.share.log.Log;
 
 /**
  * @Author zeusgooogle@gmail.com
@@ -22,7 +23,7 @@ import com.simplegame.server.executor.Route;
  */
 public class BalanceBusinessExecutor implements IBusinessExecutor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BalanceBusinessExecutor.class);
+    private Logger LOG = LogManager.getLogger(Log.SERVER_STATUS_LOGGER);
 
 	private String name;
 	private int loadSize = 11;
