@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
+import com.simplegame.protocol.message.Message;
 import com.simplegame.protocol.message.Message.DestType;
 import com.simplegame.protocol.message.Message.FromType;
 import com.simplegame.protocol.proto.Message.Request;
@@ -87,7 +88,9 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 		String roleId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY);
 		String ip = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.IP_KEY);
 		
-		Object[] message = new Object[]{command, array.toArray(), DestType.BUS.getValue(), FromType.CLIENT.getValue(), null, sessionId, roleId, null, null, null, ip};
+		//Object[] message = new Object[]{command, array.toArray(), DestType.BUS.getValue(), FromType.CLIENT.getValue(), null, sessionId, roleId, null, null, null, ip};
+		
+		Message message = new Message(command, array.toArray(), FromType.CLIENT, DestType.BUS, roleId, null, sessionId, ip);
 		msgSender.swap(message);
 		
 	}

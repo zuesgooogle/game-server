@@ -31,13 +31,10 @@ public class StageMsgDispatcher implements IMsgDispatcher {
 	private IActionFrontend actionFrontend;
 
 	@Override
-	public void in(Object message) {
-
-		Object[] dataSource = (Object[]) message;
-		Message msg = new Message(dataSource);
-		Runnable localRunnable = getRunnable().getRunnable(msg);
+	public void in(Message message) {
+		Runnable localRunnable = getRunnable().getRunnable(message);
 		
-		Route localRouteInfo = this.routeHelper.getRoute(msg, ((Integer) dataSource[2]).intValue());
+		Route localRouteInfo = this.routeHelper.getRoute(message);
 		this.businessExexutor.execute(localRunnable, localRouteInfo);
 
 	}

@@ -5,8 +5,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.action.front.IActionFrontend;
+import com.simplegame.protocol.message.Message;
 import com.simplegame.server.executor.IBusinessExecutor;
 import com.simplegame.server.executor.IRunnable;
+import com.simplegame.server.executor.Route;
 import com.simplegame.server.executor.impl.RunnableImpl;
 import com.simplegame.server.io.message.IoMessage;
 import com.simplegame.server.message.IMsgDispatcher;
@@ -31,11 +33,13 @@ public class IoMsgDispatcher implements IMsgDispatcher {
 	private IActionFrontend actionFrontend;
 	
 	@Override
-	public void in(Object object) {
-		IoMessage message = new IoMessage((Object[]) object);
+	public void in(Message message) {
+		IoMessage msg = new IoMessage(message);
 		
-		Runnable localRunnable = getRunnable().getRunnable(message);
-		this.businessExexutor.execute(localRunnable, this.routeHelper.getRoute(message, message.getRoute()));
+		Runnable localRunnable = getRunnable().getRunnable(msg);
+		Route route = this.routeHelper.getRoute(message);
+		
+		this.businessExexutor.execute(localRunnable, route);
 	}
 
 	private IRunnable getRunnable() {

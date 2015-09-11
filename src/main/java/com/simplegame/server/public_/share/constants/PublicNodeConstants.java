@@ -9,6 +9,6 @@ public class PublicNodeConstants {
 
 	public static final String NODENAME = "public";
 	
-	public static final String PUBLIC_COMPONENT_NAME = "public";
+	public static final String COMPONENT_NAME = "public";
 
 }

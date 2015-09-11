@@ -25,7 +25,7 @@ public class StageAction {
     public void enter(Message message) {
         String roleId = message.getRoleId();
         
-        Object[] data = message.getData();
+        Object[] data = (Object[]) message.getData();
         String stageId = (String)data[0];
         String mapId = (String)data[1];
         int x = (Integer)data[2];
@@ -38,7 +38,7 @@ public class StageAction {
     public void leave(Message message) {
         String roleId = message.getRoleId();
         
-        Object[] data = message.getData();
+        Object[] data = (Object[]) message.getData();
         String stageId = (String)data[0];
         
         stageService.roleLeaveStage(stageId, roleId);

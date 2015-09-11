@@ -2,8 +2,8 @@ package com.simplegame.server.login.action;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
@@ -21,7 +21,7 @@ import com.simplegame.server.public_.swap.PublicMsgSender;
 @ActionWorker
 public class LoginAction {
 
-	private Logger LOG = LoggerFactory.getLogger(getClass());
+    private Logger LOG = LogManager.getLogger(getClass());
 	
 	@Resource
 	private PublicMsgSender msgSender;

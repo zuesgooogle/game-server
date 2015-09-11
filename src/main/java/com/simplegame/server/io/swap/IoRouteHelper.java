@@ -22,10 +22,10 @@ public class IoRouteHelper implements IRouteHelper {
 	}
 	
 	@Override
-	public Route getRoute(Message message, int routeType) {
+	public Route getRoute(Message message) {
 		Route route = null;
 		
-		switch(routeType) {
+		switch(message.getRoute()) {
 		case 1: 
 			route = new Route(IO_ALL_GROUP);
 			route.setData(message.getRoleId());

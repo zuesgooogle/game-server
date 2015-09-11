@@ -9,17 +9,15 @@
 
 	<bean id="lockManager" class="com.simplegame.core.sync.LockManager"></bean>
 	
-	<bean id="syncaspect_public" class="com.simplegame.server.public_.sync.PublicSyncAspect">
-		<property name="lockManager" ref="lockManager"></property>
-	</bean>
-
+	<!-- 
+	<bean id="publicSync" class="com.simplegame.server.public_.sync.PublicSyncInterceptor"></bean>
+	
 	<aop:config>
-		<aop:aspect ref="syncaspect_public">
-			<aop:pointcut id="sync_public"
-				expression="execution(* com.simplegame.server.public_.*.action.*Action.*(..) )"/>
-			<aop:around pointcut-ref="sync_public" method="sync"/>
-		</aop:aspect>
-		
-	</aop:config>
+        <aop:pointcut id="publicPoint"
+            expression="execution(* com.simplegame.server.public_..*Service*.*(..)) and @annotation(com.simplegame.core.sync.annotation.Sync)" />
+
+        <aop:advisor pointcut-ref="publicPoint" advice-ref="publicSync" />
+    </aop:config>
+	 -->
 	
 </beans>

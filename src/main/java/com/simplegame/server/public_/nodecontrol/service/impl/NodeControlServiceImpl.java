@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 
 import com.simplegame.core.data.accessor.cache.manager.CacheManager;
 import com.simplegame.core.event.IEventService;
+import com.simplegame.core.sync.annotation.Sync;
 import com.simplegame.server.bus.client.io.export.IClientIoExportService;
 import com.simplegame.server.bus.role.service.IUserRoleService;
 import com.simplegame.server.public_.nodecontrol.event.publish.RoleLogoutEvent;
 import com.simplegame.server.public_.nodecontrol.service.INodeControlService;
+import com.simplegame.server.public_.share.constants.PublicNodeConstants;
 import com.simplegame.server.public_.share.service.IPublicRoleStateService;
 
 /**
@@ -72,6 +74,7 @@ public class NodeControlServiceImpl implements INodeControlService {
 		clientIoExportService.roleOut(roleId);
 	}
 
+	@Sync(component = PublicNodeConstants.COMPONENT_NAME, indexes = { 0 })
 	@Override
 	public void nodeExitOnServerClose(String userRoleId) {
 		nodeExit(userRoleId, null);

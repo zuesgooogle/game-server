@@ -12,7 +12,7 @@ import com.simplegame.server.bus.account.dao.cache.AccountCacheModelLoader;
 import com.simplegame.server.bus.account.event.subscribe.AccountEventHandler;
 import com.simplegame.server.bus.share.moduleinit.BusModuleInit;
 import com.simplegame.server.share.event.EventHandleCommands;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.Group;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class AccountModuleInit extends BusModuleInit {
 	protected InCmd getInCmd() {
 		String[] cmds = new String[] { AccountCommands.MONRY_CHANGE, AccountCommands.RECIVE_RECIVE_YB, AccountCommands.ACCOUNT_RECIVE_YB };
 		
-		return new InCmd(AccountModuleInfo.MODULE_NAME, CommandGroup.GROUP_BUS, cmds);
+		return new InCmd(AccountModuleInfo.MODULE_NAME, Group.BUS.name, cmds);
 	}
 
 	protected EventHandleCommands getEventHandleCommands() {

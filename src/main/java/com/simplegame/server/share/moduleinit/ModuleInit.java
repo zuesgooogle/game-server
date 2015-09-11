@@ -41,7 +41,7 @@ public abstract class ModuleInit {
 
         InCmd inCmd = getInCmd();
         if (null != inCmd) {
-            CommandGroup.registerCmd(inCmd.inCmdGroup, inCmd.inCmdModule, inCmd.inCmds);
+            CommandRegister.registerCmd(inCmd.inCmdGroup, inCmd.inCmdModule, inCmd.inCmds);
         }
 
         IEventHandler[] eventHandlers = getEventHandlers();

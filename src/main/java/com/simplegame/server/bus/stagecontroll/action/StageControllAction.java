@@ -59,7 +59,7 @@ public class StageControllAction {
     public void applyChangeCopy(Message message) {
         String roleId = message.getRoleId();
         
-        Object[] data = message.getData();
+        Object[] data = (Object[])message.getData();
         String mapId = (String)data[0];
         int x = (Integer)data[1];
         int y = (Integer)data[2];

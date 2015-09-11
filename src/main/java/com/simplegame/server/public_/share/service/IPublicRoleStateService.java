@@ -9,11 +9,11 @@ import java.util.Collection;
  */
 public interface IPublicRoleStateService {
 
-	public void change2PublicOnline(String userRoleId);
+	public void change2PublicOnline(String roleId);
 
-	public void change2PublicOffline(String userRoleId);
+	public void change2PublicOffline(String roleId);
 
-	public boolean isPublicOnline(String userRoleId);
+	public boolean isPublicOnline(String roleId);
 
 	public Collection<String> getAllOnlineRoleIds();
 

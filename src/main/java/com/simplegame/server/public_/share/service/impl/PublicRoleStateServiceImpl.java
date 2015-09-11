@@ -20,21 +20,21 @@ public class PublicRoleStateServiceImpl implements IPublicRoleStateService {
 	
 	private ConcurrentMap<String, String> publicRoleStates = new ConcurrentHashMap<String, String>();
 
-	@Sync(component = PublicNodeConstants.PUBLIC_COMPONENT_NAME, indexes = { 0 })
+	@Sync(component = PublicNodeConstants.COMPONENT_NAME, indexes = { 0 })
 	@Override
-	public void change2PublicOnline(String userRoleId) {
-		publicRoleStates.put(userRoleId, userRoleId);
+	public void change2PublicOnline(String roleId) {
+		publicRoleStates.put(roleId, roleId);
 	}
 
-	@Sync(component = PublicNodeConstants.PUBLIC_COMPONENT_NAME, indexes = { 0 })
+	@Sync(component = PublicNodeConstants.COMPONENT_NAME, indexes = { 0 })
 	@Override
-	public void change2PublicOffline(String userRoleId) {
-		publicRoleStates.remove(userRoleId);
+	public void change2PublicOffline(String roleId) {
+		publicRoleStates.remove(roleId);
 	}
 
 	@Override
-	public boolean isPublicOnline(String userRoleId) {
-		return publicRoleStates.containsKey(userRoleId);
+	public boolean isPublicOnline(String roleId) {
+		return publicRoleStates.containsKey(roleId);
 	}
 
 	@Override

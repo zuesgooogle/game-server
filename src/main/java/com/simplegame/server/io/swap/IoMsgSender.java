@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.simplegame.protocol.message.Message;
+import com.simplegame.server.io.IoModuleInfo;
 import com.simplegame.server.message.manager.SwapManager;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.CommandRegister;
 
 /**
  *
@@ -22,9 +24,9 @@ public class IoMsgSender {
 	@Resource
 	private SwapManager swapManager;
 	
-	public void swap(Object[] message) {
-		String command = (String)message[0];
-		if( CommandGroup.isIoModule(command) ) {
+	public void swap(Message message) {
+		String command = message.getCommand();
+		if( CommandRegister.isModule(command, IoModuleInfo.MODULE_NAME) ) {
 			ioDispatcher.in(message);
 		}else {
 			swapManager.swap(message);

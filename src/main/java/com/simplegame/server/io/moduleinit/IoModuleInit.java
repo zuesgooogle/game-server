@@ -6,7 +6,7 @@ import com.simplegame.server.io.IoModuleInfo;
 import com.simplegame.server.io.commond.IoCommands;
 import com.simplegame.server.public_.share.PublicModuleInit;
 import com.simplegame.server.share.event.EventHandleCommands;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.Group;
 
 /**
  *
@@ -19,7 +19,7 @@ public class IoModuleInit extends PublicModuleInit {
 
 	@Override
 	protected InCmd getInCmd() {
-		return new InCmd(IoModuleInfo.MODULE_NAME, CommandGroup.GROUP_IO, new String[] {IoCommands.KICK_OUT, IoCommands.PING});
+		return new InCmd(IoModuleInfo.MODULE_NAME, Group.IO.name, new String[] {IoCommands.KICK_OUT, IoCommands.PING});
 	}
 	
 	@Override

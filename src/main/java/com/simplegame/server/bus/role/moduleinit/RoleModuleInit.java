@@ -8,7 +8,7 @@ import com.simplegame.core.data.accessor.cache.IEntityCacheModelLoader;
 import com.simplegame.server.bus.role.RoleModuleInfo;
 import com.simplegame.server.bus.role.dao.cache.RoleCacheModelLoader;
 import com.simplegame.server.bus.share.moduleinit.BusModuleInit;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.Group;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class RoleModuleInit extends BusModuleInit {
 	
 	@Override
 	protected InCmd getInCmd() {
-		return new InCmd(RoleModuleInfo.MODULE_NAME, CommandGroup.GROUP_BUS, new String[] { "role_login_init", "12200", "12011", "19001", "ROLE_HALF_CHENMI",
+		return new InCmd(RoleModuleInfo.MODULE_NAME, Group.BUS.name, new String[] { "role_login_init", "12200", "12011", "19001", "ROLE_HALF_CHENMI",
 				"ROLE_CHENMI" });
 
 	}

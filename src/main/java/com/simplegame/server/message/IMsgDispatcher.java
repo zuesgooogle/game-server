@@ -1,4 +1,7 @@
 package com.simplegame.server.message;
+
+import com.simplegame.protocol.message.Message;
+
 /**
  * @Author zeusgooogle@gmail.com
  * @sine   2015年5月10日 下午8:28:52 
@@ -6,6 +9,6 @@ package com.simplegame.server.message;
  */
 public interface IMsgDispatcher {
 
-	public void in(Object message);
+	public void in(Message message);
 	
 }

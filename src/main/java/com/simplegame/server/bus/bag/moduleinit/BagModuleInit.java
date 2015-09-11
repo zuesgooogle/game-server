@@ -11,7 +11,8 @@ import com.simplegame.server.bus.bag.command.BagCommands;
 import com.simplegame.server.bus.bag.dao.cache.RoleBagCacheModelLoader;
 import com.simplegame.server.bus.bag.event.subscribe.BagRoleCreateEventHandler;
 import com.simplegame.server.bus.share.moduleinit.BusModuleInit;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.CommandRegister;
+import com.simplegame.server.share.moduleinit.Group;
 
 /**
  *
@@ -31,7 +32,7 @@ public class BagModuleInit extends BusModuleInit {
     @Override
     protected InCmd getInCmd() {
         String[] cmds = new String[] {BagCommands.GET_BAG_GOODS};
-        return new InCmd(BagModuleInfo.MODULE_NAME, CommandGroup.GROUP_BUS, cmds);
+        return new InCmd(BagModuleInfo.MODULE_NAME, Group.BUS.name, cmds);
     }
     
     @Override

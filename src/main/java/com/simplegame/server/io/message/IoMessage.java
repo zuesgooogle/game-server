@@ -1,7 +1,8 @@
 package com.simplegame.server.io.message;
 
 import com.simplegame.protocol.message.Message;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.io.IoModuleInfo;
+import com.simplegame.server.share.moduleinit.CommandRegister;
 
 /**
  *
@@ -14,16 +15,17 @@ public class IoMessage extends Message {
 
 	public static final String IO_MSG_OUT_CMD = "io_msg_out";
 
-	public IoMessage(Object[] msgSource) {
-		super(msgSource);
+	public IoMessage(Message message) {
+		super(message);
 	}
 
 	@Override
 	public String getCommand() {
-		String str = super.getCommand();
-		if (CommandGroup.isIoModule(str)) {
-			return str;
+		String command = super.getCommand();
+		if (CommandRegister.isModule(command, IoModuleInfo.MODULE_NAME)) {
+			return command;
 		}
+		
 		return IO_MSG_OUT_CMD;
 	}
 }

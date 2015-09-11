@@ -10,6 +10,6 @@ import com.simplegame.server.executor.Route;
  */
 public interface IRouteHelper {
 
-	public Route getRoute(Message message, int type);
+	public Route getRoute(Message message);
 	
 }

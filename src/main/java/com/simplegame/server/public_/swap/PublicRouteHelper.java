@@ -3,7 +3,9 @@ package com.simplegame.server.public_.swap;
 import com.simplegame.protocol.message.Message;
 import com.simplegame.server.executor.Route;
 import com.simplegame.server.message.IRouteHelper;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.public_.nodecontrol.NodeControlModuleInfo;
+import com.simplegame.server.share.moduleinit.CommandRegister;
+import com.simplegame.server.share.moduleinit.Group;
 
 /**
  * @Author zeusgooogle@gmail.com
@@ -13,28 +15,40 @@ import com.simplegame.server.share.moduleinit.CommandGroup;
 public class PublicRouteHelper implements IRouteHelper {
 	
 	@Override
-	public Route getRoute(Message message, int destType) {
+	public Route getRoute(Message message) {
 		String command = message.getCommand();
 		
+		Group group = Group.find(message.getRoute());
+		
 		Route route = null;
-		switch(destType) {
-		case 1:
+		switch(group) {
+		case LOGIN:
 			Object[] data = (Object[])message.getData();
 			
-			route = new Route(CommandGroup.GROUP_LOGIN);
+			route = new Route(Group.LOGIN.name);
 			route.setData((String)data[0]);
 			break;
-		case 3:
-		case 4:
-			route = new Route(CommandGroup.GROUP_PUBLIC);
-			route.setData(command);
+		case STAGE_CONTROL:
+		case STAGE:
+		case PUBLIC:
+		    if( CommandRegister.isModule(command, NodeControlModuleInfo.MODULE_NAME) ) {
+		        route = new Route(NodeControlModuleInfo.MODULE_NAME);
+		        route.setData(message.getRoleId());
+		    } else {
+		        route = new Route(Group.PUBLIC.name);
+	            route.setData(CommandRegister.getCmdModule(command));
+		    }
+		    
 			break;
-		case 5:
-			route = new Route(CommandGroup.GROUP_SYSTEM);
+			
+		case SYSTEM:
+			route = new Route(Group.SYSTEM.name);
 			route.setData(message.getRoleId());
 			break;
+        default:
+            
+            break;
 		}
-		
 		return route;
 	}
 

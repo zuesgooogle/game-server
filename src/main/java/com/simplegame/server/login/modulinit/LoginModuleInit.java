@@ -6,7 +6,7 @@ import com.simplegame.server.login.LoginModuleInfo;
 import com.simplegame.server.login.commond.LoginCommands;
 import com.simplegame.server.public_.share.PublicModuleInit;
 import com.simplegame.server.share.event.EventHandleCommands;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.Group;
 
 
 /**
@@ -20,7 +20,7 @@ public class LoginModuleInit extends PublicModuleInit {
 
 	@Override
 	protected InCmd getInCmd() {
-		return new InCmd(LoginModuleInfo.MODULE_NAME, CommandGroup.GROUP_LOGIN, new String[] {LoginCommands.IN, LoginCommands.CREATE_ROLE});
+		return new InCmd(LoginModuleInfo.MODULE_NAME, Group.LOGIN.name, new String[] {LoginCommands.IN, LoginCommands.CREATE_ROLE});
 	}
 
 	@Override

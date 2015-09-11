@@ -11,7 +11,7 @@ import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.bus.stagecontroll.event.subscribe.RoleLoginHandler;
 import com.simplegame.server.bus.stagecontroll.event.subscribe.RoleLogoutHandler;
 import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
-import com.simplegame.server.share.moduleinit.CommandGroup;
+import com.simplegame.server.share.moduleinit.Group;
 
 /**
  *
@@ -41,7 +41,7 @@ public class StageControllMuduleInit extends BusModuleInit {
                 StageControllCommands.INNER_ENTER_STAGE
         };
         
-        return new InCmd(StageControllModuleInfo.MODULE_INFO, CommandGroup.GROUP_STAGE, cmd);
+        return new InCmd(StageControllModuleInfo.MODULE_INFO, Group.STAGE_CONTROL.name, cmd);
     }
     
     protected IEventHandler[] getEventHandlers() {
