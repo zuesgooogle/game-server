@@ -27,7 +27,7 @@ public class ServerStart {
 
 		rememberPid();
 		
-		LOG.info("server started done.");
+		LOG.info("server started success.");
 	}
 	
 	private static void rememberPid() {

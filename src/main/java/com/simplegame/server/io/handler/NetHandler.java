@@ -7,8 +7,8 @@ import io.netty.util.AttributeKey;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
@@ -34,7 +34,7 @@ import com.simplegame.server.utils.ChannelAttributeUtil;
 @Component
 public class NetHandler extends SimpleChannelInboundHandler<Request> {
 
-	private Logger LOG = LoggerFactory.getLogger(getClass());
+	private Logger LOG = LogManager.getLogger(getClass());
 	
 	@Resource
 	private ChannelManager channelManager;
@@ -97,14 +97,11 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		AttributeKey<String> key = AttributeKey.valueOf(IoConstants.ROLE_KEY);
-		String roleId = ctx.channel().attr(key).get();
+		String roleId = ChannelAttributeUtil.attr(ctx.channel(), IoConstants.ROLE_KEY);
 
 		if (null != roleId) {
-			LOG.info("{} disconnect.", roleId);
+			LOG.info("role: {} disconnect.", roleId);
 		}
-		
-		cause.printStackTrace();
 	}
 
 	/**
