@@ -28,4 +28,8 @@ public class IoMessage extends Message {
 		
 		return IO_MSG_OUT_CMD;
 	}
+	
+	public String getRealCommand() {
+		return super.getCommand();
+	}
 }

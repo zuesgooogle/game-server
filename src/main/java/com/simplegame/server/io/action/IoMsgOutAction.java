@@ -32,7 +32,7 @@ public class IoMsgOutAction {
         LOG.info("message out: {}", message.toString());
 
         Response.Builder builder = Response.newBuilder();
-        builder.setCommand(message.getCommand()).setData(message.toData());
+        builder.setCommand(message.getRealCommand()).setData(message.toData());
 
         int route = message.getRoute();
         switch (route) {
