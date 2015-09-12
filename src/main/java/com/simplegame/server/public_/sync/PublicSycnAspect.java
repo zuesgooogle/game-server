@@ -47,16 +47,17 @@ public class PublicSycnAspect {
 
         Message message = (Message) joinpoint.getArgs()[0];
         String command = message.getCommand();
+        String roleId = message.getRoleId();
 
-        Lock localLock = this.lockManager.getLock(PublicNodeConstants.COMPONENT_NAME, message.getRoleId());
+        Lock lock = this.lockManager.getLock(PublicNodeConstants.COMPONENT_NAME, roleId);
 
-        synchronized (localLock) {
-            if ((this.publicRoleStateService.isPublicOnline(message.getRoleId())) || (NodeControlCommands.ROLE_IN.equals(command))) {
+        synchronized (lock) {
+            if ((this.publicRoleStateService.isPublicOnline(roleId)) || (NodeControlCommands.ROLE_IN.equals(command))) {
                 joinpoint.proceed();
                 return;
             }
 
-            LOG.error("role: {} public not online. message: {}", message.getRoleId(), message.toString());
+            LOG.error("role: {} public not online. message: {}", roleId, message.toString());
         }
     }
 
