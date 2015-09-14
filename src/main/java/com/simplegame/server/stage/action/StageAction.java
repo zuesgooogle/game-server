@@ -1,12 +1,13 @@
 package com.simplegame.server.stage.action;
 
-import static com.simplegame.server.stage.command.StageCommands.*;
+import static com.simplegame.server.stage.command.StageCommands.INNER_ENTER_STAGE;
+import static com.simplegame.server.stage.command.StageCommands.INNER_LEAVE_STAGE;
 
 import javax.annotation.Resource;
 
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.stage.service.IStageService;
 
 /**

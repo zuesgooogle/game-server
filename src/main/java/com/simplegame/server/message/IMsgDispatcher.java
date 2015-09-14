@@ -1,6 +1,6 @@
 package com.simplegame.server.message;
 
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 
 /**
  * @Author zeusgooogle@gmail.com

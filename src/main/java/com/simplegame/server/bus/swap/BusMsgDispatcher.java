@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.core.action.front.IActionFrontend;
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.executor.IBusinessExecutor;
 import com.simplegame.server.executor.IRunnable;
 import com.simplegame.server.executor.Route;

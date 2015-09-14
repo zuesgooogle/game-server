@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.io.IoModuleInfo;
 import com.simplegame.server.message.manager.SwapManager;
 import com.simplegame.server.share.moduleinit.CommandRegister;

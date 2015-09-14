@@ -1,6 +1,6 @@
 package com.simplegame.server.public_.swap;
 
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.executor.Route;
 import com.simplegame.server.message.IRouteHelper;
 import com.simplegame.server.public_.nodecontrol.NodeControlModuleInfo;

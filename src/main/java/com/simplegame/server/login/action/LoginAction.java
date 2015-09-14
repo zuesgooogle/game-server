@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.login.commond.LoginCommands;
 import com.simplegame.server.login.service.ILoginService;
 import com.simplegame.server.public_.swap.PublicMsgSender;

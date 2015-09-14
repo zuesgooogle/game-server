@@ -3,7 +3,6 @@ package com.simplegame.server.io.handler;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.AttributeKey;
 
 import javax.annotation.Resource;
 
@@ -12,9 +11,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
-import com.simplegame.protocol.message.Message;
-import com.simplegame.protocol.message.Message.DestType;
-import com.simplegame.protocol.message.Message.FromType;
+import com.simplegame.core.message.Message;
+import com.simplegame.core.message.Message.DestType;
+import com.simplegame.core.message.Message.FromType;
 import com.simplegame.protocol.proto.Message.Request;
 import com.simplegame.server.bus.stagecontroll.command.StageControllCommands;
 import com.simplegame.server.io.IoConstants;

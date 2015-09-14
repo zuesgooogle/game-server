@@ -11,9 +11,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+import com.simplegame.core.message.Message;
 import com.simplegame.core.sync.Lock;
 import com.simplegame.core.sync.LockManager;
-import com.simplegame.protocol.message.Message;
 import com.simplegame.server.public_.nodecontrol.command.NodeControlCommands;
 import com.simplegame.server.public_.share.constants.PublicNodeConstants;
 import com.simplegame.server.public_.share.service.IPublicRoleStateService;

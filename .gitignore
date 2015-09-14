@@ -17,3 +17,5 @@ hs_err_pid*
 .settings/org.eclipse.jdt.core.prefs
 *.prefs
 *.log
+src/main/resources/config/jdbc/jdbc.properties
+src/main/resources/config/jdbc/jdbc.properties

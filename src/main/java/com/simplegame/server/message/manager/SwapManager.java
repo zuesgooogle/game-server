@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.simplegame.protocol.message.Message;
-import com.simplegame.protocol.message.Message.DestType;
-import com.simplegame.protocol.message.Message.FromType;
+import com.simplegame.core.message.Message;
+import com.simplegame.core.message.Message.DestType;
+import com.simplegame.core.message.Message.FromType;
 import com.simplegame.server.message.IMsgDispatcher;
 import com.simplegame.server.share.moduleinit.CommandRegister;
 import com.simplegame.server.share.moduleinit.Group;

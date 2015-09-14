@@ -1,14 +1,17 @@
 package com.simplegame.server.bus.stagecontroll.action;
 
+import static com.simplegame.server.bus.stagecontroll.command.StageControllCommands.APPLY_CHANGE_STAGE;
+import static com.simplegame.server.bus.stagecontroll.command.StageControllCommands.CHANGE_STAGE;
+import static com.simplegame.server.bus.stagecontroll.command.StageControllCommands.INNER_APPLY_CHANGE_COPY;
+import static com.simplegame.server.bus.stagecontroll.command.StageControllCommands.LOGIN;
+
 import javax.annotation.Resource;
 
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.bus.stagecontroll.service.IStageControllService;
 import com.simplegame.server.bus.swap.BusMsgSender;
-
-import static com.simplegame.server.bus.stagecontroll.command.StageControllCommands.*;
 
 /**
  *

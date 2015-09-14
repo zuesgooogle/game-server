@@ -13,7 +13,7 @@
 	<bean id="messageLite" class="com.simplegame.protocol.proto.Message.Request" factory-method="getDefaultInstance"/>
 	<bean id="serverHandler" class="com.simplegame.server.io.handler.NetHandler" />
 
-	<bean id="serverInitializer" class="com.simplegame.protocol.codec.NetInitializer">
+	<bean id="serverInitializer" class="com.simplegame.core.io.NetInitializer">
 		<property name="handlers" >
 			<list>
 				<ref bean="connectCheckHandler"/>
@@ -23,7 +23,7 @@
 		<property name="messageLite" ref="messageLite"/>
 	</bean>
 
-	<bean class="com.simplegame.protocol.codec.ServerListener" init-method="start">
+	<bean class="com.simplegame.core.io.NetListener" init-method="start">
 		<property name="port" value="8001" />
 		<property name="bossThreadSize" value="1" />
 		<property name="workerThreadSize" value="4" />

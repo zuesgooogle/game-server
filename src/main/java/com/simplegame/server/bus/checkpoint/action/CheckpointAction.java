@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import com.simplegame.core.action.annotation.ActionMapping;
 import com.simplegame.core.action.annotation.ActionWorker;
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.bus.checkpoint.command.CheckpointCommands;
 import com.simplegame.server.bus.swap.BusMsgSender;
 

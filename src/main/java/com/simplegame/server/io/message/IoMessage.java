@@ -1,6 +1,6 @@
 package com.simplegame.server.io.message;
 
-import com.simplegame.protocol.message.Message;
+import com.simplegame.core.message.Message;
 import com.simplegame.server.io.IoModuleInfo;
 import com.simplegame.server.share.moduleinit.CommandRegister;
 
