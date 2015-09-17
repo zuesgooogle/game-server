@@ -28,6 +28,7 @@ public class PublicMsgSender {
         //Object[] message = new Object[] { command, data, DestType.CLIENT.getValue(), FromType.BUS.getValue(), 1, sessionId, null, userId, 0, null };
 
         Message message = new Message(command, data, FromType.BUS, DestType.CLIENT, userId, sessionId);
+        message.setRoute(1);
         
         swapManager.swap(message);
     }
