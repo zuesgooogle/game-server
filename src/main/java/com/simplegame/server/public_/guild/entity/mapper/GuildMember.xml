@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GUILD_MEMBER">
+
+	<resultMap id="guildMember" type="com.simplegame.server.public_.guild.entity.GuildMember" >
+		<result property="guildId" column="guild_id"/>
+		<result property="userRoleId" column="user_role_id"/>
+		<result property="position" column="position"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="logUpdateTime" column="log_update_time"/>
+	</resultMap>
+	
+	<sql id="queryConditionGuildMember">
+		<where>
+			<if test="guildId != null"> AND guild_id = #{guildId} </if>
+			<if test="userRoleId != null"> AND user_role_id = #{userRoleId} </if>
+			
+			<if test="createTime != null"> AND create_time = #{createTime} </if>
+			<if test="updateTime != null"> AND update_time = #{updateTime} </if>
+		</where>
+	</sql>	
+	
+	<sql id="queryByKeyGuildMember">
+		where user_role_id = #{userRoleId}
+	</sql>
+	
+	<insert id="insertGuildMember" parameterType="com.simplegame.server.public_.guild.entity.GuildMember">
+		insert into guild_member(
+			user_role_id 
+			,guild_id 
+			,position 
+			,create_time 
+			,update_time 
+			,log_update_time 
+		)
+		values(
+			#{userRoleId}
+			,#{guildId}
+			,#{position}
+			,#{createTime}
+			,#{updateTime}
+			,#{logUpdateTime}
+		)
+	</insert>
+	
+	<delete id="deleteGuildMember">
+		delete from guild_member
+		<include refid="queryByKeyGuildMember"/>
+	</delete>
+	
+	<update id="updateGuildMember" parameterType="com.simplegame.server.public_.guild.entity.GuildMember">
+		update guild_member set
+			user_role_id = #{userRoleId}
+			,guild_id = #{guildId}
+			,position = #{position}
+			,create_time = #{createTime}
+			,update_time = #{updateTime}
+			,log_update_time = #{logUpdateTime}
+		<include refid="queryByKeyGuildMember"/>
+	</update>
+	
+	<select id="selectSingleGuildMember" resultMap="guildMember">
+		select 
+		user_role_id
+		,guild_id
+		,position
+		,create_time
+		,update_time
+		,log_update_time
+		from guild_member 
+		<include refid="queryByKeyGuildMember"/>
+	</select>
+	
+	<select id="selectRecordsCountGuildMember" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(guild_id) from guild_member
+		<include refid="queryConditionGuildMember"/>
+	</select>
+
+	<select id="selectMultiGuildMember" parameterType="java.util.Map" resultMap="guildMember">
+		select 
+		user_role_id
+		,guild_id
+		,position
+		,create_time
+		,update_time
+		,log_update_time
+		from guild_member
+		<include refid="queryConditionGuildMember"/>
+	</select>
+	
+	<select id="selectAllGuildMember" resultMap="guildMember">
+		select 
+		user_role_id
+		,guild_id
+		,position
+		,create_time
+		,update_time
+		,log_update_time
+		from guild_member
+	</select>
+	
+	<select id="selectSingleByParamsGuildMember" resultMap="guildMember">
+		select 
+		user_role_id
+		,guild_id
+		,position
+		,create_time
+		,update_time
+		,log_update_time
+		from guild_member 
+		<include refid="queryConditionGuildMember"/>
+	</select>	
+	
+</mapper>
+	

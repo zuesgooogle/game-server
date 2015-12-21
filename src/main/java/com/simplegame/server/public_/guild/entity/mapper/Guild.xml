@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GUILD">
+
+
+	<resultMap id="guild" type="com.simplegame.server.public_.guild.entity.Guild" >
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="userRoleId" column="user_role_id"/>
+		<result property="fighting" column="fighting"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+	
+	<sql id="queryConditionGuild">
+		<where>
+			<if test="id != null"> AND id = #{id} </if>
+			<if test="name != null"> AND name = #{name} </if>
+			<if test="createTime != null"> AND create_time = #{createTime} </if>
+			<if test="updateTime != null"> AND update_time = #{updateTime} </if>		
+		</where>
+	</sql>	
+	
+	<sql id="queryByKeyGuild">
+		where id = #{id}
+	</sql>
+	
+	<insert id="insertGuild" parameterType="com.simplegame.server.public_.guild.entity.Guild">
+		insert into guild(
+			id  
+			,name  
+			,user_role_id  
+			,fighting  
+			,create_time  
+			,update_time  
+		)
+		values(
+			#{id} 
+			,#{name} 
+			,#{userRoleId} 
+			,#{fighting}
+			,#{createTime} 
+			,#{updateTime} 
+		)
+	</insert>
+	
+	<delete id="deleteGuild">
+		delete from guild
+		<include refid="queryByKeyGuild"/>
+	</delete>
+	
+	<update id="updateGuild" parameterType="com.simplegame.server.public_.guild.entity.Guild">
+		update guild set
+			id = #{id}
+			,name = #{name} 
+			,user_role_id = #{userRoleId} 
+			,fighting = #{fighting}
+			,create_time = #{createTime} 
+			,update_time = #{updateTime} 
+		<include refid="queryByKeyGuild"/>
+	</update>
+	
+	<select id="selectSingleGuild" resultMap="guild">
+		select 
+		id
+		,name
+		,user_role_id
+		,fighting
+		,create_time
+		,update_time
+		from guild 
+		<include refid="queryByKeyGuild"/>
+	</select>
+	
+	<select id="selectRecordsCountGuild" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from guild
+		<include refid="queryConditionGuild"/>
+	</select>
+
+	<select id="selectMultiGuild" parameterType="java.util.Map" resultMap="guild">
+		select 
+		id
+		,name
+		,user_role_id
+		,fighting
+		,create_time
+		,update_time
+		from guild
+		<include refid="queryConditionGuild"/>
+	</select>
+	
+	<select id="selectAllGuild" resultMap="guild">
+		select 
+		id
+		,name
+		,user_role_id
+		,fighting
+		,create_time
+		,update_time
+		from guild
+	</select>
+	
+	<select id="selectSingleByParamsGuild" resultMap="guild">
+		select 
+		id
+		,name
+		,user_role_id
+		,fighting
+		,create_time
+		,update_time
+		from guild 
+		<include refid="queryConditionGuild"/>
+	</select>	
+	
+	<select id="selectGuildLikeName" parameterType="java.util.Map" resultMap="guild">
+		select 
+		id
+		,name
+		,user_role_id
+		,fighting
+		,create_time
+		,update_time
+		from guild where name like #{name} order by name asc limit 0,30
+	</select>
+
+</mapper>
+	
