@@ -178,3 +178,31 @@ CREATE TABLE `role_equip_slot` (
   PRIMARY KEY (`id`),
   KEY `idx_role_equip_slot_user_role_id` (`user_role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for guild
+-- ----------------------------
+DROP TABLE IF EXISTS `guild`;
+CREATE TABLE `guild` (
+  `id` varchar(36) NOT NULL COMMENT '主键id',
+  `name` varchar(20) NOT NULL COMMENT '帮派名字',
+  `user_role_id` varchar(36) NOT NULL COMMENT '帮主的角色id',
+  `fighting` bigint(20) DEFAULT '0' COMMENT '总战力',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL,
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for guild_member
+-- ----------------------------
+DROP TABLE IF EXISTS `guild_member`;
+CREATE TABLE `guild_member` (
+  `id` varchar(36) NOT NULL DEFAULT '' COMMENT '主键',
+  `guild_id` varchar(36) NOT NULL COMMENT '对应公会表主键',
+  `user_role_id` varchar(36) NOT NULL COMMENT '角色唯一主键',
+  `position` int(11) NOT NULL COMMENT '角色在公会里的职位 ',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  `log_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
