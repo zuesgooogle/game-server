@@ -43,7 +43,7 @@ public class NetHandler extends SimpleChannelInboundHandler<Request> {
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		
+		LOG.info("channel active: " + ctx.toString());
 	}
 	
 	@Override

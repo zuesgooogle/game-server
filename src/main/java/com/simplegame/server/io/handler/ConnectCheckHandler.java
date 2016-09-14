@@ -9,8 +9,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.simplegame.server.io.IoConstants;
@@ -26,7 +26,7 @@ import com.simplegame.server.utils.ChannelAttributeUtil;
 @Component
 public class ConnectCheckHandler extends ChannelInboundHandlerAdapter {
 
-	private Logger LOG = LoggerFactory.getLogger(getClass());
+    private Logger LOG = LogManager.getLogger(getClass());
 
 	@Resource
 	private ChannelManager channelManager;
@@ -61,5 +61,6 @@ public class ConnectCheckHandler extends ChannelInboundHandlerAdapter {
 		 * 
 		 * current netty version: 4.0.27
 		 */
+		LOG.info("channel active: " + ctx.toString());
 	}
 }

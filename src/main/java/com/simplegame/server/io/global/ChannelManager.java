@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChannelManager {
 	
-	private int maxCount = 3000;
+	private int maxCount = 30000;
 	
 	/**
 	 * key  :	role_id / sessionId
